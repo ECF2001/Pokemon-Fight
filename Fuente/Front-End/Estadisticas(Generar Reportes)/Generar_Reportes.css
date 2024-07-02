@@ -46,6 +46,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    gap: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .victorias,
@@ -75,11 +78,11 @@
 }
 
 .historial_Pokemon{
-    border-color: #d4a798;
+    border-color: #8a9a5b;
 }
 
 .historial_Equipos{
-    border-color: #8a9a5b;
+    border-color: #d4a798;
 }
 
 .victorias_img,
