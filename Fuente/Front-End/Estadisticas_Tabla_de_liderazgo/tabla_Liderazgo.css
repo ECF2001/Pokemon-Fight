@@ -36,6 +36,22 @@
     font-size: 16px;
 }
 
+a:hover {
+    color: white;
+}
+
+a:active {
+    color: black;
+}
+
+.footer a:hover {
+    color: blue;
+}
+
+.footer a:active {
+    color: white;
+}
+
 .titulo {
     font-size: xxx-large;
     margin-top: 90px;
