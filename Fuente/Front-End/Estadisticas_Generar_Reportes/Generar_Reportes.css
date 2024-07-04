@@ -48,6 +48,10 @@ a:active {
     color: black;
 }
 
+.footer a{
+    color: white;
+}
+
 .footer a:hover {
     color: blue;
 }
