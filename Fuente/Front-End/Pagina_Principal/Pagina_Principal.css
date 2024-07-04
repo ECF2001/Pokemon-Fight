@@ -1,0 +1,112 @@
+*{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3B4CCA;
+}
+
+.fotoPerfil{
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: white;
+    margin-left: 70px;
+}
+
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+}
+
+.PokemonFight,
+.sobreNosotros,
+.IniciarSesion{
+    margin: 20px;
+    font-size: 16px;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    background-image: url('fondoPokeBolas.png');
+}
+.body h3{
+    border-color: black;
+    padding: 15px;
+    border: 2px solid;
+    border-radius: 10px;
+    background-color: #3B4CCA;
+}
+.Duelo{
+    background-image: url('fondoDuelos.png');
+}
+.Estadistica{
+    background-image: url('fondoEstadisticas.png');
+}
+.opciones{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    height: 600px;
+    width: 90%;
+
+}
+.duelo,.equipos{
+    height:500px;
+    width: 300px;
+    text-align: center;
+    border: 2px solid black;
+    padding-top: 40px;
+    border-radius: 30px;
+}
+
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+}
+
+.pokemonFight{
+    align-content: center;
+}
+
+.redesSociales{
+    align-content: center;
+}
+
+.bxl-facebook-circle,
+.bxl-linkedin-square,
+.bxl-youtube,
+.bxl-instagram{
+    margin: 5px;
+}
+
+.menu_Footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginaPrincipal_footer,
+.sobreNosotros_footer,
+.estadisticas_footer{
+    margin: 15px;
+}
