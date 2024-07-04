@@ -97,18 +97,9 @@ th {
     font-size: x-large;
 }
 
-.th_victorias,
-.th_derrotas{
+.th_resultados {
     border-right: 1px solid black;
-}
-
-.th_victorias {
     border-left: 1px solid black;
-}
-
-td:nth-child(2),
-td:nth-child(3) {
-    border-right: 1px solid black;
 }
 
 td:nth-child(2){
@@ -137,6 +128,9 @@ tr:last-child td {
     background-color: black;
     color: white;
     font-size: 16px;
+    padding: 10px 0;
+    margin-top: auto;
+    width: 100%;
 }
 
 .pokemonFight {
