@@ -27,6 +27,12 @@
     margin: 20px;
     cursor: pointer;
 }
+.InicioSesion,
+.PokemonFight,
+.sobreNosotros {
+    margin: 20px;
+    font-size: 16px;
+}
 a {
     text-decoration: none;
     color: black;
