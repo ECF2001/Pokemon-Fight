@@ -36,6 +36,23 @@
     font-size: 16px;
 }
 
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:visited {
+    color: black;
+}
+
+a:hover {
+    color: white;
+}
+
+a:active {
+    color: black;
+}
+
 .titulo {
     font-size: xxx-large;
     margin-top: 90px;
