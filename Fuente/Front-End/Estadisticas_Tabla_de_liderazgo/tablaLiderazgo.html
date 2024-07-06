@@ -29,133 +29,25 @@
         <h3 class="titulo">Tabla de liderazgo</h3>
         <p class="resumen">Tabla de liderazgo entre jugadores locales, definido por los mejores </p>
         <p class="resumen">resultados de duelos acumulados</p>
-        <table class="tabla_body">
+        <table id="tabla_liderazgo" class="tabla_body">
+            <thead>
             <tr>
                 <th>Jugador</th>
                 <th class="th_resultados">Resultados</th>
                 <th class="th_utilizado">Pokémon más utilizado</th>
             </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador1
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador2
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador3
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador4
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador5
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador6
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador7
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes">
-                        Jugador8
-                    </div>
-                </td>
-                <td>
-                    <p>Puntos</p>
-                    <p>Duelos ganados</p>
-                </td>
-                <td>
-                    <img class="imagen_PersonajesUtilizado">
-                </td>
-            </tr>
+        </thead>
+        <tbody>
+            <!-- Las filas se agregarán aquí con el JavaScript -->
+        </tbody>
         </table>
+    <form id="formAgregarJugador">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="number" id="puntos" placeholder="Puntos" required>
+        <input type="number" id="duelosGanados" placeholder="Duelos Ganados" required>
+        <input type="text" id="pokemon" placeholder="Pokémon (URL de imagen)" required>
+        <button type="submit">Agregar Jugador</button>
+    </form>
     </div>
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
