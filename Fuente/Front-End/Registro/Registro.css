@@ -121,3 +121,15 @@
 .sobreNosotros{
     color: black;
 }
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgba(255, 255, 255, 0.827);
+}
+
+a:active{
+    color: black;
+}
