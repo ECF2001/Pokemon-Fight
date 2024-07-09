@@ -119,14 +119,32 @@ td {
 th {
     font-size: x-large;
 }
-
-.th_Pokemons{
-    border: 1px solid black;
-    
-
-}
 .th_Pokemons{
     border-left: 1px solid black;
+}
+td:nth-child(2),
+td:nth-child(3), 
+td:nth-child(4),
+td:nth-child(5),
+td:nth-child(6) {
+    border-right: 1px solid black;
+}
+
+td:nth-child(2){
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+.decoracionTabla:hover{
+    transform: translateY(-10px);
+    box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.2);
+}
+.decoracionTabla-activa{
+    color: #3B4CCA;
+    border-color: ;
 }
 .imagen_Personajes{
     width: 75px;
