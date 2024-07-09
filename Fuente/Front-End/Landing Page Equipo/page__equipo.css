@@ -1,0 +1,94 @@
+*{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3B4CCA;
+}
+
+.logoEquipo{
+    width: 150px;
+    height: 150px;
+    margin-left: 40px;
+}
+
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+}
+
+.paginaPrincipal {
+    margin: 20px;
+    margin-right: 50px;
+    font-size: 16px;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+}
+
+.resumen {
+    text-align: center;
+    margin-top: 200px;
+    margin-left: 180px;
+    margin-right: 180px;
+    font-weight: normal;
+}
+
+.body_informacion{
+    display: flex;
+    margin-left: 20px;
+    margin-top: 0px;
+    margin-bottom: 60px;
+}
+
+.logoEquipo2{
+    width: 696px;
+    height: 536px;
+    top: 623px;
+    left: 98px;
+}
+
+.titulo {
+    margin: 0;
+    padding: 0;
+}
+
+.informacion{
+    margin-top: 50px;
+    padding-left: 20px;
+    width: 611px;
+    height: 734px;
+    left: 813px;
+}
+
+.personalEquipo {
+    font-size: xx-large;
+    margin-left: 100px;
+    margin-bottom: 0;
+}
+
+.resumen_p {
+    margin-left: 100px;
+    margin-bottom: 90px;
+}
+
+.caja_Usuario {
+    width: 196px;
+    height: 54px;
+    background-color: aqua;
+    margin-left: 30px;
+    border-radius: 50px;
+    padding: 15px;
+}
