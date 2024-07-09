@@ -6,7 +6,6 @@
     box-sizing: border-box;
 }
 
-
 body {
     display: flex;
     flex-direction: column;
@@ -15,7 +14,6 @@ body {
     background-image: url(fondo.jpg); 
     background-size: cover;
 }
-
 
 .header {
     display: flex;
@@ -51,6 +49,54 @@ body {
     color: white;
 }
 
+main {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 20px;
+    border-radius: 8px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+table th {
+    background-color: #f2f2f2;
+}
+
+table td img {
+    width: 50px;
+    height: 50px;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
 
 .footer {
     display: flex;
@@ -90,81 +136,6 @@ body {
 }
 
 .paginaPrincipal_footer,
-.sobreNosotros_footer,
-.estadisticas_footer {
+.sobreNosotros_footer {
     margin: 15px;
-}
-
-
-div#caja {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    margin: 20px auto;
-    max-width: 800px;
-    width: 100%;
-}
-
-
-div#form {
-    width: 100%;
-    max-width: 676px;
-    background-color: #d4d2d2;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-.perfil {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.fotoPerfilGrande {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    background-color: white;
-}
-
-.perfil p {
-    margin-top: 10px;
-    font-size: 20px;
-}
-
-
-.form-group {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.form-group input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-div#form {
-    background-color: #d4d2d2; 
-}
-
-div#caja {
-    background-color: #d4d2d2; 
-}
-.form-group input {
-    background-color: white; 
 }
