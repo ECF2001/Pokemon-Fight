@@ -84,7 +84,13 @@ a:active {
     background-image: url('fondoDuelos.png');
 }
 .equipo{
+    background-size: cover;
+    background-repeat:no-repeat;
     background-image: url('fondoEstadisticas.png');
+}
+.duelo:hover, .equipo:hover{
+    transform: translateY(-10px);
+    box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.2);
 }
 .opciones{
     display: flex;
