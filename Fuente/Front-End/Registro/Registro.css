@@ -26,11 +26,24 @@
 }
 
 .paginaPrincipal,
-.sobreNosotros,
-.estadisticas{
+.sobreNosotros{
     margin: 20px;
     font-size: 16px;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: white;
+}
+
+a:active{
+    color: black;
+}
+
 
 .body{
     display: flex;
@@ -117,19 +130,4 @@
     border-style: none;
 }
 
-.paginaPrincipal,
-.sobreNosotros{
-    color: black;
-}
-a {
-    text-decoration: none;
-    color: black;
-}
 
-a:hover {
-    color: rgba(255, 255, 255, 0.827);
-}
-
-a:active{
-    color: black;
-}
