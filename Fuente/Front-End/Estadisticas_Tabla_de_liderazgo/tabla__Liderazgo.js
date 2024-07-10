@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const jugadores = [
-        {nombre: 'Jugador1', puntos: 100, duelosGanados: 10, pokemon: 'Pikachu.png'},
-        {nombre: 'Jugador2', puntos: 90, duelosGanados: 9, pokemon: 'Charizard.png'},
+        { nombre: 'Jugador1', puntos: 100, duelosGanados: 10, pokemon: 'Pikachu.png' },
+        { nombre: 'Jugador2', puntos: 90, duelosGanados: 9, pokemon: 'Charizard.png' },
     ];
 
     const tableBody = document.querySelector('#tabla_liderazgo tbody');
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         jugadores.forEach(jugador => {
             const row = document.createElement('tr');
 
-            row.innerHTML =  `
+            row.innerHTML = `
             <td>
                 <div class="caja_Usuario">
                     <img class="imagen_Personajes" src="${jugador.pokemon}">
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </td>
         `;
 
-        tableBody.appendChild(row);
+            tableBody.appendChild(row);
         });
     }
 
@@ -42,9 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const duelosGanados = parseInt(document.getElementById('duelosGanados').value);
         const pokemon = document.getElementById('pokemon').value;
 
-        console.log({nombre, puntos, duelosGanados, pokemon});
+        console.log({ nombre, puntos, duelosGanados, pokemon });
 
-        jugadores.push({nombre, puntos, duelosGanados, pokemon});
+        jugadores.push({ nombre, puntos, duelosGanados, pokemon });
 
         actualizarTabla();
 
