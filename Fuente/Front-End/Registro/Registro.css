@@ -1,5 +1,6 @@
 *{
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
 }
 
 .header{
@@ -110,24 +111,158 @@ a:active{
 .estadisticas_footer{
     margin: 15px;
 }
-
+/*---------------FORMULARIO------------------*/
 .formulario{
    background-color: rgba(255, 255, 255, 0.452);
    border: solid ;
    border-radius: 50px;
-    width: 600px;
-    height: 600px;
+    width: 500px;
+    height: 500px;
     padding: 5%;
     font-weight: bold;
+    font-size: 25px;  
+    transition: all 1s;   
+} 
+
+.label{
+    display: block;
+}
+.formulario__general{
+    display: flex;
     
 }
 
 .formulario h1{
     text-align: center;
+   
+  
 }
+
+.input{
+    width: 75%;
+    background: transparent;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    border-right: none; 
+    color: rgb(0, 0, 0);
+    outline: none;
+    transition: all 1s;
+    border-color: #303333;
+}
+
+.formulario__validacion{
+    position: absolute;
+    opacity: 0;
+    font-size: 20px;
+}
+
+.input:focus{
+    box-shadow: 0 0 20px  #3B4CCA ;
+    
+}
+
+.formulario__input-error{
+    font-size: 8px;
+    margin-bottom: 0;
+    display: none;
+}
+
+/*CS LLAMADO POR EL JS*/
+.formulario__input-error-activo{
+    display: block;
+}
+
+.formulario__mensaje,
+.formulario__grupo-btn-enviar{
+    grid-column: span 2;
+}
+
+.formulario__mensaje{
+    padding: 15px;
+    background-color: red;
+    border-radius: 5px;
+    text-align: center;
+    display: none;
+}
+/*CS LLAMADO POR EL JS*/
+
+.formulario__mensaje-exito-activo{
+    display: block;
+}
+
+.formulario__grupo-btn-enviar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formulario__btn{
+    padding: 10px 40px;
+    background-color: #3B4CCA;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.formulario__mensaje-exito{
+    font-size: 2em;
+    padding: 10px;
+    color: green;
+    text-align: center;
+    display: none;
+}
+
+.formulario__mensaje-exito-activo{
+    display: block;
+}
+
+/*-------------VALIDACIONES----------------*/
+
+.formulario__general-correcto .formulario__validacion{
+    color: #29ee0f;
+    opacity: 1;
+}
+
+.formulario__general-incorrecto .label{
+    color: red;
+}
+
+.formulario__general-incorrecto .formulario__validacion{
+    color: red;
+    opacity: 1;
+}
+
+.formulario__general-incorrecto .input{
+    border: 1px solid red;
+}
+
+
+
+
 .box{
     width: 40%;
     border-style: none;
 }
 
+<<<<<<< Updated upstream
 
+=======
+.paginaPrincipal,
+.sobreNosotros{
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: rgba(255, 255, 255, 0.827);
+}
+
+a:active{
+    color: black;
+}
+
+>>>>>>> Stashed changes
