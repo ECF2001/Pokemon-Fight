@@ -48,6 +48,30 @@ body {
 .sobreNosotros {
     margin: 0 20px;
     font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: white;
+}
+
+a:active {
+    color: black;
+}
+
+.footer a{
+    color: white;
+}
+
+.footer a:hover {
+    color: blue;
+}
+
+.footer a:active {
     color: white;
 }
 
@@ -93,6 +117,7 @@ body {
 .sobreNosotros_footer,
 .estadisticas_footer {
     margin: 15px;
+    font-size: 16px;
 }
 
 
