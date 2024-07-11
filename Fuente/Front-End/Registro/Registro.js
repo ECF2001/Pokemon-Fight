@@ -1,5 +1,5 @@
 const formulario = document.getElementById("formulario");
-const $inputs = document.querySelectorAll("#formulario input");
+const inputs = document.querySelectorAll("#formulario input");
 
 const expresiones = {
     nombre: /^[a-zA-Z0-9\_\-]{4,16}$/,
@@ -22,7 +22,7 @@ const campos = {
 }
 
 const validarFomulario = (e) => {
-    switch (e.target.id) {// e.target se trae el nombre del input
+    switch (e.target.id) {
         case "nombre":
             validarCampo(expresiones.nombre, e.target, "nombre");
             break;
@@ -66,7 +66,7 @@ const validarCampo = (expresion, input, campo) => {
     }
 }
 
-$inputs.forEach((input) => {
+inputs.forEach((input) => {
     input.addEventListener("keyup", validarFomulario);
     input.addEventListener("blur", validarFomulario);
 });

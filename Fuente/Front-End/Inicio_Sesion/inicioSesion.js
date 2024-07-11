@@ -1,5 +1,5 @@
-const formulario = document.getElementById("formulario")
-const $inputs = document.querySelector("#formulario input")
+const formulario = document.getElementById("formulario");
+const inputs = document.querySelectorAll("#formulario input");
 
 const expresiones = {
     correo: /^[a-zA-Z0-9\_]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/,
@@ -40,7 +40,7 @@ const validarCampo =  (expresion, input, campo) => {
     }   
 }
 
-$inputs.forEach((input) => {
+inputs.forEach((input) => {
     input.addEventListener("keyup", validarFormulario);
     input.addEventListener("blur", validarFormulario);
 
@@ -50,6 +50,9 @@ formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     
     if (campos.correo && campos.contraseña) {
+
+        document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
+
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito-activo");
 
         setTimeout(() => {
