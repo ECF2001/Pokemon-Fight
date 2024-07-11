@@ -50,8 +50,6 @@ formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     
     if (campos.correo && campos.contraseña) {
-
-
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito-activo");
 
         setTimeout(() => {
