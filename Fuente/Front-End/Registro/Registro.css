@@ -244,3 +244,6 @@ a:active{
     border-style: none;
 }
 
+.formulario__mensaje-exito{
+    font-size: 20px;
+}
