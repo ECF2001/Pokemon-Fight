@@ -39,41 +39,6 @@ a:active {
     color: black;
 }
 
-.footer{
-     display: flex;
-    flex-direction: row;                
-    justify-content: space-evenly;
-    background-color: black;
-    color: white;
-    font-size: 16px;
-   height: 200px;
-   text-align: center;
-}
-
-.pokemonFight{
-    align-content: center;
-}
-
-.redesSociales{
-    align-content: center;
-    cursor: pointer;
-}
-
-.bxl-facebook-circle,
-.bxl-instagram,
-.bxl-linkedin-square,
-.bxl-youtube{
-    margin: 5px;
-}
-
-.menu_Footer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
 .footer a{
     color: white;
 }
@@ -85,6 +50,7 @@ a:active {
 .footer a:active {
     color: white;
 }
+
 
 .titulo{
     font-size: xxx-large;
@@ -260,20 +226,27 @@ a:active {
 
 
 
-.footer{
+.footer {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     background-color: black;
     color: white;
     font-size: 16px;
+    align-items: center;
+    padding: 20px;
+    height: 100px;
 }
 
-.pokemonFight{
+.pokemonFight {
     align-content: center;
 }
 
-.redesSociales{
+.pokemonFight h1 {
+    margin: 0;
+}
+
+.redesSociales {
     align-content: center;
     cursor: pointer;
 }
@@ -281,11 +254,11 @@ a:active {
 .bxl-facebook-circle,
 .bxl-linkedin-square,
 .bxl-youtube,
-.bxl-instagram{
+.bxl-instagram {
     margin: 5px;
 }
 
-.menu_Footer{
+.menu_Footer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -295,8 +268,7 @@ a:active {
 
 .paginaPrincipal_footer,
 .sobreNosotros_footer,
-.estadisticas_footer{
+.estadisticas_footer {
     margin: 15px;
     font-size: 16px;
 }
-
