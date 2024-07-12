@@ -144,7 +144,7 @@ tr:last-child td {
 }
 
 .seleccionada {
-    background-color: red;
+    background-color:#78c850;
 }
 
 .NuevoEquipo{
@@ -153,10 +153,6 @@ tr:last-child td {
     padding: 20px;
     border-radius: 15px;
     background-color: #3B4CCA;
-}
-.decoracionTabla-activa{
-    color: #3B4CCA;
-    border-color: #3B4CCA;
 }
 .imagen_Personajes{
     width: 75px;
