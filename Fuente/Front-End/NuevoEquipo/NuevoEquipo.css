@@ -27,8 +27,6 @@
     margin: 20px;
     cursor: pointer;
 }
-
-.NuevoEquipo,
 .paginaPrincipal,
 .estadisticas,
 .sobreNosotros {
@@ -89,70 +87,41 @@ a:active {
         opacity: 1;
     }
 }
-
-.tabla_body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    max-width: 75%;
-    background-color: #D9D9D9;
-    animation: fadeIn 1s ease-in forwards;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box shadow 0.3s ease;
-    border-radius: 50px;
-    overflow-x: auto;
-}
-th,
-td {
-    width: 350px;
-    height: 200px;
+table {
+    width: 100%;
     border-collapse: collapse;
-    border: none;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 8px;
     text-align: center;
-    border-bottom: 1px solid black;
-    font-size: larger;
-}
-th {
-    font-size: x-large;
-}
-.th_Pokemons{
-    border-left: 1px solid black;
-}
-td:nth-child(2),
-td:nth-child(3), 
-td:nth-child(4),
-td:nth-child(5),
-td:nth-child(6) {
-    border-right: 1px solid black;
 }
 
-td:nth-child(2){
-    border-right: 1px solid black;
-    border-left: 1px solid black;
+table th {
+    background-color: #f2f2f2;
 }
 
-tr:last-child td {
-    border-bottom: none;
-}
-.decoracionTabla:hover{
-    transform: translateY(-10px);
-    box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.2);
+table td img {
+    width: 50px;
+    height: 50px;
 }
 
-.seleccionada {
-    background-color:#78c850;
+.pagination {
+    text-align: center;
 }
 
-.NuevoEquipo{
-    width: 110px;
-    border: 1px solid black;
-    padding: 20px;
-    border-radius: 15px;
-    background-color: #3B4CCA;
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin: 0 2px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
 }
 .imagen_Personajes{
     width: 75px;
