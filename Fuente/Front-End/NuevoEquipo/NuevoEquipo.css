@@ -29,7 +29,9 @@
 }
 .paginaPrincipal,
 .estadisticas,
-.sobreNosotros {
+.sobreNosotros,
+.duelos,
+.equipo {
     margin: 20px;
     font-size: 16px;
 }

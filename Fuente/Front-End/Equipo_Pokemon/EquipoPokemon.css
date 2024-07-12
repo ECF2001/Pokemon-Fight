@@ -31,7 +31,8 @@
 .NuevoEquipo,
 .paginaPrincipal,
 .estadisticas,
-.sobreNosotros {
+.sobreNosotros,
+.duelos {
     margin: 20px;
     font-size: 16px;
 }
