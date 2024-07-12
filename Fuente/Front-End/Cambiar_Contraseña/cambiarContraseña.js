@@ -2,8 +2,8 @@ const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 
 const expresiones = {
-     contraseña: /^[a-zA-Z0-9\_\-]{4,16}$/,
-     contraseña2: /^[a-zA-Z0-9\_\-]{4,16}$/
+     contraseña: /^[a-zA-Z0-9\_\-]{8,16}$/,
+     contraseña2: /^[a-zA-Z0-9\_\-]{8,16}$/
 }
 
 const campos = {
