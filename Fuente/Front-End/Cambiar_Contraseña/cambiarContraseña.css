@@ -1,0 +1,237 @@
+*{
+     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3B4CCA;
+}
+
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+    cursor: pointer;
+}
+
+
+.paginaPrincipal,
+.sobreNosotros{
+    margin: 20px;
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: white;
+}
+
+a:active {
+    color: black;
+}
+
+.footer a{
+    color: white;
+}
+
+.footer a:hover {
+    color: blue;
+}
+
+.footer a:active {
+    color: white;
+}
+
+
+.titulo{
+    font-size: xxx-large;
+    margin-top: 60px;
+    margin-bottom: 10px;
+}
+
+.resumen{
+    font-size: larger;
+    margin-bottom: 20px;
+    color: grey;
+}
+
+.titulo,
+.resumen{
+    text-align: center;
+    opacity: 0;
+    animation: fadeIn 1s ease-in forwards;
+}
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    background-image: url('pokemon.jpg');
+    opacity: 90%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 120vh;
+}
+
+/*---------------FORMULARIO------------------*/
+.formulario{
+    background-color: rgba(0, 0, 0, 0.644);
+    color: white;
+   border: solid ;
+    width: 500px;
+    height: 550px;
+    padding: 5%;
+    font-weight: bold;
+    transition: all 1s;
+    border-radius: 25px;
+}
+.label{
+    display: block;
+}
+
+.formulario__general{
+    display: flex;
+}
+
+.formulario h1{
+    text-align: center;
+}
+
+.input{
+    width: 95%;
+    background: white;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    border-right: none;
+    color: rgb(0, 0, 0);
+    outline: none;
+    transition: 1s;
+    border-color: #303333;
+}
+
+.formulario__validacion{
+    position: absolute;
+    opacity: 0;
+    font-size: 20px;
+}
+
+.input:focus{
+    box-shadow: 0 0 20px  #3B4CCA ;
+}
+
+.formulario__input-error{
+    font-size: 8px;
+    margin-bottom: 0;
+    display: none;
+}
+
+/*CS LLAMADO POR EL JS*/
+
+.formulario__input-error-activo{
+    display: block;
+}
+
+.formulario__grupo-btn-enviar{
+    grid-column: span 2;
+}
+/*CS LLAMADO POR EL JS*/
+
+.formulario__mensaje-exito-activo{
+    display: block;
+}
+
+.formulario__grupo-btn-enviar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formulario__btn{
+    padding: 10px 40px;
+    background-color: #3B4CCA;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.formulario__mensaje-exito{
+    font-size: 2em;
+    padding: 10px;
+    color: green;
+    text-align: center;
+    display: none;
+    font-size: 20px;
+}
+
+.formulario__mensaje-exito-activo{
+    display: block;
+}
+
+
+
+
+
+
+
+
+.logoimagen{
+    width: 190px;
+    height: 70px;
+    margin-left: 40px;
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    align-items: center;
+    padding: 20px;
+    height: 100px;
+}
+
+.pokemonFight {
+    align-content: center;
+}
+
+.pokemonFight h1 {
+    margin: 0;
+}
+
+.redesSociales {
+    align-content: center;
+    cursor: pointer;
+}
+
+.bxl-facebook-circle,
+.bxl-linkedin-square,
+.bxl-youtube,
+.bxl-instagram {
+    margin: 5px;
+}
+
+.menu_Footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.paginaPrincipal_footer,
+.sobreNosotros_footer,
+.estadisticas_footer {
+    margin: 15px;
+    font-size: 16px;
+}
