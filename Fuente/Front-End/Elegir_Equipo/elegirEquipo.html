@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="jugar_una_partida.css">
+    <link rel="stylesheet" type="text/css" href="elegir_Equipo.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <title>Jugar una partida</title>
@@ -11,9 +11,7 @@
 
 <body>
     <div class="header"> <!--HEADER-->
-        <a href="../Perfil/Cambiar_perfil.html">
-            <img class="fotoPerfil" id="foto_perfil">
-        </a>
+        <img class="fotoPerfil" id="foto_perfil">
         <div class="menu">
             <a href="../Pagina_Principal/PaginaPrincipal.html">
                 <h6 class="paginaPrincipal">Página Principal</h6>
@@ -26,28 +24,29 @@
             </a>
         </div>
     </div>
+
     <div class="body"> <!--BODY-->
-        <h3 class="titulo">Jugar una partida</h3>
-            <div class="container">
-                <p>Desafía a tus amigos en emocionantes batallas con equipos de varios Pokémon</p>
-                <div class="cajas">
-                    <div class="caja">
-                        <h2>Elegir equipo Pokémon</h2>
-                        <div class="caja_imagen">
-                            <img src="equipo_pokemon.jpg"></div>
-                            <button onclick="location.href = '../Elegir_Equipo/elegirEquipo.html'">Eligir Equipo</button>
-                    </div>
-                    <div class="caja">
-                        <h2>Iniciar batalla</h2>
-                        <div class="caja_imagen">
-                        <img src="batalla_pokemon.jpg"></div>
-                        <button>Iniciar batalla</button>
-                    </div>
+        <h3 class="titulo">Selecciona tu equipo para la batalla</h3>
+                <div class="caja">
+                    <h2>Equipo Rocket</h2>
+                    <table>
+                        <tr>
+                            <td><img class="imagen_Personajes"><img class="imagen_Personajes"></td>
+                        </tr>
+                        <tr>
+                            <td><img class="imagen_Personajes"><img class="imagen_Personajes"></td>
+                        </tr>
+                        <tr>
+                            <td><img class="imagen_Personajes"><img class="imagen_Personajes"></td>
+                        </tr>
+                    </table>
+                    <button>Elegir este equipo</button>
                 </div>
-            </div>
-        </body>        
-         
-</div>
+                </div> 
+    <div class="pagination">
+        <a href="" id="prev">&laquo;</a>
+        <a href="#" id="next">&raquo;</a>
+    </div>   
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
         <div class="redesSociales">
@@ -67,9 +66,7 @@
                 <h6 class="estadisticas">Estadísticas</h6>
             </a>
         </div>
+        <script src="elegir__Equipo.js"></script>
 </body>
 
-</html>
-    
-</body>
 </html>
