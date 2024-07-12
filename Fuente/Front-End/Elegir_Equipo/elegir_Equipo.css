@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-.NuevoEquipo,
+
 .paginaPrincipal,
 .estadisticas,
 .sobreNosotros {
@@ -67,14 +67,8 @@ a:active {
     margin-bottom: 10px;
 }
 
-.resumen {
-    font-size: larger;
-    margin-bottom: 20px;
-    color: grey;
-}
 
-.titulo,
-.resumen {
+.titulo {
     text-align: center;
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
@@ -90,82 +84,73 @@ a:active {
     }
 }
 
-.tabla_body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    max-width: 75%;
-    background-color: #D9D9D9;
-    animation: fadeIn 1s ease-in forwards;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box shadow 0.3s ease;
-    border-radius: 50px;
-    overflow-x: auto;
-}
-th,
-td {
-    width: 350px;
-    height: 200px;
-    border-collapse: collapse;
-    border: none;
-    text-align: center;
-    border-bottom: 1px solid black;
-    font-size: larger;
-}
-th {
-    font-size: x-large;
-}
-.th_Pokemons{
-    border-left: 1px solid black;
-}
-td:nth-child(2),
-td:nth-child(3), 
-td:nth-child(4),
-td:nth-child(5),
-td:nth-child(6) {
-    border-right: 1px solid black;
-}
 
-td:nth-child(2){
-    border-right: 1px solid black;
-    border-left: 1px solid black;
-}
 
-tr:last-child td {
-    border-bottom: none;
-}
-.decoracionTabla:hover{
-    transform: translateY(-10px);
-    box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.2);
-}
-
-.seleccionada {
-    background-color: red;
-}
-
-.NuevoEquipo{
-    width: 110px;
-    border: 1px solid black;
+.caja {
+    margin-top: 10%;
+    margin-bottom: 5%;
+    margin-left: 39%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
     padding: 20px;
-    border-radius: 15px;
-    background-color: #3B4CCA;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 550px;
 }
-.decoracionTabla-activa{
-    color: #3B4CCA;
-    border-color: #3B4CCA;
+
+h2 {
+    margin-bottom: 60px;
+    font-size: 30px;
+    text-align: center;
 }
+
+button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 40px;
+    width: 275px; 
+    height: 50px;
+    margin-left: 15%;
+    
+}
+
+button:hover {
+    background-color: #333;
+}
+
 .imagen_Personajes{
-    width: 75px;
-    height: 78px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     vertical-align: middle;
-    margin-right: 10px;
-    background-color: white;
+    margin-left: 90px;
+    margin-bottom: 30px;
+    margin-top: 5px;
+    background-color: wheat;
 }
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    margin-right: 5px;
+   margin-left: 60px;
+}
+
+.pagination a:hover {
+    background-color: #ddd;
+}
+
 
 .footer {
     display: flex;
@@ -174,6 +159,7 @@ tr:last-child td {
     background-color: black;
     color: white;
     font-size: 16px;
+    margin-top: 5%;
 }
 
 .pokemonFight {
