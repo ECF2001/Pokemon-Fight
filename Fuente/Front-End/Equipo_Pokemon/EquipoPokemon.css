@@ -28,7 +28,7 @@
     cursor: pointer;
 }
 
-
+.NuevoEquipo,
 .paginaPrincipal,
 .estadisticas,
 .sobreNosotros {
@@ -142,9 +142,16 @@ tr:last-child td {
     transform: translateY(-10px);
     box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.2);
 }
+.NuevoEquipo{
+    width: 110px;
+    border: 1px solid black;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: #3B4CCA;
+}
 .decoracionTabla-activa{
     color: #3B4CCA;
-    border-color: ;
+    border-color: #3B4CCA;
 }
 .imagen_Personajes{
     width: 75px;
