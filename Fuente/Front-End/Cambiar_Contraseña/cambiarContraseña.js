@@ -24,7 +24,7 @@ const validarFormulario = (e) => {
 
 const validarCampo =  (expresion, input, campo) => {
      if (expresion.test(input.value)) {
-        document.getElementById(`grupo__${campo}`).classList.remove("formulario__general-incorrecto");// cambia la clase para asignar el color
+        document.getElementById(`grupo__${campo}`).classList.remove("formulario__general-incorrecto");
         document.getElementById(`grupo__${campo}`).classList.add("formulario__general-correcto");
         document.querySelector(`#grupo__${campo} i`).classList.remove("fa-exclamation-circle");
         document.querySelector(`#grupo__${campo} i`).classList.add("fa-xmark");
@@ -51,7 +51,7 @@ formulario.addEventListener("submit", (e) => {
     
     if (campos.contraseña && campos.contraseña2) {
 
-        document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
+        document.getElementById("formulario__mensaje-exito").classList.remove("formulario__mensaje-activo");
 
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito-activo");
 
@@ -63,5 +63,7 @@ formulario.addEventListener("submit", (e) => {
            location.reload();
         }, 4000);
    
+    } else {
+        document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito");
     }
 });
