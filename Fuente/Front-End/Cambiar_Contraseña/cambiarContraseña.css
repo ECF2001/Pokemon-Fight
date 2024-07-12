@@ -176,7 +176,30 @@ a:active {
     display: block;
 }
 
+/*-------------VALIDACIONES----------------*/
 
+.formulario__general-correcto .formulario__validacion{
+    color: #29ee0f;
+    opacity: 1;
+}
+
+.formulario__general-incorrecto .label{
+    color: red;
+}
+
+.formulario__general-incorrecto .formulario__validacion{
+    color: red;
+    opacity: 1;
+}
+
+.formulario__general-incorrecto .input{
+    border: 1px solid red;
+}
+
+
+.imagen{
+    opacity: 50%;
+}
 
 
 
