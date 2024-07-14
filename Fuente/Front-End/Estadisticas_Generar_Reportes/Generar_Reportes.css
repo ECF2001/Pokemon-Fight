@@ -30,7 +30,8 @@
 
 
 .paginaPrincipal,
-.sobreNosotros{
+.sobreNosotros,
+.historial{
     margin: 20px;
     font-size: 16px;
 }
