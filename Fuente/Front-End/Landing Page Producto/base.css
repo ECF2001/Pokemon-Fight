@@ -25,8 +25,7 @@
 }
 
 .paginaPrincipal,
-.sobreNosotros,
-.estadisticas{
+.sobreNosotros{
     margin: 20px;
     font-size: 16px;
 }
@@ -108,8 +107,7 @@ a:active {
 }
 
 .paginaPrincipal_footer,
-.sobreNosotros_footer,
-.estadisticas_footer{
+.sobreNosotros_footer{
     margin: 15px;
     font-size: 16px;
 }
