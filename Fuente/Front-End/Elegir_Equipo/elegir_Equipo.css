@@ -116,11 +116,12 @@ a:active {
     height: 550px;
     display: none;
     transition: opacity 0.5s ease-in-out, transform  1s ease-in-out;
+    background-color: darkcyan;
 
 }
 
 .caja_1.mostrar, .caja_2.mostrar {
-    display: block;
+    display: none;
     opacity: 3;
     transform: scale(5);
 }
