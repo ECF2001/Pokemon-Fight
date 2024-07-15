@@ -84,18 +84,45 @@ a:active {
     }
 }
 
+.body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
 
-.caja {
-    margin-top: 10%;
+.caja_1 {
+    margin-top: 5%;
     margin-bottom: 5%;
-    margin-left: 39%;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 400px;
     height: 550px;
+    transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+
+}
+
+.caja_2 {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 550px;
+    display: none;
+    transition: opacity 0.5s ease-in-out, transform  1s ease-in-out;
+
+}
+
+.caja_1.mostrar, .caja_2.mostrar {
+    display: block;
+    opacity: 3;
+    transform: scale(5);
 }
 
 h2 {
@@ -104,23 +131,65 @@ h2 {
     text-align: center;
 }
 
-button {
+.boton_carrousel_arriba{
+    align-items: center;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 32px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    margin-top: 1%;
+}
+
+.boton_carrousel_abajo{
+    align-items: center;
+    border: none;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    font-size: 32px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white;
+    margin-bottom: 1%;
+}
+
+.boton_carrousel_arriba:hover {
+    color:gray;
+    animation: fadeIn 0.5s infinite;
+}
+
+.boton_carrousel_abajo:hover {
+    color:gray;
+    animation: fadeIn 0.5s infinite;
+}
+
+.boton_general {
     background-color: black;
     color: white;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 20px;
+    margin-top: 15px;
     width: 275px; 
     height: 50px;
-    margin-left: 15%;
     
 }
 
-button:hover {
+
+.boton_general:hover {
     background-color: #333;
+    
 }
+
 
 .imagen_Personajes{
     width: 55px;
@@ -131,24 +200,6 @@ button:hover {
     margin-bottom: 30px;
     margin-top: 5px;
     background-color: wheat;
-}
-
-.pagination {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.pagination a {
-    color: black;
-    padding: 8px 16px;
-    text-decoration: none;
-    border: 1px solid #ddd;
-    margin-right: 5px;
-   margin-left: 60px;
-}
-
-.pagination a:hover {
-    background-color: #ddd;
 }
 
 

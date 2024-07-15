@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="elegir_Equipo.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+   
     <title>Jugar una partida</title>
 </head>
 
@@ -27,9 +28,12 @@
         </div>
     </div>
 
+
+
     <div class="body"> <!--BODY-->
         <h3 class="titulo">Selecciona tu equipo para la batalla</h3>
-                <div class="caja">
+            <button class="boton_carrousel_arriba" onclick=carrousel()><i class='bx bxs-up-arrow'></i></button>
+                <div class="caja_1">
                     <h2>Equipo Rocket</h2>
                     <table>
                         <tr>
@@ -42,16 +46,33 @@
                             <td><img class="imagen_Personajes"><img class="imagen_Personajes"></td>
                         </tr>
                     </table>
-                    <button>Elegir este equipo</button>
+                    <button class="boton_general">Elegir este equipo</button>
                     </a>
                     <a href="../Batalla_Pokemon/batalla_pokemon.html">
-                        <button>Iniciar batalla</button>
+                    <button class="boton_general">Iniciar batalla</button>
                     </a>
                 </div>
-                </div> 
-    <div class="pagination">
-        <a href="#" id="prev">&laquo;</a>
-        <a href="#" id="next">&raquo;</a>
+
+                <div class="caja_2">
+                    <h2>Equipo Solutions</h2>
+                    <table>
+                        <tr>
+                            <td><img class="imagen_Personajes"><img class="imagen_Personajes"></td>
+                        </tr>
+                        <tr>
+                            <td><img class="imagen_Personajes"><img class="imagen_Personajes"></td>
+                        </tr>
+                        <tr>
+                            <td><img class="imagen_Personajes"><img class="imagen_Personajes"></td>
+                        </tr>
+                    </table>
+                    <button class="boton_general">Elegir este equipo</button>
+                    </a>
+                    <a href="../Batalla_Pokemon/batalla_pokemon.html">
+                    <button class="boton_general">Iniciar batalla</button>
+                    </a>
+                </div>
+                <button class="boton_carrousel_abajo"onclick=carrousel()><i class='bx bxs-down-arrow'></i></button>     
     </div>   
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
