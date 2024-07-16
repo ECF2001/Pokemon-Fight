@@ -24,9 +24,80 @@ app.listen(3000,() => {
 
 
 app.get('/',(req,res)=> {
-    res.render("paginainicio.html");
+    res.render("PaginaPrincipal.html");
 });
 
+app.get('/BatallaPokemon',(req,res)=> {
+    res.render("batalla_pokemon.html");
+});
+
+app.get('/CambiarPerfil',(req,res)=> {
+    res.render("Cambiar_perfil.html");
+});
+
+app.get('/CambiarContraseña',(req,res)=> {
+    res.render("cambiarContraseña.html");
+});
+
+app.get('/ElegirEquipo',(req,res)=> {
+    res.render("elegirEquipo.html");
+});
+
+app.get('/EquipoPokemon',(req,res)=> {
+    res.render("EquipoPokemon.html");
+});
+
+app.get('/GenerarReportes',(req,res)=> {
+    res.render("GenerarReportes.html");
+});
+
+app.get('/HistorialEquipos',(req,res)=> {
+    res.render("historial_Equipos.html");
+});
+
+app.get('/HistorialPartidas',(req,res)=> {
+    res.render("Historial_partidas.html");
+});
+
+app.get('/HistorialPokemon',(req,res)=> {
+    res.render("historialPokemon.html");
+});
+
+app.get('/InicioSesion',(req,res)=> {
+    res.render("inicioSesion.html");
+});
+
+app.get('/JugarPartida',(req,res)=> {
+    res.render("jugar_una_partida.html");
+});
+
+app.get('/ListaPokemon',(req,res)=> {
+    res.render("Lista_pokemon.html");
+});
+
+app.get('/NuevoEquipo',(req,res)=> {
+    res.render("NuevoEquipo.html");
+});
+
+app.get('/LandingPageEquipo',(req,res)=> {
+    res.render("page_equipo.html");
+});
+
+app.get('/LandingPageProducto',(req,res)=> {
+    res.render("paginabase.html");
+});
+
+app.get('/Registro',(req,res)=> {
+    res.render("Registro.html");
+});
+
+app.get('/TablaLiderazgo',(req,res)=> {
+    res.render("tablaLiderazgo2.html");
+});
+
+app.get('/VictoriasYDerrotas',(req,res)=> {
+    res.render("victorias_derrotas.html");
+});
 
 
 //POST
