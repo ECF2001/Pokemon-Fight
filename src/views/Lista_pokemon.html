@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="lista_pokemon.css">
+    <link rel="stylesheet" type="text/css" href="../public/css/lista_pokemon.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <title>Lista de Pokémon</title>
@@ -20,18 +20,16 @@
     </div>    
     <main>
         <h1>Lista de Pokémon</h1>
-        <table>
+        <table id="table">
             <thead>
                 <tr>
                     <th>Número</th>
                     <th>Nombre</th>
                     <th>Imagen</th>
-                    <th>Número</th>
-                    <th>Nombre</th>
-                    <th>Imagen</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="cuerpo">
+            <!--                
                 <tr>
                     <td>n.º001</td>
                     <td>Bulbasaur</td>
@@ -48,18 +46,13 @@
                     <td>Kakuna</td>
                     <td><img src="kakuna.png"></td>
                 </tr>
-                
-            </tbody>
+               --> 
             </tbody>
         </table>
 
         <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">&raquo;</a>
+            <a href="#" id="prev">&laquo; Anterior</a>
+            <a href="#" id="next">Siguiente &raquo;</a>
         </div>
     </main>
 
@@ -77,7 +70,7 @@
         </div>
     </div>
 
-    <script src="lista_pokemons.js"></script>
+    <script src="../public/js/lista_pokemons.js"></script>
 </body>
 </html>
 
