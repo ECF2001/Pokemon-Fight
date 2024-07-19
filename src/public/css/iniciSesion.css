@@ -77,7 +77,7 @@ a:active {
     justify-content: center;
     align-items: center;
     font-size: xx-large;
-    background-image: url('iniciosesion.jpeg');
+    background-image: url('/img/iniciosesion.jpeg');
     opacity: 100%;
     background-repeat: no-repeat;
     background-size: cover;

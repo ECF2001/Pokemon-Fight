@@ -117,7 +117,7 @@ p {
     width: 400px;
     height: 550px;
     box-sizing: border-box;
-    background-image: url('batalla.jpg');
+    background-image: url('/img/batalla.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;

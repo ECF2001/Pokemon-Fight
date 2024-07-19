@@ -71,7 +71,7 @@ a:active {
     justify-content: center;
     align-items: center;
     font-size: xx-large;
-    background-image: url('fondoPokeBolas.png');
+    background-image: url('/img/fondoPokeBolas.png');
 }
 .body h3{
     border-color: black;
@@ -81,12 +81,12 @@ a:active {
     background-color: #3B4CCA;
 }
 .duelo{
-    background-image: url('fondoDuelos.png');
+    background-image: url('/img/fondoDuelos.png');
 }
 .equipo{
     background-size: cover;
     background-repeat:no-repeat;
-    background-image: url('fondoEstadisticas.png');
+    background-image: url('/img/fondoEstadisticas.png');
 }
 .duelo:hover, .equipo:hover{
     transform: translateY(-10px);

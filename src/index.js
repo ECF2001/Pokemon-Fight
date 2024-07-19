@@ -35,7 +35,7 @@ app.get('/CambiarPerfil',(req,res)=> {
     res.render("Cambiar_perfil.html");
 });
 
-app.get('/CambiarContraseña',(req,res)=> {
+app.get('/CambiarContrasena',(req,res)=> {
     res.render("cambiarContraseña.html");
 });
 
@@ -67,7 +67,7 @@ app.get('/InicioSesion',(req,res)=> {
     res.render("inicioSesion.html");
 });
 
-app.get('/JugarPartida',(req,res)=> {
+app.get('/JugarUnaPartida',(req,res)=> {
     res.render("jugar_una_partida.html");
 });
 

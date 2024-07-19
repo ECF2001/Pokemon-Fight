@@ -12,7 +12,7 @@ body {
     flex-direction: column;
     justify-content: space-between;
     min-height: 100vh;
-    background-image: url(fondo.jpg); 
+    background-image: url(/img/fondo.jpg); 
     background-size: cover;
 }
 

@@ -52,7 +52,7 @@ a:active{
     justify-content: center;
     align-items: center;
     font-size: xx-large;
-    background-image: url('pokemon.jpeg');
+    background-image: url('/img/pokemon.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
     height: 100vh;

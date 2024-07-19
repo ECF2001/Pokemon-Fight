@@ -75,7 +75,7 @@ a:active {
     justify-content: center;
     align-items: center;
     font-size: xx-large;
-    background-image: url('pokemon.jpg');
+    background-image: url('/img/pokemon.jpg');
     opacity: 90%;
     background-repeat: no-repeat;
     background-size: cover;
