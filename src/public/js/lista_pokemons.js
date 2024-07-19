@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
             });
 
             rows = document.querySelectorAll('tbody tr');
-            displayRows(1);
+            totalPages = Math.ceil(rows.length / rowsPerPage);
+            displayRows(currentPage);
             setupPagination();
 
         } catch (error) {
