@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const rowsPerPage = 10;
-    const rows = document.querySelectorAll('tbody tr');
-    const paginationLinks = document.querySelectorAll('.pagination a');
+    let rows;
+    let currentPage = 1;
+    let totalPages;
 
     function displayRows(page) {
         const start = (page - 1) * rowsPerPage;
@@ -11,13 +12,61 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    paginationLinks.forEach((link, index) => {
-        link.addEventListener('click', function(event) {
+    function setupPagination() {
+        document.getElementById('prev').addEventListener('click', function(event) {
             event.preventDefault();
-            const page = index + 1;
-            displayRows(page);
+            if (currentPage > 1) {
+                currentPage--;
+                displayRows(currentPage);
+            }
         });
-    });
 
-    displayRows(1);
+        document.getElementById('next').addEventListener('click', function(event) {
+            event.preventDefault();
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayRows(currentPage);
+            }
+        });
+    }
+
+    async function getlista() {
+        try {
+            const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1012');
+            const data = await response.json();
+            const lista = data.results;
+            const cuerpo = document.getElementById("cuerpo");
+
+            lista.forEach((pokemon, index) => {
+                const tr = document.createElement('tr');
+                
+                const numero = document.createElement('td');
+                numero.textContent = index + 1;
+
+                const nombre = document.createElement('td');
+                nombre.textContent = pokemon.name;
+
+                const imagen = document.createElement('td');
+                const img = document.createElement('img');
+                img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`;
+                imagen.appendChild(img);
+
+                tr.appendChild(numero);
+                tr.appendChild(nombre);
+                tr.appendChild(imagen);
+
+                cuerpo.appendChild(tr);
+            });
+
+            rows = document.querySelectorAll('tbody tr');
+            totalPages = Math.ceil(rows.length / rowsPerPage);
+            displayRows(currentPage);
+            setupPagination();
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    getlista();
 });
