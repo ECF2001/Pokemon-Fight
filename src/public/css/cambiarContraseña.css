@@ -74,7 +74,6 @@ a:active {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: xx-large;
     background-image: url('/img/pokemon.jpg');
     opacity: 90%;
     background-repeat: no-repeat;
@@ -84,15 +83,15 @@ a:active {
 
 /*---------------FORMULARIO------------------*/
 .formulario{
-    background-color: rgba(0, 0, 0, 0.644);
-    color: white;
-   border: solid ;
-    width: 500px;
-    height: 550px;
-    padding: 5%;
-    font-weight: bold;
-    transition: all 1s;
-    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.452);
+    border: solid ;
+    border-radius: 50px;
+     width: 500px;
+     height: 500px;
+     padding: 5%;
+     font-weight: bold;  
+     font-size: 25px;
+     transition: all 1s;
 }
 .label{
     display: block;
@@ -104,16 +103,21 @@ a:active {
 
 .formulario h1{
     text-align: center;
+    font-size: 50px;
 }
 
 .input{
-    width: 95%;
+    width: 90%;
+    height: 60%;
     background: white;
     border-bottom: 2px solid rgb(0, 0, 0);
     color: rgb(0, 0, 0);
     outline: none;
     transition: 1s;
     border-color: #303333;
+    background: transparent;
+    margin-bottom: 20px;
+    margin-left: 10px;
 }
 
 .formulario__validacion{

@@ -139,7 +139,8 @@ a:active{
 }
 
 .input{
-    width: 75%;
+    width: 90%;
+    height: 70%;
     background: transparent;
     border-bottom: 2px solid rgb(0, 0, 0); 
     color: rgb(0, 0, 0);
@@ -201,6 +202,8 @@ a:active{
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    height: 50px;
+    font-size: 18px;
 }
 
 .formulario__mensaje-exito{

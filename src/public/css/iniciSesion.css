@@ -23,20 +23,20 @@
 .paginaPrincipal,
 .sobreNosotros{
     margin: 20px;
-    font-size: 16px;
+    font-size: 17px;
 }
 
 a {
     text-decoration: none;
-    color: black;
-}
-
-a:hover {
     color: white;
 }
 
-a:active {
+a:hover {
     color: black;
+}
+
+a:active {
+    color: white;
 }
 
 .footer a{
@@ -91,13 +91,13 @@ a:active {
 }
 /*---------------FORMULARIO------------------*/
 .formulario{
-    background-color: rgba(0, 0, 0, 0.644);
-    color: white;
+    background-color: rgba(255, 255, 255, 0.452);
    border: solid ;
+   border-radius: 50px;
     width: 500px;
-    height: 400px;
+    height: 500px;
     padding: 5%;
-    font-weight: bold;
+    font-weight: bold;  
     transition: all 1s;
 }
 
@@ -107,20 +107,24 @@ a:active {
 
 .formulario__general{
     display: flex;
+    margin: 25px;
 }
 
 .formulario h1{
     text-align: center;
+    margin-bottom: 90px;
 }
 
 .input{
-    width: 75%;
+    width: 90%;
+    height: 60%;
     background: white;
     border-bottom: 2px solid rgb(0, 0, 0);
     color: rgb(0, 0, 0);
     outline: none;
     transition: 1s;
     border-color: #303333;
+    background: transparent;
 }
 
 .formulario__validacion{
@@ -209,7 +213,8 @@ a:active {
 
 .recuperarContraseña{
     text-align: center;
-    color: white;
+    color: black;
+    font-size: 25px;
 }
 
 
@@ -233,16 +238,12 @@ a:active {
     color: white;
     font-size: 16px;
     align-items: center;
-    padding: 20px;
+    padding: 30px;
     height: 100px;
 }
 
 .pokemonFight {
     align-content: center;
-}
-
-.pokemonFight h1 {
-    margin: 0;
 }
 
 .redesSociales {
