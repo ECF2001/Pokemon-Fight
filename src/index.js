@@ -111,3 +111,12 @@ app.post('/addCategory',(req,res)=> {
     console.log("No es igual");
     res.redirect('/Contactenos');
  });
+
+ app.post('/formularioInicio', (req,res)=>{
+    let correo = "ejemplo123@gmail.com";
+    if (correo == req.body.correoInicio){
+        res.redirect('PaginaPrincipal'); 
+    }
+    console.log("No es igual");
+    res.redirect('/inicioSesion'); 
+ }); 
