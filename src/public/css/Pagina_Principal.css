@@ -80,6 +80,21 @@ a:active {
     border-radius: 10px;
     background-color: #3B4CCA;
 }
+.listaAmigos{
+    background-color: #3B4CCA;
+}
+.imagen_Personajes{
+    width: 75px;
+    height: 78px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 10px;
+    background-color: white;
+}
+.listaAmigos h6{
+    padding: 20px;
+    margin: auto;
+}
 .duelo{
     background-image: url('/img/fondoDuelos.png');
 }
@@ -111,7 +126,7 @@ a:active {
     width: 90%;
 
 }
-.duelo,.equipo{
+.duelo,.equipo,.listaAmigos{
     height:500px;
     width: 300px;
     text-align: center;
