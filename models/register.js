@@ -14,7 +14,7 @@ let registerSchema = new mongoose.Schema ({
     segundoApellido:{type:String,required:true},
     nombreUsuario:{type:String,required:true},
     correoElectronico:{type:String,required:true},
-    identificacion:{type:Integer,required:true},
+    identificacion:{type:Number,required:true},
     contrasena:{type:String,required:true}
 
 },{versionKey:false})
