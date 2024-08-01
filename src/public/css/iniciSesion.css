@@ -99,15 +99,23 @@ a:active {
     padding: 5%;
     font-weight: bold;  
     transition: all 1s;
+    text-align: center;
 }
 
 .label{
     display: block;
 }
 
-.formulario__general{
+.formulario__general{   
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
     display: flex;
+    text-align: center;
+    width: 110%;
     margin: 25px;
+    margin-left: -10px;
+   
 }
 
 .formulario h1{
@@ -116,7 +124,7 @@ a:active {
 }
 
 .input{
-    width: 90%;
+    width: calc(100%-20px);
     height: 60%;
     background: white;
     border-bottom: 2px solid rgb(0, 0, 0);
@@ -125,6 +133,9 @@ a:active {
     transition: 1s;
     border-color: #303333;
     background: transparent;
+    margin-left: 10px;
+
+    
 }
 
 .formulario__validacion{
@@ -139,8 +150,10 @@ a:active {
 
 .formulario__input-error{
     font-size: 8px;
+    margin-top: 5px;
     margin-bottom: 0;
     display: none;
+    
 }
 
 /*CS LLAMADO POR EL JS*/
@@ -191,19 +204,23 @@ a:active {
 .formulario__general-correcto .formulario__validacion{
     color: #29ee0f;
     opacity: 1;
+     
 }
 
 .formulario__general-incorrecto .label{
     color: red;
-}
+   
+} 
 
 .formulario__general-incorrecto .formulario__validacion{
     color: red;
     opacity: 1;
+     display: block;
 }
 
 .formulario__general-incorrecto .input{
     border: 1px solid red;
+     display: block;
 }
 
 
@@ -213,6 +230,8 @@ a:active {
 
 .recuperarContraseña{
     text-align: center;
+   display: block;
+   margin-top: 10px;
     color: black;
     font-size: 25px;
 }
@@ -272,3 +291,9 @@ a:active {
     margin: 15px;
     font-size: 16px;
 }
+
+.formulario__input{
+   
+    width: 30%;
+}
+

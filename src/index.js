@@ -124,27 +124,4 @@ app.post('/formularioInicio', (req, res) => {
 
 //---------Registrarse---
 
-const user = require('../models/register.js');
-
-app.post('/Registro', (req, res) => {
-
-
-    let data = new user({
-        nombre: req.body.name,
-        apellido: req.body.apellido,
-        segundoApellido: req.body.segundoApellido,
-        nombreUsuario: req.body.nombreUsuario,
-        correoElectronico: req.body.correoElectronico,
-        identificacion: req.body.identificacion,
-        contrasena: req.body.contrasena,
-    })
-
-    data.save()
-        .then(() => {
-            console.log("Usuario guardado")
-        })
-        .catch((err) => {
-            console.log("ERROR")
-        })
-    res.redirect('/')
-});
+const user = require('../models/registro.js');
