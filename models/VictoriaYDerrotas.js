@@ -1,7 +1,7 @@
 const name = require('ejs');
 const mongoose = require('mongoose');
 
-const DB_URI = 'mongodb://localhost:27017/Estadisticas'
+const DB_URI = 'mongodb://localhost:27017/VictoriasYDerrotas'
 
 
 // Victorias y Derrotas Contra Amigos
@@ -16,5 +16,4 @@ let VictoriasYDerrotasSchema = new mongoose.Schema ({
 
 let contraAmigos = new mongoose.model('contraAmigos', VictoriasYDerrotasSchema);
 
-
-//
+module.exports = contraAmigos;

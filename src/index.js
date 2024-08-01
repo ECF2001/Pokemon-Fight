@@ -92,7 +92,7 @@ app.get('/Registro', (req, res) => {
 });
 
 app.get('/TablaLiderazgo', (req, res) => {
-    res.render("tablaLiderazgo2.html");
+    res.render("tablaLiderazgo.html");
 });
 
 app.get('/VictoriasYDerrotas', (req, res) => {
