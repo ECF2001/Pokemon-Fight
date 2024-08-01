@@ -4,12 +4,13 @@ const mongoose = require('mongoose');
 const DB_URI = 'mongodb://localhost:27017/TablaLiderazgo'
 
 
-//Tabla de Liderazgo
 let TablaLiderazgoSchema = new mongoose.Schema ({
 
+    perfilUsuarioUrl:{type:String, required:true},
     nombreUsuario:{type:String,required:true,unique:true},
     puntos:{type:Number,required:true},
-    duelos:{type:Number,required:true}
+    duelos:{type:Number,required:true},
+    pokemonFotoUrl: {type:String, required:true}
 
 },{versionKey:false})
 
