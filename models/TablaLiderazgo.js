@@ -3,6 +3,11 @@ const mongoose = require('mongoose');
 
 const DB_URI = 'mongodb://localhost:27017/TablaLiderazgo'
 
+if (puntos === 0 || duelos === 0) {
+    res.render('tablaLiderazgo', {message: 'Juega una partida para desbloquear tus estadísticas!'});
+    return;
+}
+
 
 let TablaLiderazgoSchema = new mongoose.Schema ({
 
