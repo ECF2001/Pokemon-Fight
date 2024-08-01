@@ -124,4 +124,4 @@ app.post('/formularioInicio', (req, res) => {
 
 //---------Registrarse---
 
-const user = require('../models/register.js');
+const user = require('../models/registro.js');
