@@ -100,6 +100,7 @@ app.get('/VictoriasYDerrotas', (req, res) => {
 });
 
 
+
 //POST
 
 app.post('/addCategory', (req, res) => {

@@ -159,6 +159,7 @@ div#form {
     border-radius: 50%;
     object-fit: cover;
     background-color: white;
+    cursor: pointer;
 }
 
 .perfil p {
@@ -192,4 +193,30 @@ div#caja {
 }
 .form-group input {
     background-color: white; 
+}
+.profile-menu {
+    display: none;
+    position: absolute;
+    top: 120px; /* Ajusta esta posición según necesites */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 600px; /* Ajusta esta altura según necesites */
+    overflow-y: auto; /* Añade la barra de desplazamiento vertical */
+}
+
+
+.menu-image {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.menu-image:hover {
+    border: 2px solid #3B4CCA;
 }
