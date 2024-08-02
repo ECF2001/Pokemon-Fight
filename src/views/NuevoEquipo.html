@@ -2,7 +2,6 @@
 <html lang="es">
 
 <head>
-    <script src="NuevoEquipo.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/NuevoEquipo.css">
@@ -35,68 +34,26 @@
         </div>
     </div>
     </div>
-    <div class="body"> <!--BODY-->
-        <h3 class="titulo">Nuevo Equipo</h3>
-        <p class="resumen">Selección de Pokémon para el equipo nuevo</p>
-        <div class="formulario__general" id="grupo__nombre">
-            <label for="label">Nombre del Equipo:</label>
-            <div class="formulario__input">
-                <input type="text" class="input" id="nombre">
-                <i class="formulario__validacion fa-solid fa-check"></i>
-            </div>
-            <table class="tabla_body">
-                <tr>
-                    <td><img class="imagen_Personajes">#</td>
-                    <td><img class="imagen_Personajes">#</td>
-                    <td><img class="imagen_Personajes">#</td>
-                    <td><img class="imagen_Personajes">#</td>
-                    <td><img class="imagen_Personajes">#</td>
-                    <td><img class="imagen_Personajes">#</td>
-                </tr>
-            </table>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Nombre</th>
-                    <th>Imagen</th>
-                    <th>Número</th>
-                    <th>Nombre</th>
-                    <th>Imagen</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>n.º001</td>
-                    <td>Bulbasaur</td>
-                    <td><img src=""></td>
-                    <td>n.º013</td>
-                    <td>Weedle</td>
-                    <td><img src=""></td>
-                </tr>
-                <tr>
-                    <td>n.º002</td>
-                    <td>Ivysaur</td>
-                    <td><img src=""></td>
-                    <td>n.º014</td>
-                    <td>Kakuna</td>
-                    <td><img src=""></td>
-                </tr>
-
-            </tbody>
-            </tbody>
-        </table>
-
-        <div class="pagination">
-            <a href="#">&laquo;</a>
-            <a href="#">1</a>
-            <a href="#">2</a>
-            <a href="#">3</a>
-            <a href="#">4</a>
-            <a href="#">&raquo;</a>
-        </div>
+<main>
+    <h1>Nuevo Equipo</h1>
+    <h2>Pokémon Seleccionados</h2>
+    <div id="contenedor-pokemon-seleccionado"></div>
+    <div class="centrarBoton">
+    <button class="salvarEquipo" id="salvar-equipo">Salvar Equipo</button>
     </div>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpo"></tbody>
+    </table>
+    <div id="pagination"></div>
+    
+</main>
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
         <div class="redesSociales">
@@ -117,7 +74,7 @@
             </a>
         </div>
     </div>
-    <script src="/js/EquipoPokemon.js"></script>
+    <script src="js/NuevoEquipo.js"></script>
 </body>
 
 </html>

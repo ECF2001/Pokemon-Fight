@@ -1,72 +1,138 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const rowsPerPage = 10;
-    let rows;
-    let currentPage = 1;
-    let totalPages;
+const apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1012';
+const cuerpo = document.getElementById('cuerpo');
+const pokemonsSelecionadosContainer = document.getElementById('contenedor-pokemon-seleccionado');
+const salvarEquipoButton = document.getElementById('salvar-equipo');
 
-    function displayRows(page) {
-        const start = (page - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        rows.forEach((row, index) => {
-            row.style.display = (index >= start && index < end) ? '' : 'none';
-        });
+let pokemonsSelecionados = [];
+
+async function getlista() {
+  try {
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const lista = data.results;
+
+    lista.forEach((pokemon, index) => {
+      const tr = document.createElement('tr');
+      
+      const numero = document.createElement('td');
+      numero.textContent = index + 1;
+
+      const nombre = document.createElement('td');
+      nombre.textContent = pokemon.name;
+      nombre.classList.add('clickable');
+      nombre.onclick = () => escogerPokemon(pokemon.name, index + 1);
+
+      const imagen = document.createElement('td');
+      const img = document.createElement('img');
+      img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`;
+      imagen.appendChild(img);
+
+      tr.appendChild(numero);
+      tr.appendChild(nombre);
+      tr.appendChild(imagen);
+
+      cuerpo.appendChild(tr);
+    });
+
+    rows = document.querySelectorAll('tbody tr');
+    totalPaginas = Math.ceil(rows.length / rowsPerPage);
+    displayRows(paginaActual);
+    setupPagination();
+
+  } catch (error) {
+    console.error('Error obteniendo lista Pokémon:', error);
+  }
+}
+
+function escogerPokemon(nombrePokemon, pokemonId) {
+  if (pokemonsSelecionados.length < 6) {
+    if (!pokemonsSelecionados.some(pokemon => pokemon.name === nombrePokemon)) {
+      pokemonsSelecionados.push({ name: nombrePokemon, id: pokemonId });
+      updatepokemonsSelecionadosList();
+    } else {
+      alert('Este Pokémon ya está en el equipo');
     }
+  } else {
+    alert('Solo puede seleccionar 6 Pokémon');
+  }
+}
 
-    function setupPagination() {
-        document.getElementById('prev').addEventListener('click', function(event) {
-            event.preventDefault();
-            if (currentPage > 1) {
-                currentPage--;
-                displayRows(currentPage);
-            }
-        });
+function updatepokemonsSelecionadosList() {
+  pokemonsSelecionadosContainer.innerHTML = '';
+  pokemonsSelecionados.forEach(pokemon => {
+    const div = document.createElement('div');
+    div.classList.add('selected-pokemon');
 
-        document.getElementById('next').addEventListener('click', function(event) {
-            event.preventDefault();
-            if (currentPage < totalPages) {
-                currentPage++;
-                displayRows(currentPage);
-            }
-        });
+    const img = document.createElement('img');
+    img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`;
+    div.appendChild(img);
+
+    const nombre = document.createElement('p');
+    nombre.innerText = pokemon.name;
+    div.appendChild(nombre);
+
+    pokemonsSelecionadosContainer.appendChild(div);
+  });
+}
+
+function saveTeam() {
+  if (pokemonsSelecionados.length === 6) {
+    console.log('Su equipo Pokémon es:', pokemonsSelecionados);
+    alert('Equipo Guardado');
+  } else {
+    alert('Por favor seleccione 6 Pokémon');
+  }
+}
+
+salvarEquipoButton.onclick = saveTeam;
+
+let paginaActual = 1;
+const rowsPerPage = 10;
+let totalPaginas;
+let rows;
+
+function displayRows(page) {
+  const start = (page - 1) * rowsPerPage;
+  const end = start + rowsPerPage;
+  rows.forEach((row, index) => {
+    row.style.display = (index >= start && index < end) ? '' : 'none';
+  });
+}
+
+function setupPagination() {
+  const pagination = document.getElementById('pagination');
+  pagination.innerHTML = '';
+
+  const createButton = (text, page, isCurrent = false) => {
+    const button = document.createElement('button');
+    button.textContent = text;
+    button.className = 'pagination-button';
+    if (isCurrent) {
+      button.classList.add('current');
     }
+    button.onclick = () => {
+      paginaActual = page;
+      displayRows(paginaActual);
+      setupPagination();
+    };
+    return button;
+  };
 
-    async function getlista() {
-        try {
-            const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=1012');
-            const data = await response.json();
-            const lista = data.results;
-            const cuerpo = document.getElementById("cuerpo");
+  if (paginaActual > 1) {
+    pagination.appendChild(createButton('Anterior', paginaActual - 1));
+  }
 
-            lista.forEach((pokemon, index) => {
-                const tr = document.createElement('tr');
-                
-                const numero = document.createElement('td');
-                numero.textContent = index + 1;
-
-                const nombre = document.createElement('td');
-                nombre.textContent = pokemon.name;
-
-                const imagen = document.createElement('td');
-                const img = document.createElement('img');
-                img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${index + 1}.png`;
-                imagen.appendChild(img);
-
-                tr.appendChild(numero);
-                tr.appendChild(nombre);
-                tr.appendChild(imagen);
-
-                cuerpo.appendChild(tr);
-            });
-
-            rows = document.querySelectorAll('tbody tr');
-            totalPages = Math.ceil(rows.length / rowsPerPage);
-            displayRows(currentPage);
-            setupPagination();
-
-        } catch (error) {
-            console.error(error);
-        }
+  for (let i = 1; i <= totalPaginas; i++) {
+    if (i === paginaActual || i === 1 || i === totalPaginas || (i >= paginaActual - 2 && i <= paginaActual + 2)) {
+      pagination.appendChild(createButton(i, i, i === paginaActual));
+    } else if (i === paginaActual - 3 || i === paginaActual + 3) {
+      pagination.appendChild(document.createTextNode('...'));
     }
+  }
 
-    getlista();
-});
+  if (paginaActual < totalPaginas) {
+    pagination.appendChild(createButton('Siguiente', paginaActual + 1));
+  }
+}
+
+getlista();
