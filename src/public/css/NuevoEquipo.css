@@ -208,10 +208,28 @@ h1{
     background-color: #3B4CCA;
     color: white;
     border-radius: 15px;
+    padding: 14px;
 }
 .salvarEquipo:hover{
     color: black;
 }
 .centrarBoton{
-    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+.centrarNombre{
+    margin: 30px;
+    font-size: x-large;
+    padding: 10px;
+    background-color: #3B4CCA;
+    color: white;
+    border-radius: 15px;
+}
+label{
+    padding: 15px;
+}
+input{
+    width: 300px;
+    font-size: large;
+    margin: 5px;
 }

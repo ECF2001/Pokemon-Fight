@@ -2,6 +2,7 @@ const apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1012';
 const cuerpo = document.getElementById('cuerpo');
 const pokemonsSelecionadosContainer = document.getElementById('contenedor-pokemon-seleccionado');
 const salvarEquipoButton = document.getElementById('salvar-equipo');
+const nombreEquipoInput = document.getElementById('nombre-equipo');
 
 let pokemonsSelecionados = [];
 
@@ -76,9 +77,15 @@ function updatepokemonsSelecionadosList() {
 }
 
 function saveTeam() {
+  const nombreEquipo = nombreEquipoInput.value.trim();
+  if (nombreEquipo === '') {
+    alert('Por favor, ingrese un nombre para el equipo');
+    return;
+  }
   if (pokemonsSelecionados.length === 6) {
-    console.log('Su equipo Pokémon es:', pokemonsSelecionados);
-    alert('Equipo Guardado');
+    window[nombreEquipo] = pokemonsSelecionados;
+    console.log(`Equipo "${nombreEquipo}" guardado exitosamente`, window[nombreEquipo]);
+    alert(`Equipo "${nombreEquipo}" guardado exitosamente`);
   } else {
     alert('Por favor seleccione 6 Pokémon');
   }
