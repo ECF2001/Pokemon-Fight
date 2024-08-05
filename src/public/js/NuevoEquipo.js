@@ -115,6 +115,7 @@ async function saveTeam() {
 
 salvarEquipoButton.onclick = saveTeam;
 
+
 let paginaActual = 1;
 const rowsPerPage = 10;
 let totalPaginas;
