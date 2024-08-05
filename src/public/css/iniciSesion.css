@@ -124,7 +124,7 @@ a:active {
 }
 
 .input{
-    width: calc(100%-20px);
+    width: 250%;
     height: 60%;
     background: white;
     border-bottom: 2px solid rgb(0, 0, 0);
@@ -133,15 +133,18 @@ a:active {
     transition: 1s;
     border-color: #303333;
     background: transparent;
-    margin-left: 10px;
+    margin-left: 40px;
+    font-size: 20px;
 
     
 }
 
 .formulario__validacion{
     position: absolute;
+    padding-left:430px;
+    padding-top: 10px;
     opacity: 0;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .input:focus{
@@ -149,7 +152,9 @@ a:active {
 }
 
 .formulario__input-error{
-    font-size: 8px;
+    display: flex;
+    padding-left: 40px;
+    font-size: 15px;
     margin-top: 5px;
     margin-bottom: 0;
     display: none;
@@ -297,3 +302,15 @@ a:active {
     width: 30%;
 }
 
+
+.formulario__general label{
+  
+    display: flex;
+    padding-left: 120px;
+   
+}
+
+.contraseña{
+    display: flex;
+    margin-left: 50px;
+}

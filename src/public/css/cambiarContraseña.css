@@ -78,7 +78,10 @@ a:active {
     opacity: 90%;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 120vh;
+    background-attachment: fixed;
+    min-height: 100hv;
+    padding-top: 100px;
+    padding-bottom: 200px;
 }
 
 /*---------------FORMULARIO------------------*/
@@ -87,7 +90,7 @@ a:active {
     border: solid ;
     border-radius: 50px;
      width: 500px;
-     height: 500px;
+     height: auto;
      padding: 5%;
      font-weight: bold;  
      font-size: 25px;
@@ -98,7 +101,14 @@ a:active {
 }
 
 .formulario__general{
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
     display: flex;
+    text-align: center;
+    width: 110%;
+    margin: 25px;
+    margin-left: -10px;
 }
 
 .formulario h1{
@@ -107,7 +117,7 @@ a:active {
 }
 
 .input{
-    width: 90%;
+    width: 300%;
     height: 60%;
     background: white;
     border-bottom: 2px solid rgb(0, 0, 0);
@@ -122,8 +132,10 @@ a:active {
 
 .formulario__validacion{
     position: absolute;
+    padding-left:390px;
+    padding-top: 30px;
     opacity: 0;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .input:focus{
@@ -131,7 +143,7 @@ a:active {
 }
 
 .formulario__input-error{
-    font-size: 8px;
+    font-size: 20px;
     margin-bottom: 0;
     display: none;
 }
@@ -260,4 +272,10 @@ a:active {
 .estadisticas_footer {
     margin: 15px;
     font-size: 16px;
+}
+
+.contraseña1,
+.contraseña2{
+    display: flex;
+    padding-left: 90px;
 }

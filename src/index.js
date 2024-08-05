@@ -123,7 +123,17 @@ app.post('/formularioInicio', (req, res) => {
     res.redirect('/inicioSesion');
 });
 
-//---------Registrarse---
 
-const usuario = require('../models/registro.js');
 
+//Tabla de liderazgo
+const TablaLiderazgo = require('../models/TablaLiderazgo')
+const tablaLiderazgoOrdenada = async(puntos, duelos) => {
+    if (puntos === 0 || duelos === 0) {
+        console.log('No hay datos');
+        return;
+    }
+   const resultado = await TablaLiderazgo.find().sort({puntos: -1, duelos: -1}).exec();
+        console.log(resultado);
+}
+
+tablaLiderazgoOrdenada(-1,-1);
