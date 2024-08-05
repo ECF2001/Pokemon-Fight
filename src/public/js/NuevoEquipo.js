@@ -3,6 +3,7 @@ const cuerpo = document.getElementById('cuerpo');
 const pokemonsSelecionadosContainer = document.getElementById('contenedor-pokemon-seleccionado');
 const salvarEquipoButton = document.getElementById('salvar-equipo');
 const nombreEquipoInput = document.getElementById('nombre-equipo');
+const nombreUsuarioInput = document.getElementById('nombre-usuario');
 
 let pokemonsSelecionados = [];
 
@@ -76,16 +77,37 @@ function updatepokemonsSelecionadosList() {
   });
 }
 
-function saveTeam() {
+async function saveTeam() {
   const nombreEquipo = nombreEquipoInput.value.trim();
-  if (nombreEquipo === '') {
-    alert('Por favor, ingrese un nombre para el equipo');
+  const nombreUsuario = nombreUsuarioInput.value.trim();
+  
+  if (nombreEquipo === '' || nombreUsuario === '') {
+    alert('Por favor, ingrese el nombre del equipo y del usuario');
     return;
   }
   if (pokemonsSelecionados.length === 6) {
-    window[nombreEquipo] = pokemonsSelecionados;
-    console.log(`Equipo "${nombreEquipo}" guardado exitosamente`, window[nombreEquipo]);
-    alert(`Equipo "${nombreEquipo}" guardado exitosamente`);
+    try {
+      const response = await fetch('http://localhost:3000/save-team', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          teamName: nombreEquipo,
+          team: pokemonsSelecionados,
+          username: nombreUsuario,
+        })
+      });
+
+      if (response.ok) {
+        alert(`Equipo "${nombreEquipo}" guardado exitosamente`);
+      } else {
+        alert('Error guardando el equipo');
+      }
+    } catch (error) {
+      console.error('Error enviando solicitud:', error);
+      alert('Error enviando solicitud');
+    }
   } else {
     alert('Por favor seleccione 6 Pokémon');
   }
