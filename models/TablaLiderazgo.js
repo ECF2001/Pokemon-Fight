@@ -1,9 +1,6 @@
 const name = require('ejs');
 const mongoose = require('mongoose');
 
-const DB_URI = ''
-
-
 let TablaLiderazgoSchema = new mongoose.Schema ({
 
     perfilUsuarioUrl:{type:String, required:true},
