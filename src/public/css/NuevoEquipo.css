@@ -61,48 +61,6 @@ a:active {
     color: white;
 }
 
-.titulo {
-    font-size: xxx-large;
-    margin-top: 90px;
-    margin-bottom: 10px;
-}
-.tabla_body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 25px;
-    margin-bottom: 25px;
-    max-width: 75%;
-    background-color: #D9D9D9;
-    animation: fadeIn 1s ease-in forwards;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box shadow 0.3s ease;
-    border-radius: 50px;
-    overflow-x: auto;
-}
-.imagen_Personajes{
-    width: 75px;
-    height: 78px;
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-    background-color: white;
-}
-.resumen {
-    font-size: larger;
-    margin-bottom: 20px;
-    color: grey;
-}
-
-.titulo,
-.resumen {
-    text-align: center;
-    opacity: 0;
-    animation: fadeIn 1s ease-in forwards;
-}
-
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -111,11 +69,6 @@ a:active {
     to {
         opacity: 1;
     }
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
 }
 
 table th, table td {
@@ -126,11 +79,6 @@ table th, table td {
 
 table th {
     background-color: #f2f2f2;
-}
-
-table td img {
-    width: 50px;
-    height: 50px;
 }
 
 .pagination {
@@ -148,14 +96,6 @@ table td img {
 
 .pagination a:hover {
     background-color: #ddd;
-}
-.imagen_Personajes{
-    width: 75px;
-    height: 78px;
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-    background-color: white;
 }
 
 .footer {
@@ -197,4 +137,99 @@ table td img {
 .estadisticas_footer {
     margin: 15px;
     font-size: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+    font-size: x-large;
+}
+img {
+    width: 100px;
+    height: 100px;
+}
+.clickable {
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+.clickable:hover{
+    cursor: pointer;
+    color: #78c850;
+    text-decoration: none;
+}
+#pagination {
+    margin-top: 20px;
+    text-align: center;
+}
+.pagination-button {
+    margin: 0 2px;
+    padding: 5px 10px;
+}
+.pagination-button.current {
+    font-weight: bold;
+}
+#contenedor-pokemon-seleccionado {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: space-around;
+    background-color: #3B4CCA;
+    color: white;
+    border-radius: 25px;
+}
+.selected-pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.selected-pokemon img {
+    width: 150px;
+    height: 150px;
+}
+h2{
+    text-align: center;
+    font-size: xx-large;
+}
+h1{
+    text-align: center;
+    font-size: xxx-large;
+}
+.salvarEquipo{
+    margin: 30px;
+    font-size: x-large;
+    padding: 10px;
+    background-color: #3B4CCA;
+    color: white;
+    border-radius: 15px;
+    padding: 14px;
+}
+.salvarEquipo:hover{
+    color: black;
+}
+.centrarBoton{
+    display: flex;
+    justify-content: center;
+}
+.centrarNombre{
+    margin: 30px;
+    font-size: x-large;
+    padding: 10px;
+    background-color: #3B4CCA;
+    color: white;
+    border-radius: 15px;
+}
+label{
+    padding: 15px;
+}
+input{
+    width: 300px;
+    font-size: large;
+    margin: 5px;
 }

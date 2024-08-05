@@ -101,6 +101,10 @@ a:active {
     border-radius: 40px;
     color: white;
 }
+.duelo a,
+.equipo a{
+    margin-top: 10;
+}
 .duelo{
     background-image: url('/img/fondoDuelos.png');
 }
@@ -110,8 +114,13 @@ a:active {
     border-radius: 100px;
     font-size: 38px;
 }
-.duelos{
+.duelos, .equipos{
     margin-top: 58px;
+    display: inline;
+    padding-top: 5px;
+    padding-right: 80px;
+    padding-left: 80px;
+    padding-bottom: 5px;
 }
 
 .equipo{
@@ -119,7 +128,7 @@ a:active {
     background-repeat:no-repeat;
     background-image: url('/img/fondoEstadisticas.png');
 }
-.duelo:hover, .equipo:hover{
+.duelo:hover, .equipo:hover, .listaAmigos:hover{
     transform: translateY(-10px);
     box-shadow: 8px 16px 16px rgba(0, 0, 0, 0.2);
 }
