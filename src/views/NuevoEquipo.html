@@ -34,52 +34,48 @@
         </div>
     </div>
     </div>
-    <main>
-        <h1>Nuevo Equipo</h1>
-        <h2>Pokémon Seleccionados</h2>
-        <div id="contenedor-pokemon-seleccionado"></div>
-        <div class="centrarBoton">
-            <div class="centrarNombre"><label for="nombre-equipo">Nombre del Equipo:</label>
-                <input type="text" id="nombre-equipo">
-            </div>
-            <button class="salvarEquipo" id="salvar-equipo">Salvar Equipo</button>
-        </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombre</th>
-                    <th>Imagen</th>
-                </tr>
-            </thead>
-            <tbody id="cuerpo"></tbody>
-        </table>
-        <div id="pagination"></div>
-        <script src="script.js"></script>
-</body>
+    <h1>Seleccione su equipo Pokémon</h1>
+    <div id="contenedor-pokemon-seleccionado"></div>
+    <div class="centrarNombre">
+        <label for="nombre-equipo">Nombre del Equipo:</label>
+        <input type="text" id="nombre-equipo" required>
+        <label for="nombre-usuario">Nombre del Usuario:</label>
+        <input type="text" id="nombre-usuario" required>
+    </div>
+    <button class="salvarEquipo" id="salvar-equipo">Guardar Equipo</button>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody id="cuerpo"></tbody>
+    </table>
+    <div id="pagination"></div>
 
-</main>
-<div class="footer"> <!--FOOTER-->
-    <div class="pokemonFight">Pokémon Fight</div>
-    <div class="redesSociales">
-        <i class="bx bxl-facebook-circle"></i>
-        <i class="bx bxl-linkedin-square"></i>
-        <i class="bx bxl-youtube"></i>
-        <i class="bx bxl-instagram"></i>
+    <div class="footer"> <!--FOOTER-->
+        <div class="pokemonFight">Pokémon Fight</div>
+        <div class="redesSociales">
+            <i class="bx bxl-facebook-circle"></i>
+            <i class="bx bxl-linkedin-square"></i>
+            <i class="bx bxl-youtube"></i>
+            <i class="bx bxl-instagram"></i>
+        </div>
+        <div class="menu_Footer">
+            <a href="/">
+                <h6 class="paginaPrincipal">Página Principal</h6>
+            </a>
+            <a href="/LandingPageEquipo">
+                <h6 class="sobreNosotros">Sobre Nosotros</h6>
+            </a>
+            <a href="/GenerarReportes">
+                <h6 class="estadisticas">Estadísticas</h6>
+            </a>
+        </div>
     </div>
-    <div class="menu_Footer">
-        <a href="/">
-            <h6 class="paginaPrincipal">Página Principal</h6>
-        </a>
-        <a href="/LandingPageEquipo">
-            <h6 class="sobreNosotros">Sobre Nosotros</h6>
-        </a>
-        <a href="/GenerarReportes">
-            <h6 class="estadisticas">Estadísticas</h6>
-        </a>
-    </div>
-</div>
-<script src="js/NuevoEquipo.js"></script>
+    <script src="js/NuevoEquipo.js"></script>
 </body>
 
 </html>
