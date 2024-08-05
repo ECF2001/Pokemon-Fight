@@ -34,3 +34,8 @@ async function agregarEquipo(nombreEquipo, nombresPokemon, nombreUsuario) {
 }
 
 module.exports = agregarEquipo;
+
+
+
+
+
