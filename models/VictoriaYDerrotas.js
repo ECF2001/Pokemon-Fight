@@ -1,7 +1,7 @@
 const name = require('ejs');
 const mongoose = require('mongoose');
 
-const DB_URI = 'mongodb://localhost:27017/VictoriasYDerrotas'
+const DB_URI = ''
 
 
 let VictoriasYDerrotasSchema = new mongoose.Schema ({

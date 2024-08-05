@@ -129,11 +129,11 @@ app.post('/formularioInicio', (req, res) => {
 const TablaLiderazgo = require('../models/TablaLiderazgo')
 const tablaLiderazgoOrdenada = async(puntos, duelos) => {
     if (puntos === 0 || duelos === 0) {
-        console.error(err);
+        console.log('No hay datos');
         return;
     }
    const resultado = await TablaLiderazgo.find().sort({puntos: -1, duelos: -1}).exec();
         console.log(resultado);
 }
 
-tablaLiderazgoOrdenada();
+tablaLiderazgoOrdenada(-1,-1);
