@@ -1,12 +1,7 @@
 const name = require('ejs');
 const mongoose = require('mongoose');
 
-const DB_URI = 'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight'
-
-if (puntos === 0 || duelos === 0) {
-    res.render('tablaLiderazgo', {message: 'Juega una partida para desbloquear tus estadísticas!'});
-    return;
-}
+const DB_URI = ''
 
 
 let TablaLiderazgoSchema = new mongoose.Schema ({

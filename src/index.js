@@ -124,3 +124,16 @@ app.post('/formularioInicio', (req, res) => {
 });
 
 
+
+//Tabla de liderazgo
+const TablaLiderazgo = require('../models/TablaLiderazgo')
+const tablaLiderazgoOrdenada = async(puntos, duelos) => {
+    if (puntos === 0 || duelos === 0) {
+        console.error(err);
+        return;
+    }
+   const resultado = await TablaLiderazgo.find().sort({puntos: -1, duelos: -1}).exec();
+        console.log(resultado);
+}
+
+tablaLiderazgoOrdenada();
