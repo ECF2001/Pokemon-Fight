@@ -1,5 +1,7 @@
 const express = require('express');
 
+const db = require('./db'); 
+
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -137,3 +139,27 @@ const tablaLiderazgoOrdenada = async(puntos, duelos) => {
 }
 
 tablaLiderazgoOrdenada(-1,-1);
+
+
+// Nuevo Equipo POST
+const equipo = require('../models/equipo');
+async function addEquipo(nombreEquipo, pokemon_names, usuario) {
+    try {
+      const newEquipo = new equipo({
+        group_name: nombreEquipo,
+        pokemon_names: pokemon_names,
+        username: usuario,
+      });
+  
+      await newEquipo.save();
+      console.log('Equipo guardado correctamente.');
+    } catch (error) {
+      console.error('Error al guardar el equipo:', error);
+    }
+}
+  
+
+app.post('/save-team', (req, res) => {
+    const { teamName, team, username } = req.body;
+    addEquipo(teamName, team.map(item => item.name), username);
+});
