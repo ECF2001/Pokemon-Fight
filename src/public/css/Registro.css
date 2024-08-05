@@ -55,6 +55,11 @@ a:active{
     background-image: url('/img/pokemon.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 200px;
+    
    
     
 }
@@ -139,7 +144,7 @@ a:active{
     
    
   
-}
+} 
 
 .input{
     display: flex;
@@ -157,8 +162,10 @@ a:active{
 
 .formulario__validacion{
     position: absolute;
+     padding-left:300px;
+    padding-top: 30px;
     opacity: 0;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .input:focus{
@@ -167,6 +174,7 @@ a:active{
 }
 
 .formulario__input-error{
+  
     font-size: 15px;
     margin-bottom: 0;
     display: none;
