@@ -123,7 +123,4 @@ app.post('/formularioInicio', (req, res) => {
     res.redirect('/inicioSesion');
 });
 
-//---------Registrarse---
-
-const usuario = require('../models/registro.js');
 
