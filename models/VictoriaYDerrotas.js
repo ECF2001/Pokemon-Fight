@@ -1,9 +1,6 @@
 const name = require('ejs');
 const mongoose = require('mongoose');
 
-const DB_URI = ''
-
-
 let VictoriasYDerrotasSchema = new mongoose.Schema ({
 
     perfilUsuarioUrl:{type:String, required:true},
@@ -11,7 +8,6 @@ let VictoriasYDerrotasSchema = new mongoose.Schema ({
     nombreUsuario:{type:String,required:true,unique:true},
     nombreUsuario2:{type:String,required:true,unique:true},
     puntos:{type:Number,required:true},
-    pokemonDerrotados:{type:Number,required:true}
 
 },{versionKey:false})
 
