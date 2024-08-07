@@ -7,6 +7,6 @@ const equiposSchema = new mongoose.Schema({
   username: { type: String, required: true },
 });
 
-let equipo = mongoose.model('equipos', equiposSchema);
+let equipo = mongoose.model('equipo', equiposSchema);
 
 module.exports = equipo;

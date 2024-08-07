@@ -49,21 +49,49 @@ app.listen(port, () => {
 });*/
 
 async function addEquipo(nombreEquipo, pokemon_names, usuario) {
-    try {
-      const newEquipo = new equipo({
-        group_name: nombreEquipo,
-        pokemon_names: pokemon_names,
-        username: usuario,
-      });
-  
-      await newEquipo.save();
-      console.log('Equipo guardado correctamente.');
-    } catch (error) {
-      console.error('Error al guardar el equipo:', error);
-    }
-  }
-  
-  // Llamamos a la función para agregar el equipo
-  addEquipo('Bomboclat', ['Pikcahu', 'aaa'], 'Emilio');
-  
+  try {
+    const newEquipo = new equipo({
+      group_name: nombreEquipo,
+      pokemon_names: pokemon_names,
+      username: usuario,
+    });
 
+    await newEquipo.save();
+    console.log('Equipo guardado correctamente.');
+  } catch (error) {
+    console.error('Error al guardar el equipo:', error);
+  }
+}
+
+// Llamamos a la función para agregar el equipo
+addEquipo('Bomboclat', ['Pikcahu', 'aaa'], 'Emilio');
+
+
+//Datos de Prueba de la Tabla de liderazgo
+const tablaLiderazgoDatos = () => {
+  const datos = [
+    {
+    identificacion: '4615614',
+    nombreUsuario: 'nimo23',
+    foto: 'pikachu.jpg',
+    victorias: '6',
+    fotoPokemon: 'pikachu.jpg'
+  },
+  {
+    identificacion: '984852',
+    nombreUsuario: 'sunny76',
+    foto: 'mep.jpg',
+    victorias: '58',
+    fotoPokemon: 'piku.jpg'
+  },
+  {
+    identificacion: '8715124',
+    nombreUsuario: 'home4',
+    foto: 'stick.jpg',
+    victorias: '1',
+    fotoPokemon: 'pyroar.jpg'
+  }
+  ]
+  return datos;
+}
+module.exports = tablaLiderazgoDatos

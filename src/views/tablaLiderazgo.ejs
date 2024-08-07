@@ -42,21 +42,22 @@
                 </tr>
             </thead>
             <tbody>
+                <% datos.forEach(dato =>{ %>
                 <tr>
                     <td>
                         <div class="caja_Usuario">
-                            <img class="imagen_Personajes" src="<%%>">
-                            <%%>
+                            <img class="imagen_Personajes" src="<%= dato.foto %>">
+                            <%= dato.nombreUsuario %>
                         </div>
                     </td>
                     <td>
-                        <p>Duelos ganados</p>
+                        <p><%= dato.victorias %></p>
                     </td>
                     <td>
-                        <img class="imagen_PersonajesUtilizado">
+                        <img class="imagen_PersonajesUtilizado" src="<%= dato.fotoPokemon %>">
                     </td>
                 </tr>
-               
+            <% }) %>
             </tbody>
         </table>
     </div>

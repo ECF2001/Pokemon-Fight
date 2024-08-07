@@ -1,6 +1,6 @@
 const express = require('express');
 
-const db = require('./db'); 
+const db = require('./db');
 
 const bodyParser = require('body-parser');
 
@@ -53,6 +53,7 @@ app.get('/GenerarReportes', (req, res) => {
     res.render("GenerarReportes.html");
 });
 
+
 app.get('/HistorialEquipos', (req, res) => {
     res.render("historial_Equipos.html");
 });
@@ -93,10 +94,14 @@ app.get('/Registro', (req, res) => {
     res.render("Registro.html");
 });
 
-app.get('/TablaLiderazgo', (req, res) => {
-    res.render("tablaLiderazgo.html");
+//Tabla de liderazgo GET
+app.get("/TablaLiderazgo", function (request, response) {
+    const tablaLiderazgoDatos = require('./test');
+    const datos = tablaLiderazgoDatos()
+    response.render('TablaLiderazgo', { datos })
 });
 
+//Victorias y Derrotas GET
 app.get('/VictoriasYDerrotas', (req, res) => {
     res.render("victorias_derrotas.html");
 });
@@ -126,38 +131,23 @@ app.post('/formularioInicio', (req, res) => {
 });
 
 
-
-//Tabla de liderazgo
-const TablaLiderazgo = require('../models/TablaLiderazgo.js')
-const tablaLiderazgoOrdenada = async(puntos, duelos) => {
-    if (puntos === 0 || duelos === 0) {
-        console.log('No hay datos');
-        return;
-    }
-   //const resultado = await TablaLiderazgo.find().sort({puntos: -1, duelos: -1}).exec();
-        //console.log(resultado);
-}
-
-tablaLiderazgoOrdenada(-1,-1);
-
-
 // Nuevo Equipo POST
 const equipo = require('../models/equipo');
 async function addEquipo(nombreEquipo, pokemon_names, usuario) {
     try {
-      const newEquipo = new equipo({
-        group_name: nombreEquipo,
-        pokemon_names: pokemon_names,
-        username: usuario,
-      });
-  
-      await newEquipo.save();
-      console.log('Equipo guardado correctamente.');
+        const newEquipo = new equipo({
+            group_name: nombreEquipo,
+            pokemon_names: pokemon_names,
+            username: usuario,
+        });
+
+        await newEquipo.save();
+        console.log('Equipo guardado correctamente.');
     } catch (error) {
-      console.error('Error al guardar el equipo:', error);
+        console.error('Error al guardar el equipo:', error);
     }
 }
-  
+
 
 app.post('/save-team', (req, res) => {
     const { teamName, team, username } = req.body;
