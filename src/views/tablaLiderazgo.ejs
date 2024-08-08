@@ -31,8 +31,10 @@
         <h3 class="titulo">Tabla de liderazgo</h3>
         <p class="resumen">Tabla de liderazgo entre jugadores locales, definido por los mejores </p>
         <p class="resumen">resultados de duelos acumulados</p>
-        <div class="alert">
-        </div>
+        
+        <% if (!datos) { %>
+            <div class="alert"> Juega una partida para desbloquear tus estadísticas</div>
+            <% } else { %>
        <table id="tabla_liderazgo" class="tabla_body">
             <thead>
                 <tr>
@@ -60,6 +62,7 @@
             <% }) %>
             </tbody>
         </table>
+        <% } %>
     </div>
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
