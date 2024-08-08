@@ -8,4 +8,6 @@ const obtenerTablaLiderazgo = async () => {
 
     return (usuarios || []);
 }
-module.exports = obtenerTablaLiderazgo
+module.exports = {
+    obtenerTablaLiderazgo
+}

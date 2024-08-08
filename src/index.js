@@ -96,7 +96,7 @@ app.get('/Registro', (req, res) => {
 
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", async function (request, response) {
-    const obtenerTablaLiderazgo = require('../services/ServicioTablaLiderazgo');
+    const { obtenerTablaLiderazgo } = require('../services/ServicioUsuario');
     const datos = await obtenerTablaLiderazgo();
     console.log(datos)
     response.render('TablaLiderazgo',  {datos} );
