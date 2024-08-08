@@ -17,31 +17,41 @@ window.addEventListener('click', function(event) {
         menu.style.display = 'none';
     }
 });
-
 document.getElementById('saveButton').addEventListener('click', function() {
     var email = document.getElementById('textbox1').value;
     var password = document.getElementById('textbox2').value;
     var name = document.getElementById('textbox3').value;
     var identificacion = document.getElementById('textbox4').value;
+    var username = document.getElementById('textbox5').value;
     var profileImage = document.getElementById('foto_perfil').src;
 
     // Remueve el prefijo de la URL si está presente
     profileImage = profileImage.replace(window.location.origin + '/', '');
 
+    // Validar formato de correo electrónico
+    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        alert('Por favor, introduce un correo electrónico válido.');
+        return; // No continuar si el correo no es válido
+    }
+
+    // Validar longitud de la contraseña
+    if (password.length < 6) {
+        alert('La contraseña debe tener al menos 6 caracteres.');
+        return; // No continuar si la contraseña es demasiado corta
+    }
+
     var profileData = {
         email: email,
-        password: password, // Guarda la contraseña real
+        password: password,
         name: name,
         identificacion: identificacion,
+        username: username, 
         profileImage: profileImage
     };
 
     console.log('Datos del perfil guardados:', profileData);
-    alert('Datos guardados con éxito');
-
-    // Actualiza el contenido del <p> con el nombre ingresado
-    document.getElementById('profile-name').textContent = name;
-    
+    alert('Datos guardados con éxito'); 
     // Actualiza la foto de perfil en el header
     document.getElementById('foto_perfil').src = profileImage;
 });

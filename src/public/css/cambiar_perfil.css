@@ -207,6 +207,7 @@ div#caja {
     z-index: 1000;
     max-height: 600px; /* Ajusta esta altura según necesites */
     overflow-y: auto; /* Añade la barra de desplazamiento vertical */
+    
 }
 
 
@@ -236,4 +237,14 @@ div#caja {
 
 #saveButton:hover {
     background-color: #45a049;
+}
+#group5 {
+    margin-bottom: 20px;
+}
+
+#textbox5 {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }
