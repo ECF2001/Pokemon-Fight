@@ -74,24 +74,54 @@ const tablaLiderazgoDatos = () => {
     identificacion: '4615614',
     nombreUsuario: 'nimo23',
     foto: 'pikachu.jpg',
-    victorias: '6',
-    fotoPokemon: 'pikachu.jpg'
+    victorias: '6'
   },
   {
     identificacion: '984852',
     nombreUsuario: 'sunny76',
     foto: 'mep.jpg',
-    victorias: '58',
-    fotoPokemon: 'piku.jpg'
+    victorias: '58'
   },
   {
     identificacion: '8715124',
     nombreUsuario: 'home4',
     foto: 'stick.jpg',
-    victorias: '1',
-    fotoPokemon: 'pyroar.jpg'
+    victorias: '1'
   }
   ]
   return datos;
 }
 module.exports = tablaLiderazgoDatos
+
+//Datos de Prueba de Victorias y Derrotas contra los amigos
+const victoriasYDerrotasDatos = () => {
+  const datos = [
+    {
+    usuario1: {
+    nombreUsuario: 'nimo23',
+    equipo: 'estrellas',
+    victorias: '1'
+    },
+    usuario2: {
+    nombreUsuario: 'sunny76',
+    equipo: 'optou',
+    victorias: '3'
+    }
+  },
+  {
+    usuario1: {
+    nombreUsuario: 'cadet4',
+    equipo: 'euns',
+    derrotas: '4'
+    },
+    usuario2: {
+    nombreUsuario: 'authuser',
+    
+    equipo: 'midwe',
+    derrotas: '2'
+    }
+  }
+  ]
+  return datos;
+}
+module.exports = victoriasYDerrotasDatos

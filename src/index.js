@@ -103,8 +103,10 @@ app.get("/TablaLiderazgo", async function (request, response) {
 });
 
 //Victorias y Derrotas GET
-app.get('/VictoriasYDerrotas', (req, res) => {
-    res.render("victorias_derrotas.html");
+app.get('/VictoriasYDerrotas', async function (request, response) {
+    const datos = victoriasYDerrotasDatos();
+    console.log(datos)
+    response.render('victorias_derrotas', {datos} );
 });
 
 
@@ -134,6 +136,7 @@ app.post('/formularioInicio', (req, res) => {
 
 // Nuevo Equipo POST
 const equipo = require('../models/equipo');
+const victoriasYDerrotasDatos = require('./test');
 async function addEquipo(nombreEquipo, pokemon_names, usuario) {
     try {
         const newEquipo = new equipo({
