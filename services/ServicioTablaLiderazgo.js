@@ -8,12 +8,6 @@ const obtenerTablaLiderazgo = async () => {
         .limit(6)
         .exec();
 
-    const datos = /*await Promise.all(*/usuarios.map(/*async*/ usuario => {
-        const fotoPokemon = null;
-        return new DatosUsuarioFila(usuario.identificacion, usuario.nombreUsuario, usuario.fotoPerfil, usuario.victorias, fotoPokemon)
-
-    })/*)*/
-
-    return (datos || []);
+    return (usuarios || []);
 }
 module.exports = obtenerTablaLiderazgo
