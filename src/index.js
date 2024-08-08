@@ -95,10 +95,11 @@ app.get('/Registro', (req, res) => {
 });
 
 //Tabla de liderazgo GET
-app.get("/TablaLiderazgo", function (request, response) {
-    const tablaLiderazgoDatos = require('./test');
-    const datos = tablaLiderazgoDatos()
-    response.render('TablaLiderazgo', { datos })
+app.get("/TablaLiderazgo", async function (request, response) {
+    const obtenerTablaLiderazgo = require('../services/ServicioTablaLiderazgo');
+    const datos = await obtenerTablaLiderazgo();
+    console.log(datos)
+    response.render('TablaLiderazgo',  {datos} );
 });
 
 //Victorias y Derrotas GET
