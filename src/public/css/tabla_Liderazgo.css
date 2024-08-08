@@ -104,7 +104,7 @@ a:active {
     margin-right: auto;
     margin-top: 25px;
     margin-bottom: 25px;
-    max-width: 55%;
+    max-width: 40%;
     background-color: #D9D9D9;
     animation: fadeIn 1s ease-in forwards;
     box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
@@ -131,11 +131,10 @@ th {
 
 .th_resultados {
     border-left: 1px solid black;
-    border-right: 1px solid black;
+
 }
 
 td:nth-child(2) {
-    border-right: 1px solid black;
     border-left: 1px solid black;
 }
 

@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 
-
-
 let UsuarioSchema = new mongoose.Schema ({
 
     identificacion: {type:Number, required:true, unique:true},
