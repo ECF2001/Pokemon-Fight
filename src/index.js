@@ -154,3 +154,31 @@ app.post('/save-team', (req, res) => {
     const { teamName, team, username } = req.body;
     addEquipo(teamName, team.map(item => item.name), username);
 });
+
+
+//Registro post 
+
+const Usuario = require('../models/Usuario')
+async function addRegistro(userName, primerA, segundoA, email, id, contra) {
+    try{
+        const addRegistro = new Usuario({
+            nombre: userName,
+            primerApellido: primerA,
+            segundoApellido: segundoA,
+            nombreUsuario: userName, 
+            correo: email,
+            identificacion: id,
+            contraseña: contra    
+        });
+
+        await addRegistro.save()
+         console.log('El usuario se ha registrado correctamente.');
+    } catch (error) {
+        console.error('Error al registrar el usuario', error);
+    }
+}
+    app.post('/Registro', (req, res) => {
+    const { nombre, primerApellido, segundoApellido, nombreUsuario, correo, identificacion, contraseña } = req.body;
+    addRegistro(nombre, primerApellido,segundoApellido,nombreUsuario,correo,identificacion,contraseña);
+});
+addRegistro()   
