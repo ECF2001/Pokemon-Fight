@@ -12,13 +12,7 @@ mongoose.connect(DB_URI, {
   .then(() => console.log('DB CONECTADA'))
   .catch(err => console.log('Error al conectar con la base de datos:', err));
 
-const equiposSchema = new mongoose.Schema({
-  group_name: { type: String, required: true },
-  pokemon_names: [{ type: String }],
-  username: { type: String, required: true },
-});
-
-const equipo = mongoose.model('equipos', equiposSchema);
+const Equipo = require('../models/Equipo')
 /*
 app.use(bodyParser.json());
 
@@ -50,10 +44,10 @@ app.listen(port, () => {
 
 async function addEquipo(nombreEquipo, pokemon_names, usuario) {
   try {
-    const newEquipo = new equipo({
-      group_name: nombreEquipo,
-      pokemon_names: pokemon_names,
-      username: usuario,
+    const newEquipo = new Equipo({
+      nombreEquipo: nombreEquipo,
+      listaPokemon: pokemon_names,
+      nombreUsuario: usuario,
     });
 
     await newEquipo.save();

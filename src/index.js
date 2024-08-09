@@ -99,14 +99,14 @@ app.get("/TablaLiderazgo", async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioUsuario');
     const datos = await obtenerTablaLiderazgo();
     console.log(datos)
-    response.render('TablaLiderazgo',  {datos} );
+    response.render('TablaLiderazgo', { datos });
 });
 
 //Victorias y Derrotas GET
 app.get('/VictoriasYDerrotas', async function (request, response) {
     const datos = victoriasYDerrotasDatos();
     console.log(datos)
-    response.render('victorias_derrotas', {datos} );
+    response.render('victorias_derrotas', { datos });
 });
 
 
@@ -135,53 +135,18 @@ app.post('/formularioInicio', (req, res) => {
 
 
 // Nuevo Equipo POST
-const equipo = require('../models/equipo');
-const victoriasYDerrotasDatos = require('./test');
-async function addEquipo(nombreEquipo, pokemon_names, usuario) {
-    try {
-        const newEquipo = new equipo({
-            group_name: nombreEquipo,
-            pokemon_names: pokemon_names,
-            username: usuario,
-        });
-
-        await newEquipo.save();
-        console.log('Equipo guardado correctamente.');
-    } catch (error) {
-        console.error('Error al guardar el equipo:', error);
-    }
-}
-
-
-app.post('/save-team', (req, res) => {
-    const { teamName, team, username } = req.body;
-    addEquipo(teamName, team.map(item => item.name), username);
+app.post('/save-team', async function (request, response) {
+    const {agregarEquipo} = require('../services/ServicioEquipo');
+    const { teamName, team, username } = request.body;
+    const resultado = await agregarEquipo(teamName, team.map(item => item.name), username);
+    response.send(resultado);
 });
 
 
-//Registro post 
-
-const Usuario = require('../models/Usuario')
-async function addRegistro(userName, primerA, segundoA, email, id, contra) {
-    try{
-        const addRegistro = new Usuario({
-            nombre: userName,
-            primerApellido: primerA,
-            segundoApellido: segundoA,
-            nombreUsuario: userName, 
-            correo: email,
-            identificacion: id,
-            contraseña: contra    
-        });
-
-        await addRegistro.save()
-         console.log('El usuario se ha registrado correctamente.');
-    } catch (error) {
-        console.error('Error al registrar el usuario', error);
-    }
-}
-    app.post('/Registro', (req, res) => {
-    const { nombre, primerApellido, segundoApellido, nombreUsuario, correo, identificacion, contraseña } = req.body;
-    addRegistro(nombre, primerApellido,segundoApellido,nombreUsuario,correo,identificacion,contraseña);
+//Registro POST 
+app.post('/Registro', async function (request, response) {
+    const { agregarRegistro } = require('../services/ServicioUsuario');
+    const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena } = request.body;
+    const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);
+    response.send(resultado);
 });
-addRegistro()   

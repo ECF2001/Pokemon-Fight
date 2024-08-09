@@ -6,6 +6,6 @@ const equiposSchema = new mongoose.Schema({
   nombreUsuario: { type: String, required: true, ref: 'Usuario' },
 });
 
-let equipo = mongoose.model('equipo', equiposSchema);
+let Equipo = mongoose.model('Equipo', equiposSchema);
 
-module.exports = equipo;
+module.exports = Equipo;
