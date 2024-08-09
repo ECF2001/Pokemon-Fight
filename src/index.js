@@ -109,6 +109,9 @@ app.get('/VictoriasYDerrotas', async function (request, response) {
     console.log(datos)
     response.render('victorias_derrotas', { datos });
 });
+app.get('/Batalla', (req, res) => {
+    res.render("batalla.html");
+});
 
 
 
