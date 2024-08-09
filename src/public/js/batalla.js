@@ -6,28 +6,34 @@ let ataqueSeleccionado1 = null;
 let ataqueSeleccionado2 = null;
 let pokemon1Vivo = true;
 let pokemon2Vivo = true;
+let equipo1 = [];
+let equipo2 = [];
+let indexPokemon1 = 0;
+let indexPokemon2 = 0;
 
-// Devolver un string con la primera letra mayúscula
+// Función para capitalizar nombres
 function capitalizar(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// Cargar lista de Pokémon
 async function fetchListaPokemon() {
   try {
-    const respuesta = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151&offset=0");
+    const respuesta = await fetch("https://pokeapi.co/api/v2/pokemon?limit=6&offset=0");
     const resultado = await respuesta.json();
     listaPokemon = resultado.results;
 
-    const select1 = document.getElementById("pokemon1");
-    const select2 = document.getElementById("pokemon2");
+    // Selecciona dos Pokémon aleatorios para iniciar la batalla
+    const randomIndex1 = Math.floor(Math.random() * listaPokemon.length);
+    const randomIndex2 = Math.floor(Math.random() * listaPokemon.length);
 
-    select1.innerHTML = listaPokemon.map(pokemon => `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`);
-    select2.innerHTML = listaPokemon.map(pokemon => `<option value='${pokemon.url}'>${capitalizar(pokemon.name)}</option>`);
+    await cargarPokemones(listaPokemon[randomIndex1].url, listaPokemon[randomIndex2].url);
   } catch (error) {
     console.error(error);
   }
 }
 
+// Obtener datos del Pokémon
 async function fetchPokemon(url) {
   try {
     const respuesta = await fetch(url);
@@ -38,54 +44,39 @@ async function fetchPokemon(url) {
   }
 }
 
-const cargarPokemones = async () => {
-  const select1 = document.getElementById("pokemon1");
-  const select2 = document.getElementById("pokemon2");
+// Cargar equipos Pokémon con 6 Pokémon cada uno
+async function cargarPokemones(urlPokemon1, urlPokemon2) {
+  equipo1 = await Promise.all([...Array(6)].map(async () => {
+    const randomIndex = Math.floor(Math.random() * listaPokemon.length);
+    return await fetchPokemon(listaPokemon[randomIndex].url);
+  }));
 
-  const pokemonSeleccionado1 = select1.options[select1.selectedIndex].value;
-  const pokemonSeleccionado2 = select2.options[select2.selectedIndex].value;
+  equipo2 = await Promise.all([...Array(6)].map(async () => {
+    const randomIndex = Math.floor(Math.random() * listaPokemon.length);
+    return await fetchPokemon(listaPokemon[randomIndex].url);
+  }));
 
-  pokemon1 = await fetchPokemon(pokemonSeleccionado1);
-  pokemon1.hp = pokemon1.stats[0].base_stat;
-  pokemon2 = await fetchPokemon(pokemonSeleccionado2);
-  pokemon2.hp = pokemon2.stats[0].base_stat;
+  // Asignar HP inicial
+  equipo1.forEach(pokemon => pokemon.hp = pokemon.stats[0].base_stat);
+  equipo2.forEach(pokemon => pokemon.hp = pokemon.stats[0].base_stat);
 
-  const imagenPokemon1 = document.getElementById("imagen-pokemon1");
-  imagenPokemon1.src = pokemon1.sprites.back_default;
-  const imagenPokemon2 = document.getElementById("imagen-pokemon2");
-  imagenPokemon2.src = pokemon2.sprites.front_default;
+  actualizarInterfazPokemon(equipo1[0], 'pokemon1');
+  actualizarInterfazPokemon(equipo2[0], 'pokemon2');
 
-  const nombrePokemon1 = document.getElementById("nombre-pokemon1");
-  nombrePokemon1.innerHTML = capitalizar(pokemon1.name);
-  const nombrePokemon2 = document.getElementById("nombre-pokemon2");
-  nombrePokemon2.innerHTML = capitalizar(pokemon2.name);
-
-  const hpPokemon1 = document.getElementById("vida-pokemon1");
-  hpPokemon1.value = pokemon1.hp;
-  hpPokemon1.max = pokemon1.stats[0].base_stat;
-  const hpLabelPokemon1 = document.getElementById("label-hp1");
-  hpLabelPokemon1.innerHTML = `${pokemon1.hp}/${pokemon1.stats[0].base_stat}`;
-
-  const hpPokemon2 = document.getElementById("vida-pokemon2");
-  hpPokemon2.value = pokemon2.hp;
-  hpPokemon2.max = pokemon2.stats[0].base_stat;
-  const hpLabelPokemon2 = document.getElementById("label-hp2");
-  hpLabelPokemon2.innerHTML = `${pokemon2.hp}/${pokemon2.stats[0].base_stat}`;
-
-  ataquesPokemon1 = await generarAtaques(pokemon1);
-  ataquesPokemon2 = await generarAtaques(pokemon2);
+  ataquesPokemon1 = await generarAtaques(equipo1[0]);
+  ataquesPokemon2 = await generarAtaques(equipo2[0]);
 
   actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
   actualizarContenedoresAtaques(ataquesPokemon2, "ataques-2");
 
-  // Reiniciar las selecciones de ataques
   ataqueSeleccionado1 = null;
   ataqueSeleccionado2 = null;
   pokemon1Vivo = true;
   pokemon2Vivo = true;
   ataqueEnCurso = false;
-};
+}
 
+// Obtener y filtrar ataques
 const obtenerAtaques = async (pokemon) => {
   const movesPokemon = [];
   let moveList = pokemon.moves;
@@ -105,18 +96,14 @@ const obtenerAtaques = async (pokemon) => {
 
 const generarAtaques = async (pokemon) => {
   let ataques = await obtenerAtaques(pokemon);
-
-  // Filtrar ataques con poder
   const ataquesConPoder = ataques.filter(ataque => ataque.power !== null && ataque.power !== undefined);
 
-  // Si no hay suficientes ataques con poder, seguir buscando más
   while (ataquesConPoder.length < 4) {
     const nuevosAtaques = await obtenerAtaques(pokemon);
     ataquesConPoder.push(...nuevosAtaques.filter(ataque => ataque.power !== null && ataque.power !== undefined));
-    ataquesConPoder.splice(4); // Limitar a 4 ataques con poder
+    ataquesConPoder.splice(4);
   }
 
-  // Si hay más de 4 ataques con poder, seleccionar aleatoriamente 4
   if (ataquesConPoder.length > 4) {
     ataquesConPoder.sort(() => 0.5 - Math.random()).slice(0, 4);
   }
@@ -124,6 +111,7 @@ const generarAtaques = async (pokemon) => {
   return ataquesConPoder;
 };
 
+// Actualizar contenedores de ataques
 const actualizarContenedoresAtaques = (ataques, contenedorId) => {
   const contenedor = document.getElementById(contenedorId);
   contenedor.innerHTML = ataques.map(ataque =>
@@ -131,6 +119,7 @@ const actualizarContenedoresAtaques = (ataques, contenedorId) => {
   ).join('');
 };
 
+// Selección de ataque
 const seleccionarAtaque = (dano, receptor) => {
   if (ataqueEnCurso) return;
 
@@ -150,12 +139,12 @@ const seleccionarAtaque = (dano, receptor) => {
     console.log(`Ataque seleccionado para Pokémon 2: ${dano}`);
   }
 
-  // Verificar si ambos ataques están seleccionados
   if (ataqueSeleccionado1 !== null && ataqueSeleccionado2 !== null) {
     atacar();
   }
 };
 
+// Realizar ataques
 const atacar = () => {
   if (ataqueEnCurso) return;
 
@@ -163,63 +152,123 @@ const atacar = () => {
   
   console.log(`Preparando ataques: Pokémon 1 con daño ${ataqueSeleccionado1} y Pokémon 2 con daño ${ataqueSeleccionado2}`);
   
-  // Ejecutar los ataques con un pequeño retraso
   setTimeout(() => {
     if (pokemon2Vivo) aplicarDano(ataqueSeleccionado1, 'pokemon2');
     setTimeout(() => {
       if (pokemon1Vivo) aplicarDano(ataqueSeleccionado2, 'pokemon1');
       setTimeout(() => {
-        // Restablecer selección de ataques
         ataqueSeleccionado1 = null;
         ataqueSeleccionado2 = null;
+        ataqueEnCurso = false;
         actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
         actualizarContenedoresAtaques(ataquesPokemon2, "ataques-2");
-      }, 500); // Retraso para el segundo ataque
+      }, 500);
     }, 500);
   }, 500);
 };
 
+// Aplicar daño y verificar cambio de Pokémon
 function aplicarDano(dano, receptor) {
-  const pokemonReceptor = receptor === "pokemon1" ? pokemon1 : pokemon2;
+  const equipo = receptor === "pokemon1" ? equipo1 : equipo2;
+  const indexActual = receptor === "pokemon1" ? indexPokemon1 : indexPokemon2;
 
-  pokemonReceptor.hp -= dano;
-  if (pokemonReceptor.hp < 0) pokemonReceptor.hp = 0;
+  equipo[indexActual].hp -= dano;
+  if (equipo[indexActual].hp < 0) equipo[indexActual].hp = 0;
 
-  console.log(`Aplicando daño ${dano} a ${pokemonReceptor.name}. HP restante: ${pokemonReceptor.hp}`);
+  console.log(`Aplicando daño ${dano} a ${equipo[indexActual].name}. HP restante: ${equipo[indexActual].hp}`);
   
   const imagenReceptor = document.getElementById(`imagen-${receptor}`);
   imagenReceptor.classList.add("dano");
   setTimeout(() => {
     imagenReceptor.classList.remove("dano");
-    if (pokemonReceptor.hp === 0) {
+    if (equipo[indexActual].hp === 0) {
       imagenReceptor.classList.add("muerto");
       if (receptor === "pokemon1") {
         pokemon1Vivo = false;
         console.log("Pokémon 1 está muerto.");
+        cambiarPokemon("pokemon1");
       } else {
         pokemon2Vivo = false;
         console.log("Pokémon 2 está muerto.");
+        cambiarPokemon("pokemon2");
       }
-      // Deshabilitar ataques si un Pokémon está muerto
       actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
       actualizarContenedoresAtaques(ataquesPokemon2, "ataques-2");
     }
   }, 500);
   
-  // Actualizar HP en la interfaz
   actualizarHP(receptor);
 }
 
+// Actualizar HP en la interfaz
 function actualizarHP(pokemon) {
-  const hpPokemon = pokemon === "pokemon1" ? pokemon1 : pokemon2;
+  const equipo = pokemon === "pokemon1" ? equipo1 : equipo2;
+  const indexActual = pokemon === "pokemon1" ? indexPokemon1 : indexPokemon2;
   const hpElemento = document.getElementById(`vida-${pokemon}`);
   const hpLabel = document.getElementById(`label-hp${pokemon === "pokemon1" ? "1" : "2"}`);
   
-  hpElemento.value = hpPokemon.hp;
-  hpElemento.max = hpPokemon.stats[0].base_stat;
-  hpLabel.innerHTML = `${hpPokemon.hp}/${hpPokemon.stats[0].base_stat}`;
+  hpElemento.value = equipo[indexActual].hp;
+  hpElemento.max = equipo[indexActual].stats[0].base_stat;
+  hpLabel.innerHTML = `${equipo[indexActual].hp}/${equipo[indexActual].stats[0].base_stat}`;
 }
 
+// Cambiar al siguiente Pokémon en el equipo
+async function cambiarPokemon(id) {
+  const equipo = id === 'pokemon1' ? equipo1 : equipo2;
+  const indexActual = id === 'pokemon1' ? indexPokemon1 : indexPokemon2;
+
+  if (indexActual + 1 < equipo.length) {
+    if (id === 'pokemon1') {
+      indexPokemon1++;
+      pokemon1Vivo = true;
+    } else {
+      indexPokemon2++;
+      pokemon2Vivo = true;
+    }
+    actualizarInterfazPokemon(equipo[indexActual + 1], id);
+
+    const nuevosAtaques = id === 'pokemon1' 
+      ? await generarAtaques(equipo[indexPokemon1]) 
+      : await generarAtaques(equipo[indexPokemon2]);
+
+    actualizarContenedoresAtaques(nuevosAtaques, id === 'pokemon1' ? 'ataques-1' : 'ataques-2');
+  } else {
+    verificarFinDeBatalla();
+  }
+}
+// Verificar si todos los Pokémon de un equipo han sido derrotados
+function verificarFinDeBatalla() {
+  const equipo1Derrotado = equipo1.every(pokemon => pokemon.hp === 0);
+  const equipo2Derrotado = equipo2.every(pokemon => pokemon.hp === 0);
+
+  if (equipo1Derrotado || equipo2Derrotado) {
+    finalizarBatalla(equipo1Derrotado ? 'Equipo 2' : 'Equipo 1');
+  }
+}
+// Finalizar la batalla
+function finalizarBatalla(ganador) {
+  console.log(`La batalla ha terminado. ${ganador} ha ganado.`);
+  const botonesAtaque = document.querySelectorAll('.boton-ataque');
+  botonesAtaque.forEach(boton => boton.disabled = true);
+
+  const mensajeFinal = document.createElement("p");
+  mensajeFinal.innerHTML = `La batalla ha terminado. ${ganador} ha ganado.`;
+  mensajeFinal.style.textAlign = "center";
+  mensajeFinal.style.fontSize = "24px";
+  mensajeFinal.style.color = "#3b4cca";
+  document.body.appendChild(mensajeFinal);
+}
+
+// Actualizar la interfaz con el Pokémon seleccionado
+function actualizarInterfazPokemon(pokemon, id) {
+  document.getElementById(`nombre-${id}`).innerHTML = capitalizar(pokemon.name);
+  document.getElementById(`imagen-${id}`).src = pokemon.sprites.front_default;
+  document.getElementById(`vida-${id}`).max = pokemon.stats[0].base_stat;
+  document.getElementById(`vida-${id}`).value = pokemon.hp;
+  document.getElementById(`label-hp${id === "pokemon1" ? "1" : "2"}`).innerHTML = `${pokemon.hp}/${pokemon.stats[0].base_stat}`;
+}
+
+// Inicialización automática de la batalla
 window.onload = function () {
   fetchListaPokemon();
 };
