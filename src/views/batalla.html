@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/batalla.css" />
+    <script src="/js/batalla.js" type="text/javascript"></script>
+    <title>Document</title>
+</head>
+<body>
+  <main>
+    <form>
+      <div class="fila">
+        <div class="fila">
+          <label for="pokemon1">Escoja su Pokémon:</label>
+          <select id="pokemon1">
+            <option>Escoja</option>
+          </select>
+        </div>
+
+        <div class="fila">
+          <label for="pokemon2">Escoja su Pokémon:</label>
+          <select id="pokemon2">
+            <option>Escoja</option>
+          </select>
+        </div>
+      </div>
+
+      <button
+        class="boton-seleccionar"
+        onclick="cargarPokemones()"
+        id="boton2"
+        type="button"
+      >
+        Seleccionar
+      </button>
+    </form>
+
+    <div class="contenedor-batalla">
+      <div>
+        <img class="imagen-pokemon" id="imagen-pokemon1" />
+        <p id="nombre-pokemon1"></p>
+        <progress id="vida-pokemon1"></progress>
+        <label for="vida-pokemon1" id="label-hp1"></label>
+      </div>
+      <div id="ataques-1"></div>
+
+      <div>
+        <img class="imagen-pokemon" id="imagen-pokemon2" />
+        <p id="nombre-pokemon2"></p>
+        <progress id="vida-pokemon2"></progress>
+        <label for="vida-pokemon2" id="label-hp2"></label>
+      </div>
+      <div id="ataques-2"></div>
+    </div>
+  </main>
+</body>
+</html>
