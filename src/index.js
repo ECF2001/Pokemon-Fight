@@ -133,14 +133,7 @@ app.post('/Registro', async function (request, response) {
     response.send(resultado);
 });
 
-// Importar el modelo de Equipo para elegir equipo
 
-app.get('/equipo', async function (request, response) {
-    const {obtenerVictoriasYDerrotas} = require('../services/ServicioEquipo');
-    const datos = await obtenerEquipo("nimo23");
-    console.log()
-    response.render('nombreEquipo1', { datos });
-});
 
 
 
