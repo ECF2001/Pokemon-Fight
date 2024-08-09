@@ -12,7 +12,7 @@ mongoose.connect(DB_URI, {
   .then(() => console.log('DB CONECTADA'))
   .catch(err => console.log('Error al conectar con la base de datos:', err));
 
-const Equipo = require('../models/Equipo')
+//const Equipo = require('../models/Equipo')
 /*
 app.use(bodyParser.json());
 
