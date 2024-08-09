@@ -1,5 +1,3 @@
-
-
 async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
    
     try {
