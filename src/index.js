@@ -109,33 +109,11 @@ app.get('/VictoriasYDerrotas', async function (request, response) {
     console.log(datos)
     response.render('victorias_derrotas', { datos });
 });
+
 app.get('/Batalla', (req, res) => {
     res.render("batalla.html");
 });
 
-
-
-//POST
-
-app.post('/addCategory', (req, res) => {
-    let nombre = "Steph";
-
-    if (nombre == req.body.colorName) {
-        res.redirect('/');
-    }
-    console.log("No es igual");
-    res.redirect('/Contactenos');
-});
-
-//POST INCIO DE SESION
-app.post('/formularioInicio', (req, res) => {
-    let correo = "ejemplo123@gmail.com";
-    if (correo == req.body.correoInicio) {
-        res.redirect('PaginaPrincipal');
-    }
-    console.log("No es igual");
-    res.redirect('/inicioSesion');
-});
 
 
 // Nuevo Equipo POST
