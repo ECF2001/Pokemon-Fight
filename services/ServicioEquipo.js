@@ -1,15 +1,15 @@
-const Equipo = require('../models/Equipo');
 
-async function agregarEquipo(nombreEquipo, pokemon_names, usuario) {
+
+async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
    
     try {
-        const newEquipo = new Equipo({
-            group_name: nombreEquipo,
-            pokemon_names: pokemon_names,
-            username: usuario,
+        const nuevoEquipo = new Equipo({
+            nombreEquipo: nombreEquipo,
+            listaPokemon: listaPokemon,
+            nombreUsuario: nombreUsuario,
         });
 
-        await newEquipo.save();
+        await nuevoEquipo.save();
         console.log('Equipo guardado correctamente.');
     } catch (error) {
         console.error('Error al guardar el equipo:', error);
