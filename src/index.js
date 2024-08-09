@@ -104,7 +104,8 @@ app.get("/TablaLiderazgo", async function (request, response) {
 
 //Victorias y Derrotas GET
 app.get('/VictoriasYDerrotas', async function (request, response) {
-    const datos = victoriasYDerrotasDatos();
+    const {obtenerVictoriasYDerrotas} = require('../services/ServicioVictoriasYDerrotas');
+    const datos = await obtenerVictoriasYDerrotas("nimo23");
     console.log(datos)
     response.render('victorias_derrotas', { datos });
 });

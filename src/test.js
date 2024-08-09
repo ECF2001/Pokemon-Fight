@@ -85,36 +85,42 @@ const tablaLiderazgoDatos = () => {
   ]
   return datos;
 }
-module.exports = tablaLiderazgoDatos
+
 
 //Datos de Prueba de Victorias y Derrotas contra los amigos
 const victoriasYDerrotasDatos = () => {
-  const datos = [
+  const datos = {
+    victorias:[
     {
     usuario1: {
+    foto: 'foto1',
     nombreUsuario: 'nimo23',
-    equipo: 'estrellas',
-    victorias: '1'
+    equipo: 'estrellas'
     },
     usuario2: {
+    foto: 'foto2',
     nombreUsuario: 'sunny76',
-    equipo: 'optou',
-    victorias: '3'
+    equipo: 'optou'
     }
-  },
+  }],
+  derrotas: [
   {
     usuario1: {
+    foto: 'foto1',
     nombreUsuario: 'cadet4',
-    equipo: 'euns',
-    derrotas: '4'
+    equipo: 'euns'
     },
     usuario2: {
+    foto: 'foto2',
     nombreUsuario: 'authuser',
-    equipo: 'midwe',
-    derrotas: '2'
+    equipo: 'midwe'
     }
   }
-  ]
+  ]}
   return datos;
 }
-module.exports = victoriasYDerrotasDatos
+module.exports = {
+  victoriasYDerrotasDatos,
+  tablaLiderazgoDatos
+}
+

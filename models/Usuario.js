@@ -9,11 +9,8 @@ let UsuarioSchema = new mongoose.Schema ({
     segundoApellido:{type:String, required:true},
     correo:{type:String, required:true, unique:true},
     contrasena: {type:String, required:true},
-    amigos:{type:String, required:true},
-    equipos:{type:String, required:true},
-    victorias:{type:Number, required:true},  
-    derrotas:{type:Number, required:true},
-    fotoPerfil:{type:String, required:true}
+    amigos:[{type:String}],
+    fotoPerfil:{type:String}
 
 },{versionKey:false})
 

@@ -30,55 +30,56 @@
         <h3 class="titulo">Victorias y derrotas contra tus amigos</h3>
         <table class="tabla_body_victorias">
                 <h3 class="titulo">Victorias</h3>
-            <% datos.forEach(dato =>{ %>
+            <% datos.victorias.forEach(victoria =>{ %>
             <tr>
                 <td>
                     <div class="caja_Usuario">
-                        <img class="imagen_Personajes" src="<%= dato.foto %>">
-                            <%= dato.nombreUsuario %>
+                        <img class="imagen_Personajes" src="<%= victoria.usuario1.foto %>">
+                            <%= victoria.usuario1.nombreUsuario %>
                     </div>
                 </td>
                 <td>
-                    <p>Equipo: <%= dato.equipo %></p>
+                    <p>Equipo: <%= victoria.usuario1.equipo %></p>
                 </td>
                 <td>V.S</td>
                 <td>
                     <div class="caja_Usuario">
-                        <img class="imagen_Personajes" src="<%= dato.foto %>">
-                            <%= dato.amigos %>
+                        <img class="imagen_Personajes" src="<%= victoria.usuario2.foto %>">
+                            <%= victoria.usuario2.nombreUsuario %>
                     </div>
                 </td>
                 <td>
-                    <p><%= dato.equipo %>Equipo</p>
+                    <p>Equipo: <%= victoria.usuario2.equipo %></p>
                 </td>
             </tr>
-           
+           <% }) %>
         </table>
     </div>
     <table class="tabla_body_derrotas">
             <h3 class="titulo">Derrotas</h3>
-            <tr>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes" src="<%= dato.foto %>">
-                            <%= dato.nombreUsuario %>
-                    </div>
-                </td>
-                <td>
-                    <p><%= dato.equipo %>Equipo</p>
-                </td>
-                <td>V.S</td>
-                <td>
-                    <div class="caja_Usuario">
-                        <img class="imagen_Personajes" src="<%= dato.foto %>">
-                            <%= dato.nombreUsuario %>
-                    </div>
-                </td>
-                <td>
-                    <p><%= dato.equipo %>Equipo</p>
-                </td>
-            </tr>
-            <% }) %>
+            <% datos.derrotas.forEach(derrota =>{ %>
+                <tr>
+                    <td>
+                        <div class="caja_Usuario">
+                            <img class="imagen_Personajes" src="<%= derrota.usuario1.foto %>">
+                                <%= derrota.usuario1.nombreUsuario %>
+                        </div>
+                    </td>
+                    <td>
+                        <p>Equipo: <%= derrota.usuario1.equipo %></p>
+                    </td>
+                    <td>V.S</td>
+                    <td>
+                        <div class="caja_Usuario">
+                            <img class="imagen_Personajes" src="<%= derrota.usuario2.foto %>">
+                                <%= derrota.usuario2.nombreUsuario %>
+                        </div>
+                    </td>
+                    <td>
+                        <p>Equipo: <%= derrota.usuario2.equipo %></p>
+                    </td>
+                </tr>
+               <% }) %>
     </table>
 </div>
     <div class="footer"> <!--FOOTER-->
