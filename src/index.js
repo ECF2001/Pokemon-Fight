@@ -118,7 +118,7 @@ app.get('/Batalla', (req, res) => {
 
 // Nuevo Equipo POST
 app.post('/save-team', async function (request, response) {
-    const {agregarEquipo, obtenerEquipo} = require('../services/ServicioEquipo');
+    const {agregarEquipo} = require('../services/ServicioEquipo');
     const { teamName, team, username } = request.body;
     const resultado = await agregarEquipo(teamName, team.map(item => item.name), username);
     response.send(resultado);
