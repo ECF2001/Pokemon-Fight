@@ -14,17 +14,7 @@ async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
     }
 }
 
-async function obtenerEquipo(nombreEquipo) {
-    try {
-        const equipo = await Equipo.findOne({ nombreEquipo: nombreEquipo });
-        return equipo;
-    } catch (error) {
-        console.error('Error al obtener el equipo:', error);
-        throw error;
-    }
-}
 
 module.exports = {
     agregarEquipo,
-    obtenerEquipo
 }
