@@ -1,10 +1,9 @@
-// const name = require('ejs');
 const mongoose = require('mongoose');
 
 const equiposSchema = new mongoose.Schema({
-  group_name: { type: String, required: true },
-  pokemon_names: [{ type: String }],
-  username: { type: String, required: true },
+  nombreEquipo: { type: String, required: true, unique:true },
+  listaPokemon:  {type: [String], default: [] },
+  nombreUsuario: { type: String, required: true, ref: 'Usuario' },
 });
 
 let equipo = mongoose.model('equipo', equiposSchema);

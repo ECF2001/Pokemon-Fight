@@ -4,7 +4,7 @@ let UsuarioSchema = new mongoose.Schema ({
 
     identificacion: {type:Number, required:true, unique:true},
     nombre: {type:String, required:true},
-    nombreUsuario:{type:String, required:true},
+    nombreUsuario:{type:String, required:true, unique:true},
     primerApellido:{type:String, required:true},
     segundoApellido:{type:String, required:true},
     correo:{type:String, required:true, unique:true},
@@ -16,6 +16,9 @@ let UsuarioSchema = new mongoose.Schema ({
     fotoPerfil:{type:String, required:true}
 
 },{versionKey:false})
+
+//indica el indentificador de esta tabla principal
+UsuarioSchema.index({nombreUsuario: 1}, {unique: true});
 
 let Usuario = new mongoose.model('Usuario', UsuarioSchema);
 

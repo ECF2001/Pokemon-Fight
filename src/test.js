@@ -116,7 +116,6 @@ const victoriasYDerrotasDatos = () => {
     },
     usuario2: {
     nombreUsuario: 'authuser',
-    
     equipo: 'midwe',
     derrotas: '2'
     }
