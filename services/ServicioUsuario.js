@@ -11,7 +11,7 @@ const obtenerTablaLiderazgo = async () => {
 
 const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena) => {
     try {
-        const usuario = new Usuario({
+            const usuario = new Usuario({
             nombre: nombre,
             primerApellido: primerApellido,
             segundoApellido: segundoApellido,
