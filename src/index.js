@@ -117,12 +117,11 @@ app.get('/Batalla', (req, res) => {
 
 
 // Nuevo Equipo POST
-app.post('/guardarInformacion', async function (request, response) {
+app.post('/guardarEquipo', async function (request, response) {
     const {agregarEquipo} = require('../services/ServicioEquipo');
     const { nombreEquipo, listaPokemon, nombreUsuario } = request.body;
     const resultado = await agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario);
     response.send(resultado);
-
 });
 
 

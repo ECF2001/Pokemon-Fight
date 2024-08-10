@@ -1,9 +1,9 @@
 const apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1012';
 const cuerpo = document.getElementById('cuerpo');
-const pokemonsSelecionadosContainer = document.getElementById('contenedor-pokemon-seleccionado');
+var pokemonsSelecionadosContainer = document.getElementById('contenedor-pokemon-seleccionado');
 const salvarEquipoButton = document.getElementById('salvar-equipo');
-const nombreEquipoInput = document.getElementById('nombre-equipo');
-const nombreUsuarioInput = document.getElementById('nombre-usuario');
+let nombreEquipoInput = document.getElementById('nombre-equipo');
+let nombreUsuarioInput = document.getElementById('nombre-usuario');
 
 let pokemonsSelecionados = [];
 
@@ -78,24 +78,27 @@ function updatepokemonsSelecionadosList() {
 }
 
 async function saveTeam() {
-  const nombreEquipo = nombreEquipoInput.value.trim();
-  const nombreUsuario = nombreUsuarioInput.value.trim();
+  const nombreEquipo = document.getElementById('nombreEquipo').value.trim();
+  const nombreUsuario = document.getElementById('nombreUsuario').value.trim();
   
   if (nombreEquipo === '' || nombreUsuario === '') {
     alert('Por favor, ingrese el nombre del equipo y del usuario');
     return;
   }
+
+  const listaP = pokemonsSelecionados.map(item => item.name);
+
   if (pokemonsSelecionados.length === 6) {
     try {
-      const response = await fetch('http://localhost:3000/save-team', {
+      const response = await fetch('http://localhost:3000/guardarEquipo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          teamName: nombreEquipo,
-          team: pokemonsSelecionados,
-          username: nombreUsuario,
+          nombreEquipo: nombreEquipo,
+          listaPokemon: listaP,
+          nombreUsuario: nombreUsuario,
         })
       });
 
