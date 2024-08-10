@@ -1,74 +1,58 @@
-let listaPokemon, pokemon1, pokemon2;
-let ataquesPokemon1 = [];
-let ataquesPokemon2 = [];
-let ataqueEnCurso = false;
-let ataqueSeleccionado1 = null;
-let ataqueSeleccionado2 = null;
-let pokemon1Vivo = true;
-let pokemon2Vivo = true;
 let equipo1 = [];
 let equipo2 = [];
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
+let pokemon1Vivo = true;
+let pokemon2Vivo = true;
+let ataqueEnCurso = false;
+let ataqueSeleccionado1 = null;
+let ataqueSeleccionado2 = null;
+let ataquesPokemon1 = [];
+let ataquesPokemon2 = [];
+
+// Definir los nombres de los Pokémon en cada equipo
+const nombresEquipo1 = ['bulbasaur', 'ivysaur', 'venusaur', 'charmander', 'charmeleon', 'charizard'];
+const nombresEquipo2 = ['squirtle', 'wartortle', 'blastoise', 'caterpie', 'metapod', 'butterfree'];
 
 // Función para capitalizar nombres
 function capitalizar(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// Cargar lista de Pokémon
-async function fetchListaPokemon() {
+// Obtener datos del Pokémon usando su nombre
+async function fetchPokemonPorNombre(nombre) {
   try {
-    const respuesta = await fetch("https://pokeapi.co/api/v2/pokemon?limit=6&offset=0");
-    const resultado = await respuesta.json();
-    listaPokemon = resultado.results;
-
-    // Selecciona dos Pokémon aleatorios para iniciar la batalla
-    const randomIndex1 = Math.floor(Math.random() * listaPokemon.length);
-    const randomIndex2 = Math.floor(Math.random() * listaPokemon.length);
-
-    await cargarPokemones(listaPokemon[randomIndex1].url, listaPokemon[randomIndex2].url);
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-// Obtener datos del Pokémon
-async function fetchPokemon(url) {
-  try {
-    const respuesta = await fetch(url);
+    const respuesta = await fetch(`https://pokeapi.co/api/v2/pokemon/${nombre}`);
     const datos = await respuesta.json();
     return datos;
   } catch (error) {
-    console.error(error);
+    console.error(`Error al obtener datos de ${nombre}:`, error);
   }
 }
 
-// Cargar equipos Pokémon con 6 Pokémon cada uno
-async function cargarPokemones(urlPokemon1, urlPokemon2) {
-  equipo1 = await Promise.all([...Array(6)].map(async () => {
-    const randomIndex = Math.floor(Math.random() * listaPokemon.length);
-    return await fetchPokemon(listaPokemon[randomIndex].url);
-  }));
+// Cargar equipos Pokémon usando los nombres definidos
+async function cargarPokemones() {
+  // Obtener datos de los Pokémon del equipo 1
+  equipo1 = await Promise.all(nombresEquipo1.map(nombre => fetchPokemonPorNombre(nombre)));
 
-  equipo2 = await Promise.all([...Array(6)].map(async () => {
-    const randomIndex = Math.floor(Math.random() * listaPokemon.length);
-    return await fetchPokemon(listaPokemon[randomIndex].url);
-  }));
+  // Obtener datos de los Pokémon del equipo 2
+  equipo2 = await Promise.all(nombresEquipo2.map(nombre => fetchPokemonPorNombre(nombre)));
 
   // Asignar HP inicial
   equipo1.forEach(pokemon => pokemon.hp = pokemon.stats[0].base_stat);
   equipo2.forEach(pokemon => pokemon.hp = pokemon.stats[0].base_stat);
 
-  actualizarInterfazPokemon(equipo1[0], 'pokemon1');
-  actualizarInterfazPokemon(equipo2[0], 'pokemon2');
+  // Inicializar los Pokémon y ataques
+  actualizarInterfazPokemon(equipo1[indexPokemon1], 'pokemon1');
+  actualizarInterfazPokemon(equipo2[indexPokemon2], 'pokemon2');
 
-  ataquesPokemon1 = await generarAtaques(equipo1[0]);
-  ataquesPokemon2 = await generarAtaques(equipo2[0]);
+  ataquesPokemon1 = await generarAtaques(equipo1[indexPokemon1]);
+  ataquesPokemon2 = await generarAtaques(equipo2[indexPokemon2]);
 
   actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
   actualizarContenedoresAtaques(ataquesPokemon2, "ataques-2");
 
+  // Restablecer el estado de ataque
   ataqueSeleccionado1 = null;
   ataqueSeleccionado2 = null;
   pokemon1Vivo = true;
@@ -227,48 +211,37 @@ async function cambiarPokemon(id) {
     }
     actualizarInterfazPokemon(equipo[indexActual + 1], id);
 
-    const nuevosAtaques = id === 'pokemon1' 
-      ? await generarAtaques(equipo[indexPokemon1]) 
+    const nuevosAtaques = id === 'pokemon1'
+      ? await generarAtaques(equipo[indexPokemon1])
       : await generarAtaques(equipo[indexPokemon2]);
 
-    actualizarContenedoresAtaques(nuevosAtaques, id === 'pokemon1' ? 'ataques-1' : 'ataques-2');
+    actualizarContenedoresAtaques(nuevosAtaques, id === 'pokemon1' ? "ataques-1" : "ataques-2");
   } else {
-    verificarFinDeBatalla();
+    if (id === 'pokemon1') {
+      pokemon1Vivo = false;
+      console.log("Equipo 1 ha perdido todos los Pokémon.");
+    } else {
+      pokemon2Vivo = false;
+      console.log("Equipo 2 ha perdido todos los Pokémon.");
+    }
   }
 }
-// Verificar si todos los Pokémon de un equipo han sido derrotados
-function verificarFinDeBatalla() {
-  const equipo1Derrotado = equipo1.every(pokemon => pokemon.hp === 0);
-  const equipo2Derrotado = equipo2.every(pokemon => pokemon.hp === 0);
 
-  if (equipo1Derrotado || equipo2Derrotado) {
-    finalizarBatalla(equipo1Derrotado ? 'Equipo 2' : 'Equipo 1');
-  }
-}
-// Finalizar la batalla
-function finalizarBatalla(ganador) {
-  console.log(`La batalla ha terminado. ${ganador} ha ganado.`);
-  const botonesAtaque = document.querySelectorAll('.boton-ataque');
-  botonesAtaque.forEach(boton => boton.disabled = true);
-
-  const mensajeFinal = document.createElement("p");
-  mensajeFinal.innerHTML = `La batalla ha terminado. ${ganador} ha ganado.`;
-  mensajeFinal.style.textAlign = "center";
-  mensajeFinal.style.fontSize = "24px";
-  mensajeFinal.style.color = "#3b4cca";
-  document.body.appendChild(mensajeFinal);
-}
-
-// Actualizar la interfaz con el Pokémon seleccionado
+// Actualizar interfaz del Pokémon en batalla
 function actualizarInterfazPokemon(pokemon, id) {
-  document.getElementById(`nombre-${id}`).innerHTML = capitalizar(pokemon.name);
-  document.getElementById(`imagen-${id}`).src = pokemon.sprites.front_default;
-  document.getElementById(`vida-${id}`).max = pokemon.stats[0].base_stat;
-  document.getElementById(`vida-${id}`).value = pokemon.hp;
-  document.getElementById(`label-hp${id === "pokemon1" ? "1" : "2"}`).innerHTML = `${pokemon.hp}/${pokemon.stats[0].base_stat}`;
+  const nombreElemento = document.getElementById(`nombre-${id}`);
+  const imagenElemento = document.getElementById(`imagen-${id}`);
+  const vidaElemento = document.getElementById(`vida-${id}`);
+  const hpLabel = document.getElementById(`label-hp${id === 'pokemon1' ? '1' : '2'}`);
+
+  nombreElemento.innerHTML = capitalizar(pokemon.name);
+  imagenElemento.src = pokemon.sprites.front_default;
+  vidaElemento.value = pokemon.hp;
+  vidaElemento.max = pokemon.stats[0].base_stat;
+  hpLabel.innerHTML = `${pokemon.hp}/${pokemon.stats[0].base_stat}`;
 }
 
-// Inicialización automática de la batalla
+// Inicializar el juego al cargar la página
 window.onload = function () {
-  fetchListaPokemon();
+  cargarPokemones();
 };
