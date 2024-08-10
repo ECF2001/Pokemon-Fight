@@ -259,27 +259,6 @@ function actualizarInterfazPokemon(pokemon, contenedor) {
   document.getElementById(`label-hp${contenedor === "pokemon1" ? "1" : "2"}`).innerText = `${pokemon.hp}/${pokemon.stats[0].base_stat}`;
 }
 
-// Función para guardar los datos de la batalla
-async function guardarBatalla(datosBatalla) {
-  try {
-    const respuesta = await fetch('/guardarBatalla', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(datosBatalla),
-    });
-
-    if (respuesta.ok) {
-      const resultado = await respuesta.json();
-      console.log('Batalla guardada con éxito:', resultado);
-    } else {
-      console.error('Error al guardar la batalla:', respuesta.statusText);
-    }
-  } catch (error) {
-    console.error('Error al realizar la solicitud para guardar la batalla:', error);
-  }
-}
 
 // Cargar los equipos Pokémon al iniciar
 window.onload = cargarPokemones;
