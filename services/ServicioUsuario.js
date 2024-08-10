@@ -23,7 +23,7 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
 const obtenerFotos = async (listaNombreUsuario) => {
     const usuarios = await Usuario.find({
         nombreUsuario: { $in: listaNombreUsuario }
-    }, 'nombreUsuario: fotoPerfil');
+    }, 'nombreUsuario fotoPerfil');
     const fotos = {};
     usuarios.forEach(usuario => {
         fotos[usuario.nombreUsuario] = usuario.fotoPerfil;
@@ -33,7 +33,6 @@ const obtenerFotos = async (listaNombreUsuario) => {
 
 
 module.exports = {
-    obtenerTablaLiderazgo,
     agregarRegistro,
     obtenerFotos
 }

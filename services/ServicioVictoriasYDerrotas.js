@@ -1,9 +1,9 @@
 const Batalla = require('../models/Batalla');
 const Usuario = require('../models/Usuario');
+const {obtenerFotos} = require('./ServicioUsuario');
 
 const obtenerVictoriasYDerrotas = async (nombreUsuario) => {
-    const usuario = await Usuario.findOne({nombreUsuario});
-    console.log(usuario);
+    const usuario = await Usuario.findOne({ nombreUsuario });
     const resultado = {
         nombreUsuarioVencedor: [],
         victorias: [],
@@ -15,19 +15,26 @@ const obtenerVictoriasYDerrotas = async (nombreUsuario) => {
     const listaAmigos = usuario.amigos;
     const batallas = await Batalla.find({
         $or: [
-            {nombreUsuario1: usuario.nombreUsuario, nombreUsuario2: {$in: listaAmigos}},
-            {nombreUsuario2: usuario.nombreUsuario, nombreUsuario1: {$in: listaAmigos}},
+            { nombreUsuario1: usuario.nombreUsuario, nombreUsuario2: { $in: listaAmigos } },
+            { nombreUsuario2: usuario.nombreUsuario, nombreUsuario1: { $in: listaAmigos } },
         ]
     });
+    const usuarios = new Set();
+    batallas.forEach(batalla => {
+        usuarios.add(batalla.nombreUsuario1);
+        usuarios.add(batalla.nombreUsuario2);
+    })
+    const listaNombreUsuario = Array.from(usuarios);
+    const fotos = await obtenerFotos(listaNombreUsuario);
     batallas.forEach(batalla => {
         const datosBatalla = {
             usuario1: {
-                foto: "",
+                foto: fotos[batalla.nombreUsuario1],
                 nombreUsuario: batalla.nombreUsuario1,
                 equipo: batalla.nombreEquipo1
             },
             usuario2: {
-                foto: "",
+                foto: fotos[batalla.nombreUsuario2],
                 nombreUsuario: batalla.nombreUsuario2,
                 equipo: batalla.nombreEquipo2
             }
@@ -38,7 +45,7 @@ const obtenerVictoriasYDerrotas = async (nombreUsuario) => {
             resultado.derrotas.push(datosBatalla);
         }
     });
-    return resultado
+    return resultado;
 }
 module.exports = {
     obtenerVictoriasYDerrotas

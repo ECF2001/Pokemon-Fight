@@ -98,15 +98,13 @@ app.get('/Registro', (req, res) => {
 app.get("/TablaLiderazgo", async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
     const datos = await obtenerTablaLiderazgo();
-    console.log(datos)
     response.render('TablaLiderazgo', { datos });
 });
 
 //Victorias y Derrotas GET
-app.get('/VictoriasYDerrotas', async function (request, response) {
+app.get('/VictoriasYDerrotas/:nombreUsuario', async function (request, response) {
     const {obtenerVictoriasYDerrotas} = require('../services/ServicioVictoriasYDerrotas');
-    const datos = await obtenerVictoriasYDerrotas("nimo23");
-    console.log(datos)
+    const datos = await obtenerVictoriasYDerrotas(request.params.nombreUsuario);
     response.render('victorias_derrotas', { datos });
 });
 
