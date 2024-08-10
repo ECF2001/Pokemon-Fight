@@ -5,8 +5,7 @@ const obtenerVictoriasYDerrotas = async (nombreUsuario) => {
     const usuario = await Usuario.findOne({nombreUsuario});
     console.log(usuario);
     const resultado = {
-        victorias: [],
-        derrotas:[]
+        nombreUsuarioVencedor: [],
     };
     if (!usuario) {
         return (resultado);
