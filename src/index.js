@@ -62,8 +62,11 @@ app.get('/HistorialPartidas', (req, res) => {
     res.render("Historial_partidas.html");
 });
 
-app.get('/HistorialPokemon', (req, res) => {
-    res.render("historialPokemon.html");
+app.get('/HistorialPokemon/:nombreUsuario', async function (request, response) {
+    const {obtenerHistorialPokemon} = require('../services/ServicioHistorialPokemon');
+    const datos = await obtenerHistorialPokemon(request.params.nombreUsuario);
+    console.log(datos)
+    response.render("historialPokemon.html");
 });
 
 app.get('/InicioSesion', (req, res) => {
