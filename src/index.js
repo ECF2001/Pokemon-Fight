@@ -96,7 +96,7 @@ app.get('/Registro', (req, res) => {
 
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", async function (request, response) {
-    const { obtenerTablaLiderazgo } = require('../services/ServicioUsuario');
+    const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
     const datos = await obtenerTablaLiderazgo();
     console.log(datos)
     response.render('TablaLiderazgo', { datos });
@@ -134,7 +134,8 @@ app.post('/Registro', async function (request, response) {
 });
 
 
-
+//const {generarDatosPruebaBatalla} = require('./test');
+//generarDatosPruebaBatalla();
 
 
 

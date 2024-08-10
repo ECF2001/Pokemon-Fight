@@ -6,6 +6,8 @@ const obtenerVictoriasYDerrotas = async (nombreUsuario) => {
     console.log(usuario);
     const resultado = {
         nombreUsuarioVencedor: [],
+        victorias: [],
+        derrotas: []
     };
     if (!usuario) {
         return (resultado);

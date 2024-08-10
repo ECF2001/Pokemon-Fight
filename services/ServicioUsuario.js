@@ -1,14 +1,5 @@
 const Usuario = require('../models/Usuario');
 
-const obtenerTablaLiderazgo = async () => {
-    const usuarios = await Usuario.find()
-        .sort({ victorias: -1 })
-        .limit(6)
-        .exec();
-
-    return (usuarios || []);
-}
-
 const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena) => {
     try {
         const usuario = new Usuario({
@@ -29,8 +20,21 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
     }
 }
 
+const obtenerFotos = async (listaNombreUsuario) => {
+    const usuarios = await Usuario.find({
+        nombreUsuario: { $in: listaNombreUsuario }
+    }, 'nombreUsuario: fotoPerfil');
+    const fotos = {};
+    usuarios.forEach(usuario => {
+        fotos[usuario.nombreUsuario] = usuario.fotoPerfil;
+    });
+    return fotos;
+}
+
+
 module.exports = {
     obtenerTablaLiderazgo,
-    agregarRegistro
+    agregarRegistro,
+    obtenerFotos
 }
 
