@@ -1,10 +1,12 @@
+let usuario1 = [];
+let usuario2 = [];
 let equipo1 = [];
 let equipo2 = [];
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
 let pokemon1Vivo = true;
 let pokemon2Vivo = true;
-let ataqueEnCurso = false;
+let ataqueEnCurso = false; 
 let ataqueSeleccionado1 = null;
 let ataqueSeleccionado2 = null;
 let ataquesPokemon1 = [];
@@ -224,24 +226,60 @@ async function cambiarPokemon(id) {
       pokemon2Vivo = false;
       console.log("Equipo 2 ha perdido todos los Pokémon.");
     }
+
+    const botonTerminarBatalla = document.getElementById("boton-terminar-batalla");
+    if (botonTerminarBatalla) {
+      botonTerminarBatalla.style.display = "block";
+    }
   }
 }
 
-// Actualizar interfaz del Pokémon en batalla
-function actualizarInterfazPokemon(pokemon, id) {
-  const nombreElemento = document.getElementById(`nombre-${id}`);
-  const imagenElemento = document.getElementById(`imagen-${id}`);
-  const vidaElemento = document.getElementById(`vida-${id}`);
-  const hpLabel = document.getElementById(`label-hp${id === 'pokemon1' ? '1' : '2'}`);
+// Terminar la batalla y guardar los datos
+function terminarBatalla() {
+  const nombreUsuarioVencedor = pokemon1Vivo ? 'usuario1' : 'usuario2';
 
-  nombreElemento.innerHTML = capitalizar(pokemon.name);
-  imagenElemento.src = pokemon.sprites.front_default;
-  vidaElemento.value = pokemon.hp;
-  vidaElemento.max = pokemon.stats[0].base_stat;
-  hpLabel.innerHTML = `${pokemon.hp}/${pokemon.stats[0].base_stat}`;
+  const datosBatalla = {
+    idBatalla: 'id_de_batalla',
+    nombreUsuario1: 'usuario1',
+    nombreEquipo1: 'equipo1',
+    nombreUsuario2: 'usuario2',
+    nombreEquipo2: 'equipo2',
+    nombreUsuarioVencedor: nombreUsuarioVencedor,
+  };
+
+  guardarBatalla(datosBatalla);
 }
 
-// Inicializar el juego al cargar la página
-window.onload = function () {
-  cargarPokemones();
-};
+// Actualizar interfaz con nuevo Pokémon
+function actualizarInterfazPokemon(pokemon, contenedor) {
+  document.getElementById(`imagen-${contenedor}`).src = pokemon.sprites.front_default;
+  document.getElementById(`nombre-${contenedor}`).innerText = capitalizar(pokemon.name);
+  document.getElementById(`vida-${contenedor}`).value = pokemon.hp;
+  document.getElementById(`vida-${contenedor}`).max = pokemon.stats[0].base_stat;
+  document.getElementById(`label-hp${contenedor === "pokemon1" ? "1" : "2"}`).innerText = `${pokemon.hp}/${pokemon.stats[0].base_stat}`;
+}
+
+// Función para guardar los datos de la batalla
+async function guardarBatalla(datosBatalla) {
+  try {
+    const respuesta = await fetch('/guardarBatalla', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(datosBatalla),
+    });
+
+    if (respuesta.ok) {
+      const resultado = await respuesta.json();
+      console.log('Batalla guardada con éxito:', resultado);
+    } else {
+      console.error('Error al guardar la batalla:', respuesta.statusText);
+    }
+  } catch (error) {
+    console.error('Error al realizar la solicitud para guardar la batalla:', error);
+  }
+}
+
+// Cargar los equipos Pokémon al iniciar
+window.onload = cargarPokemones;
