@@ -62,8 +62,11 @@ app.get('/HistorialPartidas', (req, res) => {
     res.render("Historial_partidas.html");
 });
 
-app.get('/HistorialPokemon', (req, res) => {
-    res.render("historialPokemon.html");
+app.get('/HistorialPokemon/:nombreUsuario', async function (request, response) {
+    const {obtenerHistorialPokemon} = require('../services/ServicioHistorialPokemon');
+    const datos = await obtenerHistorialPokemon(request.params.nombreUsuario);
+    console.log(datos)
+    response.render("historialPokemon.html");
 });
 
 app.get('/InicioSesion', (req, res) => {
@@ -96,17 +99,15 @@ app.get('/Registro', (req, res) => {
 
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", async function (request, response) {
-    const { obtenerTablaLiderazgo } = require('../services/ServicioUsuario');
+    const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
     const datos = await obtenerTablaLiderazgo();
-    console.log(datos)
     response.render('TablaLiderazgo', { datos });
 });
 
 //Victorias y Derrotas GET
-app.get('/VictoriasYDerrotas', async function (request, response) {
+app.get('/VictoriasYDerrotas/:nombreUsuario', async function (request, response) {
     const {obtenerVictoriasYDerrotas} = require('../services/ServicioVictoriasYDerrotas');
-    const datos = await obtenerVictoriasYDerrotas("nimo23");
-    console.log(datos)
+    const datos = await obtenerVictoriasYDerrotas(request.params.nombreUsuario);
     response.render('victorias_derrotas', { datos });
 });
 
@@ -132,3 +133,13 @@ app.post('/Registro', async function (request, response) {
     const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);
     response.send(resultado);
 });
+
+
+//const {generarDatosPruebaBatalla} = require('./test');
+//generarDatosPruebaBatalla();
+
+
+
+
+
+

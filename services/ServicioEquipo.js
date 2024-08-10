@@ -13,6 +13,8 @@ async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
         console.error('Error al guardar el equipo:', error);
     }
 }
+
+
 module.exports = {
-    agregarEquipo
+    agregarEquipo,
 }
