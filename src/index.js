@@ -57,8 +57,8 @@ app.get('/GenerarReportes', (req, res) => {
 app.get('/HistorialEquipos/:nombreUsuario', async function (request, response) {
     const {obtenerHistorialEquipo} = require('../services/ServicioHistorialEquipos');
     const datos = await obtenerHistorialEquipo(request.params.nombreUsuario);
-    console.log(JSON.stringify(datos))
-    response.render("historial_Equipos.html");
+    console.log(datos)
+    response.render("historial_Equipos", {datos});
 });
 
 app.get('/HistorialPartidas', (req, res) => {

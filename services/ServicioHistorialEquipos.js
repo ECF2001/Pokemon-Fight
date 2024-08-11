@@ -1,5 +1,5 @@
 const Equipo = require('../models/Equipo');
-const Batalla = require('../models/Batalla');
+const {obtenerVictoriasPorEquipo} = require('../services/ServicioBatalla');
 const {obtenerFotos} = require('../services/ServicioPokemon');
 
 
@@ -11,10 +11,12 @@ const obtenerHistorialEquipo = async (nombreUsuario) => {
             setPokemonCompleta.add(pokemon)
         });
     });
+    const victoriasPorEquipo = await obtenerVictoriasPorEquipo(nombreUsuario);
     const fotos = obtenerFotos(Array.from(setPokemonCompleta));
     const resultado = [];
     equipos.forEach(equipo => {
-        const datosEquipo = {nombreEquipo: equipo.nombreEquipo, listaPokemon: []};
+        const victoriasYDerrotas = victoriasPorEquipo.find(dato => dato.nombreEquipo === equipo.nombreEquipo) || { victorias: 0, derrotas: 0};
+        const datosEquipo = {nombreEquipo: equipo.nombreEquipo, listaPokemon: [], victorias: victoriasYDerrotas.victorias, derrotas: victoriasYDerrotas.derrotas};
         equipo.listaPokemon.forEach(pokemon => {
             const datosPokemon = {nombre: pokemon, foto: fotos[pokemon]};
             datosEquipo.listaPokemon.push(datosPokemon);
