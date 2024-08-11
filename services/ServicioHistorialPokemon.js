@@ -88,7 +88,7 @@ const obtenerHistorialPokemon = async (nombreUsuario) => {
         }
         acumulado[pokemon].victorias += pokemonPorEquipo.victorias;
         acumulado[pokemon].derrotas += pokemonPorEquipo.derrotas;
-    })
+    });
     return Object.keys(acumulado).map(pokemon => ({
         pokemon,
         victorias: acumulado[pokemon].victorias,
