@@ -28,6 +28,9 @@
     </div>
     <div class="body"> <!--BODY-->
         <h3 class="titulo">Victorias y derrotas contra tus amigos</h3>
+        <% if (!datos) { %>
+            <div class="alert"> Juega una partida para desbloquear tus estadísticas</div>
+            <% } else { %>
         <table class="tabla_body_victorias">
                 <h3 class="titulo">Victorias</h3>
             <% datos.victorias.forEach(victoria =>{ %>
@@ -54,6 +57,7 @@
             </tr>
            <% }) %>
         </table>
+        <% } %>
     </div>
     <table class="tabla_body_derrotas">
             <h3 class="titulo">Derrotas</h3>
