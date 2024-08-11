@@ -54,8 +54,11 @@ app.get('/GenerarReportes', (req, res) => {
 });
 
 
-app.get('/HistorialEquipos', (req, res) => {
-    res.render("historial_Equipos.html");
+app.get('/HistorialEquipos/:nombreUsuario', async function (request, response) {
+    const {obtenerHistorialEquipo} = require('../services/ServicioHistorialEquipos');
+    const datos = await obtenerHistorialEquipo(request.params.nombreUsuario);
+    console.log(datos)
+    response.render("historial_Equipos", {datos});
 });
 
 app.get('/HistorialPartidas', (req, res) => {
@@ -66,7 +69,7 @@ app.get('/HistorialPokemon/:nombreUsuario', async function (request, response) {
     const {obtenerHistorialPokemon} = require('../services/ServicioHistorialPokemon');
     const datos = await obtenerHistorialPokemon(request.params.nombreUsuario);
     console.log(datos)
-    response.render("historialPokemon.html");
+    response.render("historialPokemon", {datos});
 });
 
 app.get('/InicioSesion', (req, res) => {
@@ -135,8 +138,6 @@ app.post('/Registro', async function (request, response)  {
 });
 
 
-//const {generarDatosPruebaBatalla} = require('./test');
-//generarDatosPruebaBatalla();
 
 
 
