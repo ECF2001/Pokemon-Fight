@@ -26,6 +26,62 @@ const obtenerTablaLiderazgo = async () => {
 
     return (lideres || []);
 }
+const obtenerVictoriasPorEquipo = async (nombreUsuario) => {
+    const victoriasPorEquipo = await Batalla.aggregate([
+        {
+            $match: {
+                $or: [
+                    { nombreUsuario1: nombreUsuario },
+                    { nombreUsuario2: nombreUsuario }
+                ]
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                nombreEquipo: {
+                    $cond: {
+                        if: { $eq: ["$nombreUsuario1", nombreUsuario] },
+                        then: "$nombreEquipo1",
+                        else: "$nombreEquipo2"
+                    }
+                },
+                resultado: {
+                    $cond: {
+                        if: { $eq: ["$nombreUsuarioVencedor", nombreUsuario] },
+                        then: "victoria",
+                        else: "derrota"
+                    }
+                }
+            }
+        },
+        {
+            $group: {
+                _id: "$nombreEquipo",
+                victorias: {
+                    $sum: {
+                        $cond: { if: { $eq: ["$resultado", "victoria"] }, then: 1, else: 0 }
+                    }
+                },
+                derrotas: {
+                    $sum: {
+                        $cond: { if: { $eq: ["$resultado", "derrota"] }, then: 1, else: 0 }
+                    }
+                }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                nombreEquipo: "$_id",
+                victorias: 1,
+                derrotas: 1
+            }
+        }
+    ]);
+    return victoriasPorEquipo;
+};
 module.exports = {
-    obtenerTablaLiderazgo
+    obtenerTablaLiderazgo,
+    obtenerVictoriasPorEquipo
 }

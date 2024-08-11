@@ -1,5 +1,5 @@
 const Equipo = require('../models/Equipo');
-const Batalla = require('../models/Batalla');
+const {obtenerVictoriasPorEquipo} = require('../services/ServicioBatalla');
 
 
 const obtenerHistorialPokemon = async (nombreUsuario) => {
@@ -16,63 +16,12 @@ const obtenerHistorialPokemon = async (nombreUsuario) => {
             }
         }
     ]);
-    const batallas = await Batalla.aggregate([
-        {
-            $match: {
-                $or: [
-                    { nombreUsuario1: nombreUsuario },
-                    { nombreUsuario2: nombreUsuario }
-                ]
-            }
-        },
-        {
-            $project: {
-                _id: 0,
-                nombreEquipo: {
-                    $cond: {
-                        if: { $eq: ["$nombreUsuario1", nombreUsuario] },
-                        then: "$nombreEquipo1",
-                        else: "$nombreEquipo2"
-                    }
-                },
-                resultado: {
-                    $cond: {
-                        if: { $eq: ["$nombreUsuarioVencedor", nombreUsuario] },
-                        then: "victoria",
-                        else: "derrota"
-                    }
-                }
-            }
-        },
-        {
-            $group: {
-                _id: "$nombreEquipo",
-                victorias: {
-                    $sum: {
-                        $cond: { if: { $eq: ["$resultado", "victoria"] }, then: 1, else: 0 }
-                    }
-                },
-                derrotas: {
-                    $sum: {
-                        $cond: { if: { $eq: ["$resultado", "derrota"] }, then: 1, else: 0 }
-                    }
-                }
-            }
-        },
-        {
-            $project: {
-                _id: 0,
-                nombreEquipo: "$_id",
-                victorias: 1,
-                derrotas: 1
-            }
-        }
-    ]);
+    const victoriasPorEquipo = obtenerVictoriasPorEquipo(nombreUsuario)
     const resultadosPorEquipo = {};
-    batallas.forEach(batalla => {
-        resultadosPorEquipo[batalla.nombreEquipo] = {
-            victorias: batalla.victorias,
-            derrotas: batalla.derrotas
+    victoriasPorEquipo.forEach(datos => {
+        resultadosPorEquipo[datos.nombreEquipo] = {
+            victorias: datos.victorias,
+            derrotas: datos.derrotas
         }
     });
     listaPokemonEquipo.forEach(pokemonPorEquipo => {
