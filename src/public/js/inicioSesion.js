@@ -55,6 +55,7 @@ formulario.addEventListener("submit", (e) => {
 
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito-activo");
 
+        formulario.submit();
     } else {
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito");
     }

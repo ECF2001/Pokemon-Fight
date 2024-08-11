@@ -139,14 +139,12 @@ app.post('/Registro', async function (request, response)  {
 });
 
 
-
 //Inicio sesion POST
-
-app.post('inicioSesion', async function (request, response){
+app.post('/InicioSesion', async function (request, response){
+    const { validarUsuario } = require('../services/ServicioUsuario')
     const { correo, contrasena } = request.body; 
-    const redireccion = await validarUsuario(datos);
+    const redireccion = await validarUsuario(correo, contrasena);
     response.redirect(redireccion); 
-
 }); 
 
  

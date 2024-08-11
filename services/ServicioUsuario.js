@@ -19,18 +19,18 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
         console.error('Error al registrar el usuario', error);
         }
        
-}
+};
 
 
-    const validarUsuario = async  (datos) => {
-    const usuario = await Usuario.findOne({ correo: datos.correo});
-
-    if(usuario && usuario.contrasena == datos.contrasena){
+    const validarUsuario = async  (correo, contrasena) => {
+    const usuario = await Usuario.findOne({ correo, contrasena });
+    console.log(usuario);
+    if(usuario && usuario.contrasena === contrasena){
         return '/'
     } else {
         return '/inicioSesion'
     }
-}
+};
      
 
 const obtenerFotos = async (listaNombreUsuario) => {
@@ -42,7 +42,7 @@ const obtenerFotos = async (listaNombreUsuario) => {
         fotos[usuario.nombreUsuario] = usuario.fotoPerfil;
     });
     return fotos;
-}
+};
 
 
 module.exports = {
