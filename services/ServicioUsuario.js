@@ -21,6 +21,18 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
        
 }
 
+
+    const validarUsuario = async  (datos) => {
+    const usuario = await Usuario.findOne({ correo: datos.correo});
+
+    if(usuario && usuario.contrasena == datos.contrasena){
+        return '/'
+    } else {
+        return '/inicioSesion'
+    }
+}
+     
+
 const obtenerFotos = async (listaNombreUsuario) => {
     const usuarios = await Usuario.find({
         nombreUsuario: { $in: listaNombreUsuario }
@@ -35,6 +47,7 @@ const obtenerFotos = async (listaNombreUsuario) => {
 
 module.exports = {
     agregarRegistro,
-    obtenerFotos
+    obtenerFotos,
+    validarUsuario
 }
 

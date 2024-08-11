@@ -140,8 +140,15 @@ app.post('/Registro', async function (request, response)  {
 
 
 
+//Inicio sesion POST
 
+app.post('inicioSesion', async function (request, response){
+    const { correo, contrasena } = request.body; 
+    const redireccion = await validarUsuario(datos);
+    response.redirect(redireccion); 
 
+}); 
 
+ 
 
 

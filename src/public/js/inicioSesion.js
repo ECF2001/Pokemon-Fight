@@ -55,14 +55,6 @@ formulario.addEventListener("submit", (e) => {
 
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito-activo");
 
-        setTimeout(() => {
-            document.querySelectorAll(".formulario__general--correcto").forEach((icono) => {
-                icono.classList.remove("formulario__general--correcto");
-            });
-
-           location.reload();
-        }, 4000);
-   
     } else {
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito");
     }
