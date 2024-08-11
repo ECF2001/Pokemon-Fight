@@ -138,8 +138,6 @@ app.post('/Registro', async function (request, response)  {
 });
 
 
-//const {generarDatosPruebaBatalla} = require('./test');
-//generarDatosPruebaBatalla();
 
 
 
