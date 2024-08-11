@@ -16,7 +16,7 @@ const obtenerHistorialPokemon = async (nombreUsuario) => {
             }
         }
     ]);
-    const victoriasPorEquipo = obtenerVictoriasPorEquipo(nombreUsuario)
+    const victoriasPorEquipo = await obtenerVictoriasPorEquipo(nombreUsuario)
     const resultadosPorEquipo = {};
     victoriasPorEquipo.forEach(datos => {
         resultadosPorEquipo[datos.nombreEquipo] = {
