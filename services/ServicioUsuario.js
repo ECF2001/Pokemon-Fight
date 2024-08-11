@@ -15,9 +15,10 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
         const resultado = await usuario.save()
         console.log('El usuario se ha registrado correctamente.');
         return resultado;
-    } catch (error) {
+        } catch (error) {
         console.error('Error al registrar el usuario', error);
-    }
+        }
+       
 }
 
 const obtenerFotos = async (listaNombreUsuario) => {

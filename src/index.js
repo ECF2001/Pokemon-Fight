@@ -128,13 +128,14 @@ app.post('/guardarEquipo', async function (request, response) {
     response.send(resultado);
 });
 
-
+ 
 //Registro POST 
 app.post('/Registro', async function (request, response)  {
     const { agregarRegistro } = require('../services/ServicioUsuario');
     const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena } = request.body;
     const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);
     response.send(resultado);
+   
 });
 
 
