@@ -29,6 +29,9 @@
     <div class="body"> <!--BODY-->
         <h3 class="titulo">Historial de tus Pokémon</h3>
         <p class="resumen">Historial de tus Pokémon más usados en duelos</p>
+        <% if (!datos) { %>
+            <div class="alert"> Juega una partida para desbloquear tus estadísticas</div>
+            <% } else { %>
         <table class="tabla_body">
             <tr>
                 <th>Pokémon</th>
@@ -36,16 +39,19 @@
                 <th class="th_derrotas">Derrotas</th>
                 <th>Número de veces utilizado</th>
             </tr>
+            <% datos.forEach(dato => { 
             <tr>
                 <td>
-                    <img class="imagen_Personajes">
-                    Nombre del Pokemon
+                    <img class="imagen_Personajes" src="<%= dato.fotoPokemon %>">
+                    <%= dato.nombrePokemon %>
                 </td>
-                <td>#</td>
-                <td>#</td>
-                <td> dato.victorias + dato.derrotas</td>
+                <td><%= dato.victorias %></td>
+                <td><%= dato.derrotas %></td>
+                <td><%= dato.victorias + dato.derrotas %></td>
             </tr>
+        <% }) %>
         </table>
+        <% } %>
     </div>
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
