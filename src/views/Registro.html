@@ -34,36 +34,36 @@
             <form action="/Registro" id="formulario" method="post">
                 <!-- NOMBRE  -->
                 <div class="formulario__general" id="grupo__nombre">
-                    <label for="label">Nombre</label>
+                    <label for="nombre">Nombre</label>
                     <div class="formulario__input">
-                        <input type="text" class="input" id="nombre">
+                        <input type="text" class="input" id="nombre" name="nombre">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El nombre debe tener mínimo 4 caracteres.</p>
                 </div>
                 <!-- APELLIDO -->
                 <div class="formulario__general" id="grupo__apellido">
-                    <label for="label">Apellido</label>
+                    <label for="apellido">Apellido</label>
                     <div class="formulario__input">
-                        <input type="text" class="input" id="apellido">
+                        <input type="text" class="input" id="apellido" name="primerApellido">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El apellido debe tener mínimo 4 caracteres.</p>
                 </div>
                 <!-- SEGUNDO APELLIDO -->
                 <div class="formulario__general" id="grupo__segundoapellido">
-                    <label for="label">Segundo apellido</label>
+                    <label for="segundoapellido">Segundo apellido</label>
                     <div class="formulario__input">
-                        <input type="text" class="input" id="segundoapellido">
+                        <input type="text" class="input" id="segundoapellido" name="segundoApellido">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El apellido debe tener mínimo 4 caracteres.</p>
                 </div>
                 <!-- NOMBRE DE USUARIO -->
                 <div class="formulario__general" id="grupo__nombre_usuario">
-                    <label for="label">Nombre de usuario</label>
+                    <label for="nombre_usuario">Nombre de usuario</label>
                     <div class="formulario__input">
-                        <input type="text" class="input" id="nombre_usuario">
+                        <input type="text" class="input" id="nombre_usuario" name="nombreUsuario">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El nombre de usuario debe tener mínimo 4 caracteres; se
@@ -71,9 +71,9 @@
                 </div>
                 <!-- CORREO -->
                 <div class="formulario__general" id="grupo__correo">
-                    <label for="label">Correo electrónico</label>
+                    <label for="correo">Correo electrónico</label>
                     <div class="formulario__input">
-                        <input type="email" class="input" id="correo">
+                        <input type="email" class="input" id="correo" name="correo">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El correo debe tener mÍnimo 4 caracteres; se admiten
@@ -81,18 +81,18 @@
                 </div>
                 <!-- IDENTIFICACIÓN -->
                 <div class="formulario__general" id="grupo__identificacion">
-                    <label for="label">Identificación</label>
+                    <label for="identificacion">Identificación</label>
                     <div class="formulario__input">
-                        <input type="number" class="input" id="identificacion">
+                        <input type="number" class="input" id="identificacion" name="identificacion">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El número de identificación debe tener mínimo 9 digitos.</p>
                 </div>
                 <!-- CONTRASEÑA-->
                 <div class="formulario__general" id="grupo__contraseña">
-                    <label for="label">Contraseña</label>
+                    <label for="contraseña">Contraseña</label>
                     <div class="formulario__input">
-                        <input type="password" class="input" id="contraseña">
+                        <input type="password" class="input" id="contraseña" name="contrasena">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">La contraseña debe tener mínimo 6 caracteres</p>

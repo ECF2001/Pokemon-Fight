@@ -18,6 +18,7 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
     } catch (error) {
         console.error('Error al registrar el usuario', error);
     }
+    module.export = agregarRegistro
 }
 
 const obtenerFotos = async (listaNombreUsuario) => {

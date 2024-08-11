@@ -127,7 +127,7 @@ app.post('/save-team', async function (request, response) {
 
 
 //Registro POST 
-app.post('/Registro', async function (request, response) {
+app.post('/Registro', async function (request, response)  {
     const { agregarRegistro } = require('../services/ServicioUsuario');
     const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena } = request.body;
     const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);

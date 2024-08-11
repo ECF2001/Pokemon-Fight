@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
-let UsuarioSchema = new mongoose.Schema ({
+
+    const UsuarioSchema = new mongoose.Schema ({
 
     identificacion: {type:Number, required:true, unique:true},
     nombre: {type:String, required:true},
@@ -12,11 +13,11 @@ let UsuarioSchema = new mongoose.Schema ({
     amigos:[{type:String}],
     fotoPerfil:{type:String}
 
-},{versionKey:false})
+},{versionKey:false});
 
 //indica el indentificador de esta tabla principal
 UsuarioSchema.index({nombreUsuario: 1}, {unique: true});
 
-let Usuario = new mongoose.model('Usuario', UsuarioSchema);
+const Usuario = new mongoose.model('Usuario', UsuarioSchema);
 
 module.exports = Usuario; 
