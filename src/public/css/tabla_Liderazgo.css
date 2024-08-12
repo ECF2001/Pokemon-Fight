@@ -68,7 +68,7 @@ a:active {
 }
 
 .resumen {
-    font-size: larger;
+    font-size: xx-large;
     margin-bottom: 20px;
     color: grey;
 }
@@ -163,14 +163,10 @@ tr:last-child td {
     padding: 15px;
 }
 
-.imagen_PersonajesUtilizado{
-    width: 75px;
-    height: 78px;
-    border-radius: 50%;
-    vertical-align: middle;
-    margin-right: 10px;
-    background-color: white;
+.numeros {
+    font-size: xx-large;
 }
+
 
 .footer {
     display: flex;
