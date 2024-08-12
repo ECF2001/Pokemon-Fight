@@ -1,5 +1,6 @@
 const Equipo = require('../models/Equipo');
 const {obtenerVictoriasPorEquipo} = require('../services/ServicioBatalla');
+const {obtenerFotos} = require('../services/ServicioPokemon');
 
 
 const obtenerHistorialPokemon = async (nombreUsuario) => {
@@ -38,10 +39,13 @@ const obtenerHistorialPokemon = async (nombreUsuario) => {
         acumulado[pokemon].victorias += pokemonPorEquipo.victorias;
         acumulado[pokemon].derrotas += pokemonPorEquipo.derrotas;
     });
-    return Object.keys(acumulado).map(pokemon => ({
-        pokemon,
-        victorias: acumulado[pokemon].victorias,
-        derrotas: acumulado[pokemon].derrotas
+    const listaPokemon = Object.keys(acumulado);
+    const fotos = await obtenerFotos(listaPokemon);
+    return listaPokemon.map(nombrePokemon => ({
+        nombrePokemon : nombrePokemon,
+        fotoPokemon: fotos[nombrePokemon],
+        victorias: acumulado[nombrePokemon].victorias,
+        derrotas: acumulado[nombrePokemon].derrotas
       }));
 }
 
