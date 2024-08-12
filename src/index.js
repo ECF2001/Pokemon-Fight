@@ -24,6 +24,9 @@ const bodyParser = require('body-parser');
 ;
 
 const path = require('path');
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -170,11 +173,11 @@ app.post('/InicioSesion', async function (request, response){
 });
 
 
- // Nuevo Equipo POST
+
 app.post('/guardarbatalla', async function (request, response) {
-    const {agregarBatalla} = require('../services/servicioGuardarbatalla');
-    const {Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
-    const resultado = await agregarBatalla(Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
+    const {terminarBatalla} = require('./public/js/batalla');
+    const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
+    const resultado = await terminarBatalla(idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
     response.send(resultado);
 });
 

@@ -1,11 +1,8 @@
-const {nuevoBatalla} = require('../../../service/guardarBatalla')
-
-
 let idBatalla="1"
 let usuario1 = "usuario1";
 let usuario2 = "usuario2";
-let equipo1 = ['bulbasaur', 'ivysaur', 'venusaur', 'charmander', 'charmeleon', 'charizard'];
-let equipo2 = ['squirtle', 'wartortle', 'blastoise', 'caterpie', 'metapod', 'butterfree'];
+let equipo1 = ['bulbasaur'];
+let equipo2 = ['squirtle'];
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
 let pokemon1Vivo = true;
@@ -244,22 +241,35 @@ async function terminarBatalla() {
   let nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2;
 
   try {
+    const response = await fetch('http://localhost:3000/guardarbatalla', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        idBatalla: idBatalla,
+        nombreUsuario1: usuario1,
+        nombreEquipo1: equipo1,
+        nombreUsuario2: usuario2,
+        nombreEquipo2: equipo2,
+        nombreUsuarioVencedor: nombreUsuarioVencedor,
+      })
+    });
 
-      await guardarBatalla.agregarBatalla(idBatalla, usuario1, equipo1, usuario2, equipo2, nombreUsuarioVencedor);
-
-      console.log('Batalla guardada correctamente.');
-
-
-      alert(`¡La batalla ha terminado! ${nombreUsuarioVencedor} ha ganado.`);
-
-
+    if (response.ok) {
+      alert(`guardado exitosamente`);
+    } else {
+      alert('Error al guardando ');
+    }
   } catch (error) {
-      console.error('Error al guardar la batalla:', error);
+    console.error('Error enviando solicitud:', error);
+    alert('Error enviando solicitud'); 
   }
 }
 
-// Añadir un evento al botón de terminar batalla
-document.getElementById('boton-terminar-batalla')?.addEventListener('click', terminarBatalla);
+
+
+
 
 // Actualizar interfaz con nuevo Pokémon
 function actualizarInterfazPokemon(pokemon, contenedor) {
