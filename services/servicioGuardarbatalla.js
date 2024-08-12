@@ -1,14 +1,15 @@
+const Equipo = require('../models/Equipo')
 const Batalla = require('../models/Batalla');
 
-async function agregarBatalla(idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor) {
+async function agregarBatalla(idBatalla, nombreUsuario1, nombreEquipo1, nombreUsuario2, nombreEquipo2, nombreUsuarioVencedor) {
     try {
         const nuevobatalla = new Batalla({
             idBatalla: idBatalla,
-            nombreUsuario1: Usuario1,
-            nombreEquipo1: Equipo1,
-            nombreUsuario2: Usuario2,
-            nombreEquipo2: Equipo2,
-            nombreUsuarioVencedor: UsuarioVencedor,
+            nombreUsuario1: nombreUsuario1,
+            nombreEquipo1: nombreEquipo1,
+            nombreUsuario2: nombreUsuario2,
+            nombreEquipo2: nombreEquipo2,
+            nombreUsuarioVencedor: nombreUsuarioVencedor,
         });
 
         await nuevobatalla.save();

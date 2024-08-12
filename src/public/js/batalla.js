@@ -1,4 +1,4 @@
-const guardarBatalla = require('../../../service/guardarBatalla')
+const {nuevoBatalla} = require('../../../service/guardarBatalla')
 
 
 let idBatalla="1"
