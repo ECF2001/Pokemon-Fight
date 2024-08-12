@@ -31,7 +31,7 @@ document.getElementById('saveButton').addEventListener('click', function() {
     // Validar formato de correo electrónico
     var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
-        alert('Por favor, introduce un correo electrónico válido.');
+        alert('Por favor, introduzca un correo electrónico válido.');
         return; // No continuar si el correo no es válido
     }
 

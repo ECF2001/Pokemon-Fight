@@ -57,7 +57,6 @@ app.get('/GenerarReportes', (req, res) => {
 app.get('/HistorialEquipos/:nombreUsuario', async function (request, response) {
     const {obtenerHistorialEquipo} = require('../services/ServicioHistorialEquipos');
     const datos = await obtenerHistorialEquipo(request.params.nombreUsuario);
-    console.log(datos)
     response.render("historial_Equipos", {datos});
 });
 
@@ -68,7 +67,6 @@ app.get('/HistorialPartidas', (req, res) => {
 app.get('/HistorialPokemon/:nombreUsuario', async function (request, response) {
     const {obtenerHistorialPokemon} = require('../services/ServicioHistorialPokemon');
     const datos = await obtenerHistorialPokemon(request.params.nombreUsuario);
-    console.log(datos)
     response.render("historialPokemon", {datos});
 });
 
@@ -134,7 +132,7 @@ app.post('/Registro', async function (request, response)  {
     const { agregarRegistro } = require('../services/ServicioUsuario');
     const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena } = request.body;
     const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);
-    response.send(resultado);
+    response.redirect('/');
    
 });
 
