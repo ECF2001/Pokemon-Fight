@@ -13,36 +13,8 @@ mongoose.connect(DB_URI, {
   .catch(err => console.log('Error al conectar con la base de datos:', err));
 
 //const Equipo = require('../models/Equipo')
-/*
-app.use(bodyParser.json());
 
-app.post('/save-team', async (req, res) => {
-  const { teamName, team, username } = req.body;
-
-  if (!teamName || !team || team.length !== 6 || !username) {
-    return res.status(400).send('Datos inválidos');
-  }
-
-  try {
-    const newTeam = new equipos({
-      group_name: teamName,
-      pokemon_names: team.map(pokemon => pokemon.name),
-      username: username,
-    });
-
-    await newTeam.save();
-    res.status(200).send('Equipo guardado exitosamente');
-  } catch (error) {
-    console.error('Error guardando el equipo:', error);
-    res.status(500).send('Error interno del servidor');
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
-});*/
-
-async function addEquipo(nombreEquipo, pokemon_names, usuario) {
+/*async function addEquipo(nombreEquipo, pokemon_names, usuario) {
   try {
     const newEquipo = new Equipo({
       nombreEquipo: nombreEquipo,
@@ -58,7 +30,7 @@ async function addEquipo(nombreEquipo, pokemon_names, usuario) {
 }
 
 // Llamamos a la función para agregar el equipo
-addEquipo('Bomboclat', ['Pikcahu', 'aaa'], 'Emilio');
+addEquipo('Bomboclat', ['Pikcahu', 'aaa'], 'Emilio');*/
 
 
 //Datos de Prueba de la Tabla de liderazgo
@@ -119,8 +91,63 @@ const victoriasYDerrotasDatos = () => {
   ]}
   return datos;
 }
+
+
+const Batalla = require('../models/Batalla');
+const usuarios = ['sunny76', 'home4', 'nimo23'];
+const equiposPorUsuario = {
+  sunny76: ['teamA', 'teamB', 'teamC'],
+  home4: ['teamD', 'teamE', 'teamF'],
+  nimo23: ['teamG', 'teamH', 'teamI']
+};
+
+function getRandomElement(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generarDatosPruebaBatalla() {
+  const batallas = [];
+
+  for (let i = 0; i < 10; i++) {
+    const nombreUsuario1 = getRandomElement(usuarios);
+    let nombreUsuario2 = getRandomElement(usuarios);
+
+    // Asegurarse de que nombreUsuario1 y nombreUsuario2 sean distintos
+    while (nombreUsuario1 === nombreUsuario2) {
+      nombreUsuario2 = getRandomElement(usuarios);
+    }
+
+    const nombreEquipo1 = getRandomElement(equiposPorUsuario[nombreUsuario1]);
+    const nombreEquipo2 = getRandomElement(equiposPorUsuario[nombreUsuario2]);
+    const nombreUsuarioVencedor = getRandomElement([nombreUsuario1, nombreUsuario2]);
+
+
+    batallas.push({
+      idBatalla:new mongoose.Types.ObjectId(),
+      nombreUsuario1,
+      nombreEquipo1,
+      nombreUsuario2,
+      nombreEquipo2,
+      nombreUsuarioVencedor
+    });
+  }
+
+  Batalla.insertMany(batallas)
+    .then(docs => {
+      console.log('Batallas insertadas:', docs);
+      mongoose.connection.close();
+    })
+    .catch(err => {
+      console.error('Error al insertar batallas:', err);
+      mongoose.connection.close();
+    });
+  }
+
+
+
 module.exports = {
   victoriasYDerrotasDatos,
-  tablaLiderazgoDatos
+  tablaLiderazgoDatos,
+  generarDatosPruebaBatalla
 }
 

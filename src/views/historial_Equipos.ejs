@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/historial_Equipos.css">
+    <link rel="stylesheet" type="text/css" href="../css/historial_Equipos.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <title>Historial de tus Equipos</title>
@@ -29,23 +29,36 @@
     </div>
     <div class="body"> <!--BODY-->
         <h3 class="titulo">Historial de tus equipos</h3>
-        <p class="resumen">Historial de tus equipos preferidos</p>
-        <table class="tabla_body">
-            <tr>
-                <th>Nombre del Equipo</th>
-                <th class="th_victorias">Victorias</th>
-                <th class="th_derrotas">Derrotas</th>
-                <th>Pokémon en el equipo</th>
-            </tr>
-            <tr>
-                <td>
-                    Nombre del Equipo1</td>
-                <td>#</td>
-                <td>#</td>
-                <td><img class="imagen_Personajes"><img class="imagen_Personajes"><img class="imagen_Personajes"><img
-                        class="imagen_Personajes"><img class="imagen_Personajes"><img class="imagen_Personajes">
-            </tr>
-        </table>
+        <p class="resumen">Historial de tus equipos con sus resultados en batallas!</p>
+        <% if (!datos) { %>
+            <div class="alert"> Juega una partida para desbloquear tus estadísticas</div>
+            <% } else { %>
+                <table class="tabla_body">
+                    <tr>
+                        <th>Nombre del Equipo</th>
+                        <th class="th_victorias">Victorias</th>
+                        <th class="th_derrotas">Derrotas</th>
+                        <th>Pokémon en el equipo</th>
+                    </tr>
+                    <% datos.forEach(dato=> { %>
+                        <tr>
+                            <td>
+                                <%= dato.nombreEquipo %>
+                            </td>
+                            <td>
+                                <%= dato.victorias %>
+                            </td>
+                            <td>
+                                <%= dato.derrotas %>
+                            </td>
+                            <td> <%dato.listaPokemon.forEach(datoPokemon => { %>
+                                <img class="imagen_Personajes" src="<%= datoPokemon.foto %>">
+                            <% }) %>
+                            </td> 
+                        </tr>
+                        <% }) %>
+                </table>
+                <% } %>
     </div>
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>

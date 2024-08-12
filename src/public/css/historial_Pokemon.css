@@ -80,6 +80,12 @@ a:active {
     animation: fadeIn 1s ease-in forwards;
 }
 
+.alert{
+    text-align: center;
+    margin: 400px;
+    font-size: xx-large;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

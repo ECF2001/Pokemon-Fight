@@ -27,21 +27,21 @@
     <div class="body"> <!--BODY-->
         <div class="formulario">
             <h1>INICIO SESIÓN</h1>
-            <form action="/formularioInicio" id="formulario">
+            <form action="/inicioSesion" id="formulario" method="post">
                 <!-- Correo electronico  -->
                 <div class="formulario__general" id="grupo__correo">
-                    <label for="label" class="correo">Correo electrónico</label>
+                    <label for="correo" class="correo">Correo electrónico</label>
                     <div class="formulario__input">
-                        <input type="email" class="input" id="correo" name="correoInicio">
+                        <input type="email" class="input" id="correo" name="correo">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El correo electrónico debe tener mínimo 4 caracteres.</p>
                 </div>
                 <!-- Contraseña -->
-                <div class="formulario__general" id="grupo__contraseña">
-                    <label for="label" class="contraseña">Contraseña</label>
+                <div class="formulario__general" id="grupo__contrasena">
+                    <label for="contrasena" class="contraseña">Contraseña</label>
                     <div class="formulario__input">
-                        <input type="password" class="input" id="contraseña">
+                        <input type="password" class="input" id="contrasena" name="contrasena">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">La contraseña debe tener mínimo 4 caracteres.</p>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/historial_Pokemon.css">
+    <link rel="stylesheet" type="text/css" href="../css/historial_Pokemon.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <title>Historial de tus Pokémon</title>
@@ -21,14 +21,17 @@
             <a href="/LandingPageEquipo">
                 <h6 class="sobreNosotros">Sobre Nosotros</h6>
             </a>
-            <a href="GenerarReportes">
+            <a href="/GenerarReportes">
                 <h6 class="estadisticas">Estadísticas</h6>
             </a>
         </div>
     </div>
     <div class="body"> <!--BODY-->
         <h3 class="titulo">Historial de tus Pokémon</h3>
-        <p class="resumen">Historial de tus Pokémon más usados en duelos</p>
+        <p class="resumen">Historial de tus Pokémon más usados!</p>
+        <% if (!datos) { %>
+            <div class="alert"> Juega una partida para desbloquear tus estadísticas</div>
+            <% } else { %>
         <table class="tabla_body">
             <tr>
                 <th>Pokémon</th>
@@ -36,16 +39,19 @@
                 <th class="th_derrotas">Derrotas</th>
                 <th>Número de veces utilizado</th>
             </tr>
+            <% datos.forEach(dato => { %>
             <tr>
                 <td>
-                    <img class="imagen_Personajes">
-                    Nombre del Pokemon
+                    <img class="imagen_Personajes" src="<%= dato.fotoPokemon %>">
+                    <%= dato.nombrePokemon %>
                 </td>
-                <td>#</td>
-                <td>#</td>
-                <td>#</td>
+                <td><%= dato.victorias %></td>
+                <td><%= dato.derrotas %></td>
+                <td><%= dato.victorias + dato.derrotas %></td>
             </tr>
+        <% }) %>
         </table>
+        <% } %>
     </div>
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
@@ -62,7 +68,7 @@
             <a href="/LandingPageEquipo">
                 <h6 class="sobreNosotros">Sobre Nosotros</h6>
             </a>
-            <a href="GenerarReportes">
+            <a href="/GenerarReportes">
                 <h6 class="estadisticas">Estadísticas</h6>
             </a>
         </div>

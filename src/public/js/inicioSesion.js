@@ -3,12 +3,12 @@ const inputs = document.querySelectorAll("#formulario input");
 
 const expresiones = {
     correo: /^[a-zA-Z0-9\_]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/,
-     contraseña: /^[a-zA-Z0-9\_\-]{4,16}$/
+     contrasena: /^[a-zA-Z0-9\_\-]{4,16}$/
 }
 
 const campos = {
     correo: false, 
-    contraseña: false
+    contrasena: false
 }
 
 const validarFormulario = (e) => {
@@ -16,8 +16,8 @@ const validarFormulario = (e) => {
             case "correo":
                 validarCampo(expresiones.correo, e.target, "correo");
                 break; 
-            case "contraseña":
-                validarCampo(expresiones.contraseña, e.target, "contraseña");
+            case "contrasena":
+                validarCampo(expresiones.contrasena, e.target, "contrasena");
                 break; 
     }
 }
@@ -49,20 +49,13 @@ inputs.forEach((input) => {
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     
-    if (campos.correo && campos.contraseña) {
+    if (campos.correo && campos.contrasena) {
 
         document.getElementById("formulario__mensaje-exito").classList.remove("formulario__mensaje-exito");
 
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito-activo");
 
-        setTimeout(() => {
-            document.querySelectorAll(".formulario__general--correcto").forEach((icono) => {
-                icono.classList.remove("formulario__general--correcto");
-            });
-
-           location.reload();
-        }, 4000);
-   
+        formulario.submit();
     } else {
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito");
     }

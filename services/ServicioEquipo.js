@@ -1,4 +1,4 @@
-const { models } = require("mongoose");
+
 
 const Equipo = require('../models/Equipo')
 async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
@@ -16,6 +16,8 @@ async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
         console.error('Error al guardar el equipo:', error);
     }
 }
+
+
 module.exports = {
-    agregarEquipo
+    agregarEquipo,
 }
