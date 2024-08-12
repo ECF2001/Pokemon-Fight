@@ -2,6 +2,9 @@ const express = require('express');
 
 const db = require('./db');
 
+const session = require('express-session')
+
+
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -32,7 +35,7 @@ app.get('/', (req, res) => {
 app.get('/BatallaPokemon', (req, res) => {
     res.render("batalla_pokemon.html");
 });
-
+ 
 app.get('/CambiarPerfil', (req, res) => {
     res.render("Cambiar_perfil.html");
 });
