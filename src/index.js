@@ -10,11 +10,11 @@ const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.n
 const app = express();
 
 app.use(session({
-    secret: 'SECRETO',
+   secret: 'SECRETO',
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({
-        url: MONGO_URL,
+      url: MONGO_URL,
         autoReconnect: true 
     })
 }))
