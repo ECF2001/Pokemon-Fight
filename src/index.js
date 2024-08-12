@@ -129,10 +129,11 @@ app.post('/guardarEquipo', async function (request, response) {
     response.send(resultado);
 });
 
+// Obtener Equipo get
 app.get('/obtenerEquipos', async function (request, response) {
     const {obtenerEquipos} = require('../services/ServicioEquipo');
     // Obtener nombre de usuario actual
-    const resultado = await obtenerEquipos('emilio');
+    const resultado = await obtenerEquipos('nimo23');
     response.send(resultado);
 });
 
