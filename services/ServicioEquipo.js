@@ -1,3 +1,5 @@
+
+
 const Equipo = require('../models/Equipo')
 async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
    
@@ -15,7 +17,17 @@ async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
     }
 }
 
+async function obtenerEquipos(usuario) { // variable
+    try {
+      const consulta = { nombreUsuario: usuario };
+      return await Equipo.find(consulta);
+    } catch (error) {
+      console.error('Error retrieving documents:', error);
+    }
+}
+
 
 module.exports = {
     agregarEquipo,
+    obtenerEquipos
 }

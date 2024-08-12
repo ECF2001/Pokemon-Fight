@@ -143,6 +143,13 @@ app.post('/guardarEquipo', async function (request, response) {
     response.send(resultado);
 });
 
+app.get('/obtenerEquipos', async function (request, response) {
+    const {obtenerEquipos} = require('../services/ServicioEquipo');
+    // Obtener nombre de usuario actual
+    const resultado = await obtenerEquipos('emilio');
+    response.send(resultado);
+});
+
  
 //Registro POST 
 app.post('/Registro', async function (request, response)  {
