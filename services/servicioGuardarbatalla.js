@@ -1,10 +1,15 @@
-const Equipo = require('../models/Equipo')
+const mongoose = require('mongoose');
 const Batalla = require('../models/Batalla');
 
-async function agregarBatalla(idBatalla, nombreUsuario1, nombreEquipo1, nombreUsuario2, nombreEquipo2, nombreUsuarioVencedor) {
+async function terminarBatalla(idBatalla, nombreUsuario1, nombreEquipo1, nombreUsuario2, nombreEquipo2, nombreUsuarioVencedor) {
     try {
-        const nuevobatalla = new Batalla({
-            idBatalla: idBatalla,
+        // Convertir idBatalla a ObjectId si es necesario
+
+    
+        const idBatallaObjectId = mongoose.Types.ObjectId.isValid(idBatalla) ? mongoose.Types.ObjectId(idBatalla) : idBatalla;
+
+        const nuevaBatalla = new Batalla({
+            idBatalla: idBatallaObjectId,
             nombreUsuario1: nombreUsuario1,
             nombreEquipo1: nombreEquipo1,
             nombreUsuario2: nombreUsuario2,
@@ -12,7 +17,7 @@ async function agregarBatalla(idBatalla, nombreUsuario1, nombreEquipo1, nombreUs
             nombreUsuarioVencedor: nombreUsuarioVencedor,
         });
 
-        await nuevobatalla.save();
+        await nuevaBatalla.save();
         console.log('Guardado correctamente.');
     } catch (error) {
         console.error('Error al guardar:', error);
@@ -20,5 +25,5 @@ async function agregarBatalla(idBatalla, nombreUsuario1, nombreEquipo1, nombreUs
 }
 
 module.exports = {
-    agregarBatalla,
+    terminarBatalla,
 };

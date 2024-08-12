@@ -3,21 +3,21 @@ const express = require('express');
 const db = require('./db');
 //Express-sessiom
 const session = require('express-session'); 
-const MongoStore = require ('connect-mongo')(session);
+// const MongoStore = require ('connect-mongo')(session);
 
 const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight';
 
 const app = express();
 
-app.use(session({
-   secret: 'SECRETO',
-    resave: true,
-    saveUninitialized: true,
-    store: new MongoStore({
-      url: MONGO_URL,
-        autoReconnect: true 
-    })
-}))
+// app.use(session({
+//     secret: 'SECRETO',
+//     resave: true,
+//     saveUninitialized: true,
+//     store: new MongoStore({
+//         url: MONGO_URL,
+//         autoReconnect: true 
+//     })
+// }))
 
 const bodyParser = require('body-parser');
 
@@ -146,11 +146,10 @@ app.post('/guardarEquipo', async function (request, response) {
     response.send(resultado);
 });
 
-// Obtener Equipo get
 app.get('/obtenerEquipos', async function (request, response) {
     const {obtenerEquipos} = require('../services/ServicioEquipo');
     // Obtener nombre de usuario actual
-    const resultado = await obtenerEquipos('nimo23');
+    const resultado = await obtenerEquipos('emilio');
     response.send(resultado);
 });
 
@@ -176,7 +175,7 @@ app.post('/InicioSesion', async function (request, response){
 
 
 app.post('/guardarbatalla', async function (request, response) {
-    const {terminarBatalla} = require('./public/js/batalla');
+    const {terminarBatalla} = require('../services/servicioGuardarbatalla');
     const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
     const resultado = await terminarBatalla(idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
     response.send(resultado);
