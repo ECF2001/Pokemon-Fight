@@ -1,7 +1,11 @@
-let usuario1 = [];
-let usuario2 = [];
-let equipo1 = [];
-let equipo2 = [];
+const guardarBatalla = require('../../../service/guardarBatalla')
+
+
+let idBatalla="1"
+let usuario1 = "usuario1";
+let usuario2 = "usuario2";
+let equipo1 = ['bulbasaur', 'ivysaur', 'venusaur', 'charmander', 'charmeleon', 'charizard'];
+let equipo2 = ['squirtle', 'wartortle', 'blastoise', 'caterpie', 'metapod', 'butterfree'];
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
 let pokemon1Vivo = true;
@@ -13,8 +17,8 @@ let ataquesPokemon1 = [];
 let ataquesPokemon2 = [];
 
 // Definir los nombres de los Pokémon en cada equipo
-const nombresEquipo1 = ['bulbasaur', 'ivysaur', 'venusaur', 'charmander', 'charmeleon', 'charizard'];
-const nombresEquipo2 = ['squirtle', 'wartortle', 'blastoise', 'caterpie', 'metapod', 'butterfree'];
+const nombresEquipo1 = equipo1;
+const nombresEquipo2 = equipo2;
 
 // Función para capitalizar nombres
 function capitalizar(string) {
@@ -235,20 +239,27 @@ async function cambiarPokemon(id) {
 }
 
 // Terminar la batalla y guardar los datos
-function terminarBatalla() {
-  const nombreUsuarioVencedor = pokemon1Vivo ? 'usuario1' : 'usuario2';
 
-  const datosBatalla = {
-    idBatalla: 'id_de_batalla',
-    nombreUsuario1: 'usuario1',
-    nombreEquipo1: 'equipo1',
-    nombreUsuario2: 'usuario2',
-    nombreEquipo2: 'equipo2',
-    nombreUsuarioVencedor: nombreUsuarioVencedor,
-  };
+async function terminarBatalla() {
+  let nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2;
 
-  guardarBatalla(datosBatalla);
+  try {
+
+      await guardarBatalla.agregarBatalla(idBatalla, usuario1, equipo1, usuario2, equipo2, nombreUsuarioVencedor);
+
+      console.log('Batalla guardada correctamente.');
+
+
+      alert(`¡La batalla ha terminado! ${nombreUsuarioVencedor} ha ganado.`);
+
+
+  } catch (error) {
+      console.error('Error al guardar la batalla:', error);
+  }
 }
+
+// Añadir un evento al botón de terminar batalla
+document.getElementById('boton-terminar-batalla')?.addEventListener('click', terminarBatalla);
 
 // Actualizar interfaz con nuevo Pokémon
 function actualizarInterfazPokemon(pokemon, contenedor) {

@@ -145,8 +145,15 @@ app.post('/InicioSesion', async function (request, response){
     const { correo, contrasena } = request.body; 
     const redireccion = await validarUsuario(correo, contrasena);
     response.redirect(redireccion); 
-}); 
+});
 
- 
+
+ // Nuevo Equipo POST
+app.post('/guardarbatalla', async function (request, response) {
+    const {agregarBatalla} = require('../services/servicioGuardarbatalla');
+    const {Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
+    const resultado = await agregarBatalla(Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
+    response.send(resultado);
+});
 
 
