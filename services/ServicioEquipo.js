@@ -1,4 +1,3 @@
-
 const Equipo = require('../models/Equipo')
 async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
    

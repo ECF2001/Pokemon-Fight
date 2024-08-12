@@ -24,7 +24,6 @@ const obtenerHistorialEquipo = async (nombreUsuario) => {
         });
         resultado.push(datosEquipo);
     });
-    console.log((JSON.stringify(resultado)))
     return resultado;
 }
 module.exports = {
