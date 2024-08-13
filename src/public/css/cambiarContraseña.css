@@ -274,8 +274,8 @@ a:active {
     font-size: 16px;
 }
 
-.contraseña1,
-.contraseña2{
+.contrasena,
+.contrasena2{
     display: flex;
     padding-left: 90px;
 }

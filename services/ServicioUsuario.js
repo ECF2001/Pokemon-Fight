@@ -32,6 +32,43 @@ const validarUsuario = async (correo, contrasena) => {
 };
 
 
+const bcrypt = require ('bcrypt');
+const {MongoClient} = require('mongodb');
+
+
+
+const cambiarContrasena = async (correo, nuevaContrasena) => {
+
+    const client = new MongoClient('mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight')
+    await client.connect();
+    const db = client.db('PokemonFight');
+
+    try{
+
+        const encriptarContrasena = await bcrypt.hash(nuevaContrasena, 10); 
+
+         const resultado = await Usuario.findOneandUpdate(
+
+            {correo:correo},
+            {$set:{contrasena: encriptarContrasena} }
+
+         );
+
+         await client.close(); 
+
+         if (resultado) {
+        return '/'
+    } else {
+        return '/inicioSesion?error=Clave%20invalida'
+    }
+       
+    } catch (error) {
+        console.error('Error al cambiar la contrasena', error);
+
+        
+    }
+    }
+
 const obtenerFotos = async (listaNombreUsuario) => {
     const usuarios = await Usuario.find({
         nombreUsuario: { $in: listaNombreUsuario }
@@ -47,6 +84,7 @@ const obtenerFotos = async (listaNombreUsuario) => {
 module.exports = {
     agregarRegistro,
     obtenerFotos,
-    validarUsuario
+    validarUsuario,
+    cambiarContrasena
 }
 

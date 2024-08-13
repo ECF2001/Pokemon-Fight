@@ -9,6 +9,18 @@ const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.n
 
 const app = express();
 
+//app.use(session({
+//    secret: 'SECRETO',
+  //  resave: true,
+    //saveUninitialized: true,
+    //store: new MongoStore({
+      //  url: MONGO_URL,
+        //autoReconnect: true 
+    //})
+//})
+
+
+
 // app.use(session({
 //     secret: 'SECRETO',
 //     resave: true,
@@ -18,10 +30,10 @@ const app = express();
 //         autoReconnect: true 
 //     })
 // }))
+//>>>>>>> 2e0807fa91a4c29fae0abaa29743ae5ff5c9ce46
 
 const bodyParser = require('body-parser');
 
-;
 
 const path = require('path');
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -187,4 +199,15 @@ app.post('/guardarbatalla', async function (request, response) {
     response.send(resultado);
 });
 
+
+//Cambiar contrasena POST
+
+app.post('/CambiarContrasena', async function (request, response){
+
+    const {cambiarContrasena} = require ('../services/ServicioUsuario'); 
+    const { correo, contrasena } = request.body; 
+    const redireccion = await cambiarContrasena( resultado );
+    response.redirect(redireccion); 
+
+}); 
 
