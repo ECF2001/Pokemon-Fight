@@ -187,11 +187,7 @@ app.post('/InicioSesion', async function (request, response){
 });
 
 
-<<<<<<< Updated upstream
-// 
-=======
 //Guardar Batalla POST
->>>>>>> Stashed changes
 app.post('/guardarbatalla', async function (request, response) {
     const {terminarBatalla} = require('../services/servicioGuardarbatalla');
     const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
