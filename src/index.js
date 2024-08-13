@@ -2,7 +2,7 @@ const express = require('express');
 
 const db = require('./db');
 //Express-sessiom
-const session = require('express-session'); 
+/*const session = require('express-session'); 
 const MongoStore = require ('connect-mongo')(session);
 
 const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight';
@@ -17,11 +17,13 @@ app.use(session({
         url: MONGO_URL,
         autoReconnect: true 
     })
-}))
+}))*/
+
+
 
 const bodyParser = require('body-parser');
 
-;
+const app = express();
 
 const path = require('path');
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -181,4 +183,15 @@ app.post('/guardarbatalla', async function (request, response) {
     response.send(resultado);
 });
 
+
+//Cambiar contrasena POST
+
+app.post('/CambiarContrasena', async function (request, response){
+
+    const {cambiarContrasena} = require ('../services/ServicioUsuario'); 
+    const { correo, contrasena } = request.body; 
+    const redireccion = await cambiarContrasena( resultado );
+    response.redirect(redireccion); 
+
+}); 
 

@@ -2,22 +2,22 @@ const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 
 const expresiones = {
-     contraseña: /^[a-zA-Z0-9\_\-]{8,16}$/,
-     contraseña2: /^[a-zA-Z0-9\_\-]{8,16}$/
+     contrasena: /^[a-zA-Z0-9\_\-]{8,16}$/,
+     contrasena2: /^[a-zA-Z0-9\_\-]{8,16}$/
 }
 
 const campos = {
-    contraseña: false, 
-    contraseña2: false
+    contrasena: false, 
+    contrasena2: false
 }
 
 const validarFormulario = (e) => {
         switch (e.target.id){
-            case "contraseña":
-                validarCampo(expresiones.contraseña, e.target, "contraseña");
+            case "contrasena":
+                validarCampo(expresiones.contrasena, e.target, "contrasena");
                 break; 
-            case "contraseña2":
-                validarCampo(expresiones.contraseña2, e.target, "contraseña2");
+            case "contrasena2":
+                validarCampo(expresiones.contrasena2, e.target, "contrasena2");
                 break; 
     }
 }
@@ -49,20 +49,13 @@ inputs.forEach((input) => {
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     
-    if (campos.contraseña && campos.contraseña2) {
+    if (campos.contrasena && campos.contrasena2) {
 
         document.getElementById("formulario__mensaje-exito").classList.remove("formulario__mensaje-activo");
 
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito-activo");
 
-        setTimeout(() => {
-            document.querySelectorAll(".formulario__general--correcto").forEach((icono) => {
-                icono.classList.remove("formulario__general--correcto");
-            });
-
-           location.reload();
-        }, 4000);
-   
+         formulario.submit();
     } else {
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito");
     }
