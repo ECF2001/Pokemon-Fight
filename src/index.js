@@ -2,28 +2,38 @@ const express = require('express');
 
 const db = require('./db');
 //Express-sessiom
-/*const session = require('express-session'); 
-const MongoStore = require ('connect-mongo')(session);
+const session = require('express-session'); 
+// const MongoStore = require ('connect-mongo')(session);
 
 const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight';
 
 const app = express();
 
-app.use(session({
-    secret: 'SECRETO',
-    resave: true,
-    saveUninitialized: true,
-    store: new MongoStore({
-        url: MONGO_URL,
-        autoReconnect: true 
-    })
-}))*/
+//app.use(session({
+//    secret: 'SECRETO',
+  //  resave: true,
+    //saveUninitialized: true,
+    //store: new MongoStore({
+      //  url: MONGO_URL,
+        //autoReconnect: true 
+    //})
+//})
 
 
+
+// app.use(session({
+//     secret: 'SECRETO',
+//     resave: true,
+//     saveUninitialized: true,
+//     store: new MongoStore({
+//         url: MONGO_URL,
+//         autoReconnect: true 
+//     })
+// }))
+//>>>>>>> 2e0807fa91a4c29fae0abaa29743ae5ff5c9ce46
 
 const bodyParser = require('body-parser');
 
-const app = express();
 
 const path = require('path');
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -177,7 +187,7 @@ app.post('/InicioSesion', async function (request, response){
 
 
 app.post('/guardarbatalla', async function (request, response) {
-    const {terminarBatalla} = require('./public/js/batalla');
+    const {terminarBatalla} = require('../services/servicioGuardarbatalla');
     const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
     const resultado = await terminarBatalla(idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
     response.send(resultado);

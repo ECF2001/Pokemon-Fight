@@ -1,8 +1,10 @@
-let idBatalla="1"
+let idBatalla = 1
 let usuario1 = "usuario1";
 let usuario2 = "usuario2";
 let equipo1 = ['bulbasaur'];
 let equipo2 = ['squirtle'];
+let nombreEquipo1="1";
+let nombreEquipo2="1"
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
 let pokemon1Vivo = true;
@@ -228,10 +230,7 @@ async function cambiarPokemon(id) {
       console.log("Equipo 2 ha perdido todos los Pokémon.");
     }
 
-    const botonTerminarBatalla = document.getElementById("boton-terminar-batalla");
-    if (botonTerminarBatalla) {
-      botonTerminarBatalla.style.display = "block";
-    }
+    terminarBatalla()
   }
 }
 
@@ -240,6 +239,8 @@ async function cambiarPokemon(id) {
 async function terminarBatalla() {
   let nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2;
 
+
+
   try {
     const response = await fetch('http://localhost:3000/guardarbatalla', {
       method: 'POST',
@@ -247,19 +248,21 @@ async function terminarBatalla() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        idBatalla: idBatalla,
+        idBatalla: idBatalla, 
         nombreUsuario1: usuario1,
-        nombreEquipo1: equipo1,
+        nombreEquipo1: nombreEquipo1, 
         nombreUsuario2: usuario2,
-        nombreEquipo2: equipo2,
+        nombreEquipo2: nombreEquipo2, 
         nombreUsuarioVencedor: nombreUsuarioVencedor,
       })
     });
 
     if (response.ok) {
-      alert(`guardado exitosamente`);
+      alert('Guardado exitosamente');
     } else {
-      alert('Error al guardando ');
+      const errorData = await response.json();
+      console.error('Error en la respuesta:', errorData);
+      alert('Error al guardar');
     }
   } catch (error) {
     console.error('Error enviando solicitud:', error);
@@ -282,4 +285,6 @@ function actualizarInterfazPokemon(pokemon, contenedor) {
 
 
 // Cargar los equipos Pokémon al iniciar
-window.onload = cargarPokemones;
+if (typeof window !== 'undefined') {
+  window.onload = cargarPokemones;
+}

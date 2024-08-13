@@ -38,7 +38,7 @@
 
 a {
     text-decoration: none;
-    color: black;
+    color: white;
 }
 
 a:hover {
@@ -68,7 +68,7 @@ a:active {
 }
 
 .resumen {
-    font-size: larger;
+    font-size: xx-large;
     margin-bottom: 20px;
     color: grey;
 }
@@ -152,12 +152,22 @@ tr:last-child td {
 
 
 .imagen_Personajes{
-    width: 75px;
-    height: 78px;
-    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
     vertical-align: middle;
     margin-right: 10px;
-    background-color: white;
+    background-color: #D9D9D9;
+}
+
+.nombrePokemon {
+    font-size: larger;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.numeros {
+    font-size: xx-large;
 }
 
 .footer {

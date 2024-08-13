@@ -43,11 +43,11 @@
             <tr>
                 <td>
                     <img class="imagen_Personajes" src="<%= dato.fotoPokemon %>">
-                    <%= dato.nombrePokemon %>
+                    <p class="nombrePokemon"><%= dato.nombrePokemon %></p>
                 </td>
-                <td><%= dato.victorias %></td>
-                <td><%= dato.derrotas %></td>
-                <td><%= dato.victorias + dato.derrotas %></td>
+                <td class="numeros"><%= dato.victorias %></td>
+                <td class="numeros"><%= dato.derrotas %></td>
+                <td class="numeros"><%= dato.victorias + dato.derrotas %></td>
             </tr>
         <% }) %>
         </table>

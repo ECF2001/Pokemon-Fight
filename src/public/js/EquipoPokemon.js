@@ -64,7 +64,7 @@ async function llenarTabla(equipos) {
         tableBody.appendChild(row);
     }
 
-    fileSeleccionadaListener(); // Re-add listeners after populating
+    fileSeleccionadaListener();
 }
 
 function fileSeleccionadaListener() {
