@@ -54,6 +54,8 @@ const cambiarContrasena = async (correo, nuevaContrasena) => {
 
          );
 
+         //await resultado.save()
+
          await client.close(); 
 
          if (resultado) {
