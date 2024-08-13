@@ -108,11 +108,11 @@ const session = require('express-session');
  const MongoDBSession= require ('connect-mongodb-session')(session);
 
 
-const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/sesiones';
+const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight';
 
 const store = new MongoDBSession({
     uri: MONGO_URL,
-    collection:"sesiones",
+    collection:"usuarios",
 })
 
 app.use(session({
