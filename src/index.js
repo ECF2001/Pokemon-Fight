@@ -70,6 +70,7 @@ app.get('/CambiarPerfil', (req, res) => {
 });
 
 app.get('/CambiarContrasena', (req, res) => {
+    console.log('get');
     res.render("cambiarContraseña.html");
 });
 
@@ -158,6 +159,7 @@ app.post('/guardarEquipo', async function (request, response) {
     response.send(resultado);
 });
 
+//Obtener Equipos GET
 app.get('/obtenerEquipos', async function (request, response) {
     const {obtenerEquipos} = require('../services/ServicioEquipo');
     // Obtener nombre de usuario actual
@@ -185,7 +187,11 @@ app.post('/InicioSesion', async function (request, response){
 });
 
 
+<<<<<<< Updated upstream
 // 
+=======
+//Guardar Batalla POST
+>>>>>>> Stashed changes
 app.post('/guardarbatalla', async function (request, response) {
     const {terminarBatalla} = require('../services/servicioGuardarbatalla');
     const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
@@ -201,13 +207,12 @@ app.post('/guardarbatalla', async function (request, response) {
 
 
 //Cambiar contrasena POST
-
 app.post('/CambiarContrasena', async function (request, response){
-
+    const nombreUsuario = 'sunny76';
+    console.log(request.cookies);
     const {cambiarContrasena} = require ('../services/ServicioUsuario'); 
-    const { correo, contrasena } = request.body; 
-    const redireccion = await cambiarContrasena( resultado );
+    const { nuevaContrasena, confirmarContrasena } = request.body; 
+    const redireccion = await cambiarContrasena(nombreUsuario, nuevaContrasena, confirmarContrasena );
     response.redirect(redireccion); 
-
 }); 
 
