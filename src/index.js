@@ -41,6 +41,7 @@ app.get('/CambiarPerfil', (req, res) => {
 });
 
 app.get('/CambiarContrasena', (req, res) => {
+    console.log('get');
     res.render("cambiarContraseña.html");
 });
 
@@ -168,6 +169,7 @@ app.post('/guardarEquipo', async function (request, response) {
     response.send(resultado);
 });
 
+//Obtener Equipos GET
 app.get('/obtenerEquipos', async function (request, response) {
     const {obtenerEquipos} = require('../services/ServicioEquipo');
     // Obtener nombre de usuario actual
@@ -195,23 +197,28 @@ app.post('/InicioSesion', async function (request, response){
 });
 
 
-
+//Guardar Batalla POST
 app.post('/guardarbatalla', async function (request, response) {
     const {terminarBatalla} = require('../services/servicioGuardarbatalla');
     const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
     const resultado = await terminarBatalla(idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
+    console.log(idBatalla)
+    console.log(Usuario1)
+    console.log(Equipo1)
+    console.log(Usuario2)
+    console.log(Equipo2)
+    console.log(UsuarioVencedor)
     response.send(resultado);
 });
 
 
 //Cambiar contrasena POST
-
 app.post('/CambiarContrasena', async function (request, response){
-
+    const nombreUsuario = 'sunny76';
+    console.log(request.cookies);
     const {cambiarContrasena} = require ('../services/ServicioUsuario'); 
-    const { correo, contrasena } = request.body; 
-    const redireccion = await cambiarContrasena( resultado );
+    const { nuevaContrasena, confirmarContrasena } = request.body; 
+    const redireccion = await cambiarContrasena(nombreUsuario, nuevaContrasena, confirmarContrasena );
     response.redirect(redireccion); 
-
 }); 
 

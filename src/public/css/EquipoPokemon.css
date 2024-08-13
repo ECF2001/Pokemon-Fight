@@ -120,7 +120,8 @@ td {
 th {
     font-size: x-large;
 }
-.th_Pokemons{
+.th_Pokemons, .decoracionTabla td{ 
+    width: 200px;
     border-left: 1px solid black;
 }
 td:nth-child(2),

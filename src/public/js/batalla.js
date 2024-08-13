@@ -1,10 +1,7 @@
-let idBatalla = 1
-let usuario1 = "usuario1";
-let usuario2 = "usuario2";
+
 let equipo1 = ['bulbasaur'];
 let equipo2 = ['squirtle'];
-let nombreEquipo1="1";
-let nombreEquipo2="1"
+
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
 let pokemon1Vivo = true;
@@ -237,6 +234,11 @@ async function cambiarPokemon(id) {
 // Terminar la batalla y guardar los datos
 
 async function terminarBatalla() {
+let idBatalla = 1
+let usuario1 = "usuario1";
+let usuario2 = "usuario2";
+let nombreEquipo1="1";
+let nombreEquipo2="1"
   let nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2;
 
 
@@ -248,12 +250,12 @@ async function terminarBatalla() {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        idBatalla: idBatalla, 
-        nombreUsuario1: usuario1,
-        nombreEquipo1: nombreEquipo1, 
-        nombreUsuario2: usuario2,
-        nombreEquipo2: nombreEquipo2, 
-        nombreUsuarioVencedor: nombreUsuarioVencedor,
+        idBatalla: 2, 
+        Usuario1: "usuario1",
+        Equipo1: "nombreEquipo1",
+        Usuario2: "usuario2",
+        Equipo2: "nombreEquipo2", 
+        UsuarioVencedor: nombreUsuarioVencedor,
       })
     });
 
