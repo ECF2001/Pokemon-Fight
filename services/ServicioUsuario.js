@@ -73,12 +73,24 @@ const obtenerFotos = async (listaNombreUsuario) => {
     return fotos;
 };
 
+const obtenerFotoPerfil = async (nombreUsuario) => {
+    const usuario = await Usuario.findOne({
+        nombreUsuario: nombreUsuario
+    });
+    if (usuario) {
+        return usuario.fotoPerfil;
+    } else {
+        return '';
+    }
+    
+};
+
 
 module.exports = {
     agregarRegistro,
     obtenerFotos,
     validarUsuario,
     cambiarContrasena,
-    idInicioSesion
+    obtenerFotoPerfil
 }
 
