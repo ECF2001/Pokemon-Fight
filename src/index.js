@@ -128,7 +128,6 @@ app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
     const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
-    console.log(fotoPerfil);
     const datos = await obtenerTablaLiderazgo();
     response.render('TablaLiderazgo', { datos, fotoPerfil });
 });
