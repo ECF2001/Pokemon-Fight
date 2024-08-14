@@ -71,9 +71,11 @@ app.get('/GenerarReportes', (req, res) => {
 
 app.get('/HistorialEquipos', authMiddleWare, async function (request, response) {
     const { obtenerHistorialEquipo } = require('../services/ServicioHistorialEquipos');
+    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
+    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerHistorialEquipo(nombreUsuario);
-    response.render("historial_Equipos", { datos });
+    response.render("historial_Equipos", { datos, fotoPerfil });
 });
 
 app.get('/HistorialPartidas', (req, res) => {
@@ -82,9 +84,11 @@ app.get('/HistorialPartidas', (req, res) => {
 
 app.get('/HistorialPokemon', authMiddleWare, async function (request, response) {
     const { obtenerHistorialPokemon } = require('../services/ServicioHistorialPokemon');
+    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
+    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerHistorialPokemon(nombreUsuario);
-    response.render("historialPokemon", { datos });
+    response.render("historialPokemon", { datos, fotoPerfil });
 });
 
 app.get('/InicioSesion', (req, res) => {
@@ -128,7 +132,6 @@ app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
     const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
-    console.log(fotoPerfil);
     const datos = await obtenerTablaLiderazgo();
     response.render('TablaLiderazgo', { datos, fotoPerfil });
 });
@@ -136,9 +139,11 @@ app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
 //Victorias y Derrotas GET
 app.get('/VictoriasYDerrotas',  authMiddleWare, async function (request, response) {
     const { obtenerVictoriasYDerrotas } = require('../services/ServicioVictoriasYDerrotas');
+    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
+    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerVictoriasYDerrotas(nombreUsuario);
-    response.render('victorias_derrotas', { datos });
+    response.render('victorias_derrotas', { datos, fotoPerfil });
 });
 
 app.get('/Batalla', (req, res) => {

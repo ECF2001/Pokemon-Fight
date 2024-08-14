@@ -11,9 +11,9 @@
 
 <body>
     <div class="header"> <!--HEADER-->
-        <a href="../Perfil/Cambiar_perfil.html">
-        <img class="fotoPerfil" id="foto_perfil">
-    </a>
+        <a href="/CambiarPerfil">
+            <img class="fotoPerfil" id="foto_perfil" src="<%= fotoPerfil %>">
+        </a>
         <div class="menu">
             <a href="/">
                 <h6 class="paginaPrincipal">Página Principal</h6>
@@ -28,7 +28,7 @@
     </div>
     <div class="body"> <!--BODY-->
         <h3 class="titulo">Victorias y derrotas contra tus amigos</h3>
-        <% if (!datos) { %>
+        <% if (!datos || datos.length === 0) { %>
             <div class="alert"> Juega una partida con tus amigos para desbloquear tus estadísticas!</div>
             <% } else { %>
         <table class="tabla_body_victorias">

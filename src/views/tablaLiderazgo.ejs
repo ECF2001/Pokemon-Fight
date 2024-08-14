@@ -32,7 +32,7 @@
         <p class="resumen">Tabla de liderazgo entre jugadores, definido por los mejores </p>
         <p class="resumen">resultados de duelos acumulados!</p>
         
-        <% if (!datos) { %>
+        <% if (!datos || datos.length === 0) { %>
             <div class="alert"> Juega una partida para desbloquear tus estadísticas</div>
             <% } else { %>
        <table id="tabla_liderazgo" class="tabla_body">
