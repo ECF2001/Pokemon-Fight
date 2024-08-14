@@ -178,7 +178,6 @@ app.post('/Registro', async function (request, response) {
     const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena } = request.body;
     const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);
     response.redirect('/');
-   
 
 });
 
