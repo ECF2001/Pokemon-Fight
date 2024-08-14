@@ -117,7 +117,7 @@ const store = new MongoDBSession({
 
 app.use(session({
     secret: 'foo',
-    resave: true,
+    resave: false,
     saveUninitialized: true, 
     store: store
     }));
@@ -125,6 +125,10 @@ app.use(session({
     app.get  ('/InicioSesion', (req, res)=> {
         req.session.isAuth = true; 
     })
+
+    
+
+
 
 /*app.use(session({
   store: MongoStore.create({ mongoUrl: 'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight' })
@@ -191,7 +195,11 @@ app.post('/Registro', async function (request, response)  {
 //Inicio sesion POST
 app.post('/InicioSesion', async function (request, response){
     const { validarUsuario } = require('../services/ServicioUsuario')
-    const { correo, contrasena } = request.body; 
+    //express session 
+    const { correo, contrasena } = request.body;
+    const sessionID = request.sessionID
+    const {idInicioSesion} = require ('../services/ServicioUsuario')
+    const resultado = await idInicioSesion(correo, contrasena, sessionID);
     const redireccion = await validarUsuario(correo, contrasena);
     response.redirect(redireccion); 
 });
