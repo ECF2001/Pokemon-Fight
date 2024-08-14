@@ -32,8 +32,29 @@ async function obtenerEquipos(usuario) { // variable
     }
 }
 
+async function modificarEquipo(nombreEquipo, usuario, pokemonName) {
+    try {
+        const equipo = await Equipo.find({nombreEquipo: nombreEquipo, nombreUsuario: usuario});
+        var listaP = equipo[0].listaPokemon.filter((pokemon) => pokemon != pokemonName);
+
+        var equipoNuevo = await Equipo.updateOne(
+            {nombreEquipo: nombreEquipo, nombreUsuario: usuario},
+            {$set: {listaPokemon:listaP}}
+        );
+
+        if (equipoNuevo.nModified === 0) {
+            console.log('No se encontró el equipo o no hubo cambios en la lista de Pokémon.');
+        } else {
+            console.log('Lista de Pokémon actualizada exitosamente.');
+        }
+    } catch (error) {
+        console.error('Error al actualizar el equipo:', error);
+    }
+}
+
 
 module.exports = {
     agregarEquipo,
-    obtenerEquipos
+    obtenerEquipos,
+    modificarEquipo
 }

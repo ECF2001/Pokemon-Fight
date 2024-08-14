@@ -1,28 +1,39 @@
 const express = require('express');
-
-const db = require('./db');
-
 const bodyParser = require('body-parser');
-
-
 const path = require('path');
-//app.use(bodyParser.json({ limit: '50mb' }));
-//app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+const { conectarBaseDeDatos, DB_URI } = require('./db');
+const { authMiddleWare } = require('./authMiddleWare')
 
 const app = express();
+conectarBaseDeDatos();
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
- 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Archivos Static (CSS,IMG,JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
-//Inicializar servidor
+// Sesion
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+app.use(session({
+    secret: 'foo',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoDBStore({
+        uri: DB_URI,
+        collection: "sesiones",
+    }),
+    cookie: {
+        secure: false
+    }
+}));
 
+
+//Inicializar servidor
 app.listen(3000, () => {
     console.log("Se conecto al puerto");
 });
@@ -35,7 +46,7 @@ app.get('/', (req, res) => {
 app.get('/BatallaPokemon', (req, res) => {
     res.render("batalla_pokemon.html");
 });
- 
+
 app.get('/CambiarPerfil', (req, res) => {
     res.render("Cambiar_perfil.html");
 });
@@ -58,20 +69,22 @@ app.get('/GenerarReportes', (req, res) => {
 });
 
 
-app.get('/HistorialEquipos/:nombreUsuario', async function (request, response) {
-    const {obtenerHistorialEquipo} = require('../services/ServicioHistorialEquipos');
-    const datos = await obtenerHistorialEquipo(request.params.nombreUsuario);
-    response.render("historial_Equipos", {datos});
+app.get('/HistorialEquipos', authMiddleWare, async function (request, response) {
+    const { obtenerHistorialEquipo } = require('../services/ServicioHistorialEquipos');
+    const nombreUsuario = request.session.nombreUsuario;
+    const datos = await obtenerHistorialEquipo(nombreUsuario);
+    response.render("historial_Equipos", { datos });
 });
 
 app.get('/HistorialPartidas', (req, res) => {
     res.render("Historial_partidas.html");
 });
 
-app.get('/HistorialPokemon/:nombreUsuario', async function (request, response) {
-    const {obtenerHistorialPokemon} = require('../services/ServicioHistorialPokemon');
-    const datos = await obtenerHistorialPokemon(request.params.nombreUsuario);
-    response.render("historialPokemon", {datos});
+app.get('/HistorialPokemon', authMiddleWare, async function (request, response) {
+    const { obtenerHistorialPokemon } = require('../services/ServicioHistorialPokemon');
+    const nombreUsuario = request.session.nombreUsuario;
+    const datos = await obtenerHistorialPokemon(nombreUsuario);
+    response.render("historialPokemon", { datos });
 });
 
 app.get('/InicioSesion', (req, res) => {
@@ -102,60 +115,29 @@ app.get('/Registro', (req, res) => {
     res.render("Registro.html");
 });
 
-//Express-sessiom
-const session = require('express-session'); 
- const MongoStore = require ('connect-mongo')
- const MongoDBSession= require ('connect-mongodb-session')(session);
 
 
-const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight';
-
-const store = new MongoDBSession({
-    uri: MONGO_URL,
-    collection:"usuarios",
+app.get('/InicioSesion', (req, res) => {
+    req.session.isAuth = true;
 })
-
-app.use(session({
-    secret: 'foo',
-    resave: false,
-    saveUninitialized: true, 
-    store: store
-    }));
-
-    app.get  ('/InicioSesion', (req, res)=> {
-        req.session.isAuth = true; 
-    })
-
-    
-
-
-
-/*app.use(session({
-  store: MongoStore.create({ mongoUrl: 'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight' })
-  }));
-
-  app.use 
-    ( session ( { store : MongoStore.create ( { clientPromise , dbName : ' mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight' } ) } ) ) ;
-    //La sesion expira en 14 dias
-    app.use(session({
-    store: MongoStore.create({
-    mongoUrl: 'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight',
-    ttl: 14 * 24 * 60 * 60 // = 14 days. Default
-  })
-}));*/
 
 
 //Tabla de liderazgo GET
-app.get("/TablaLiderazgo", async function (request, response) {
+app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
+    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
+    const nombreUsuario = request.session.nombreUsuario;
+    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
+    console.log(fotoPerfil);
     const datos = await obtenerTablaLiderazgo();
-    response.render('TablaLiderazgo', { datos });
+    response.render('TablaLiderazgo', { datos, fotoPerfil });
 });
 
 //Victorias y Derrotas GET
-app.get('/VictoriasYDerrotas/:nombreUsuario', async function (request, response) {
-    const {obtenerVictoriasYDerrotas} = require('../services/ServicioVictoriasYDerrotas');
-    const datos = await obtenerVictoriasYDerrotas(request.params.nombreUsuario);
+app.get('/VictoriasYDerrotas',  authMiddleWare, async function (request, response) {
+    const { obtenerVictoriasYDerrotas } = require('../services/ServicioVictoriasYDerrotas');
+    const nombreUsuario = request.session.nombreUsuario;
+    const datos = await obtenerVictoriasYDerrotas(nombreUsuario);
     response.render('victorias_derrotas', { datos });
 });
 
@@ -167,49 +149,59 @@ app.get('/Batalla', (req, res) => {
 
 // Nuevo Equipo POST
 app.post('/guardarEquipo', async function (request, response) {
-    const {agregarEquipo} = require('../services/ServicioEquipo');
+    const { agregarEquipo } = require('../services/ServicioEquipo');
     const { nombreEquipo, listaPokemon, nombreUsuario } = request.body;
     const resultado = await agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario);
     response.send(resultado);
 });
 
-//Obtener Equipos GET
+
 app.get('/obtenerEquipos', async function (request, response) {
-    const {obtenerEquipos} = require('../services/ServicioEquipo');
+    const { obtenerEquipos } = require('../services/ServicioEquipo');
     // Obtener nombre de usuario actual
-    const resultado = await obtenerEquipos('emilio');
+    const resultado = await obtenerEquipos('nimo23');
     response.send(resultado);
 });
 
- 
+app.post('/modificarEquipo', async function (request, response) {
+    const { modificarEquipo } = require('../services/ServicioEquipo');
+    // Obtener nombre de usuario actual
+    const { equipo, usuario, pokemon } = request.body;
+    const resultado = await modificarEquipo(equipo, usuario, pokemon);
+    response.send(resultado);
+});
+
+
 //Registro POST 
-app.post('/Registro', async function (request, response)  {
+app.post('/Registro', async function (request, response) {
     const { agregarRegistro } = require('../services/ServicioUsuario');
     const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena } = request.body;
     const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);
     response.redirect('/');
    
+
 });
 
 
 //Inicio sesion POST
-app.post('/InicioSesion', async function (request, response){
-    const { validarUsuario } = require('../services/ServicioUsuario')
-    //express session 
+app.post('/InicioSesion', async function (request, response) {
+    const { validarUsuario } = require('../services/ServicioUsuario');
     const { correo, contrasena } = request.body;
-    const sessionID = request.sessionID
-    const {idInicioSesion} = require ('../services/ServicioUsuario')
-    const resultado = await idInicioSesion(correo, contrasena, sessionID);
-    const redireccion = await validarUsuario(correo, contrasena);
-    response.redirect(redireccion); 
+    const usuario = await validarUsuario(correo, contrasena);
+    if (usuario) {
+        request.session.nombreUsuario = usuario.nombreUsuario;
+        response.redirect('/');
+    } else {
+        response.redirect('/inicioSesion?error=Clave%20invalida');
+    }
 });
 
 
 //Guardar Batalla POST
 app.post('/guardarbatalla', async function (request, response) {
-    const {terminarBatalla} = require('../services/servicioGuardarbatalla');
-    const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
-    const resultado = await terminarBatalla(idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
+    const { terminarBatalla } = require('../services/servicioGuardarbatalla');
+    const { idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor } = request.body;
+    const resultado = await terminarBatalla(idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor);
     console.log(idBatalla)
     console.log(Usuario1)
     console.log(Equipo1)
@@ -221,12 +213,18 @@ app.post('/guardarbatalla', async function (request, response) {
 
 
 //Cambiar contrasena POST
+
 app.post('/CambiarContrasena', async function (request, response){
     const nombreUsuario = 'ssolano15';
+});
+
+app.post('/CambiarContrasena', async function (request, response) {
+    const nombreUsuario = 'sunny76';
+
     console.log(request.cookies);
-    const {cambiarContrasena} = require ('../services/ServicioUsuario'); 
-    const { nuevaContrasena, confirmarContrasena } = request.body; 
-    const redireccion = await cambiarContrasena(nombreUsuario, nuevaContrasena, confirmarContrasena );
-    response.redirect(redireccion); 
-}); 
+    const { cambiarContrasena } = require('../services/ServicioUsuario');
+    const { nuevaContrasena, confirmarContrasena } = request.body;
+    const redireccion = await cambiarContrasena(nombreUsuario, nuevaContrasena, confirmarContrasena);
+    response.redirect(redireccion);
+});
 

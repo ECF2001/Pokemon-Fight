@@ -45,7 +45,7 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
 
         const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
         const resultado = await Usuario.findOneAndUpdate(
-            { nombreUsuario: nombreUsuario },
+            { nombreUsuario: nombreUsuario }, 
             { $set: { contrasena: encriptarContrasena } }
         );
 
