@@ -92,7 +92,7 @@ a:active {
 }
 
 
-.caja_1 {
+#contenedorEquipos {
     margin-top: 5%;
     margin-bottom: 5%;
     border: 1px solid #ddd;
@@ -102,29 +102,8 @@ a:active {
     width: 400px;
     height: 550px;
     transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
-
 }
 
-.caja_2 {
-    margin-top: 5%;
-    margin-bottom: 5%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    height: 550px;
-    display: none;
-    transition: opacity 0.5s ease-in-out, transform  1s ease-in-out;
-    background-color: darkcyan;
-
-}
-
-.caja_1.mostrar, .caja_2.mostrar {
-    display: none;
-    opacity: 3;
-    transform: scale(5);
-}
 
 h2 {
     margin-bottom: 60px;
