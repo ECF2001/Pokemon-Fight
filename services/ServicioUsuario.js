@@ -32,41 +32,54 @@ const validarUsuario = async (correo, contrasena) => {
 };
 
 
-const bcrypt = require ('bcrypt');
-const {MongoClient} = require('mongodb');
+const bcrypt = require('bcrypt');
+const { MongoClient } = require('mongodb');
 
+const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContrasena) => {
 
+    try {
 
-const cambiarContrasena = async (correo, nuevaContrasena) => {
+        // if (nuevaContrasena !== confirmarContrasena) {
+        //     enviar error
+        // }
 
-    const client = new MongoClient('mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight')
-    await client.connect();
-    const db = client.db('PokemonFight');
+        const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
+        const resultado = await Usuario.findOneandUpdate(
+            { nombreUsuario: nombreUsuario },
+            { $set: { contrasena: encriptarContrasena } }
+        );
 
-    try{
+        if (resultado) {
+            return '/';
+        } else {
+            return '/CambiarContrasena?error=Clave%20invalida';
+        } 
 
-        const encriptarContrasena = await bcrypt.hash(nuevaContrasena, 10); 
-
-         const resultado = await Usuario.findOneandUpdate(
-
-            {correo:correo},
-            {$set:{contrasena: encriptarContrasena} }
-
-         );
-
-         await client.close(); 
-
-         if (resultado) {
-        return '/'
-    } else {
-        return '/inicioSesion?error=Clave%20invalida'
-    }
-       
     } catch (error) {
         console.error('Error al cambiar la contrasena', error);
-
-        
+        return '/CambiarContrasena?error=' + error
     }
+}
+
+    //Express session 
+    const idInicioSesion = async ( correo, contrasena, sessionID)=>{
+        try{
+            const usuario = await Usuario.findOne({ correo, contrasena});
+
+            if(!usuario){
+                return console.log('Correo o contrasena incorrectos')
+            }
+            
+
+        usuario.sessionId = sessionID 
+        await usuario.save();
+
+        return { error: false, usuarioId: usuario._id };
+        } catch (err) {
+        console.error(err);
+        return { error: true, status: 500, mensaje: 'Error en el servidor' };
+    }
+
     }
 
 const obtenerFotos = async (listaNombreUsuario) => {
@@ -85,6 +98,7 @@ module.exports = {
     agregarRegistro,
     obtenerFotos,
     validarUsuario,
-    cambiarContrasena
+    cambiarContrasena,
+    idInicioSesion
 }
 

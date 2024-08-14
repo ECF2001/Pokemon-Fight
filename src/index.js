@@ -1,44 +1,15 @@
 const express = require('express');
 
 const db = require('./db');
-//Express-sessiom
-const session = require('express-session'); 
-// const MongoStore = require ('connect-mongo')(session);
-
-const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight';
-
-const app = express();
-
-//app.use(session({
-//    secret: 'SECRETO',
-  //  resave: true,
-    //saveUninitialized: true,
-    //store: new MongoStore({
-      //  url: MONGO_URL,
-        //autoReconnect: true 
-    //})
-//})
-
-
-
-// app.use(session({
-//     secret: 'SECRETO',
-//     resave: true,
-//     saveUninitialized: true,
-//     store: new MongoStore({
-//         url: MONGO_URL,
-//         autoReconnect: true 
-//     })
-// }))
-//>>>>>>> 2e0807fa91a4c29fae0abaa29743ae5ff5c9ce46
 
 const bodyParser = require('body-parser');
 
 
 const path = require('path');
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+//app.use(bodyParser.json({ limit: '50mb' }));
+//app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
+const app = express();
 
 app.set('views', path.join(__dirname, 'views'));
 app.engine('html', require('ejs').renderFile);
@@ -70,6 +41,7 @@ app.get('/CambiarPerfil', (req, res) => {
 });
 
 app.get('/CambiarContrasena', (req, res) => {
+    console.log('get');
     res.render("cambiarContraseña.html");
 });
 
@@ -130,6 +102,49 @@ app.get('/Registro', (req, res) => {
     res.render("Registro.html");
 });
 
+//Express-sessiom
+const session = require('express-session'); 
+ const MongoStore = require ('connect-mongo')
+ const MongoDBSession= require ('connect-mongodb-session')(session);
+
+
+const MONGO_URL =  'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight';
+
+const store = new MongoDBSession({
+    uri: MONGO_URL,
+    collection:"usuarios",
+})
+
+app.use(session({
+    secret: 'foo',
+    resave: false,
+    saveUninitialized: true, 
+    store: store
+    }));
+
+    app.get  ('/InicioSesion', (req, res)=> {
+        req.session.isAuth = true; 
+    })
+
+    
+
+
+
+/*app.use(session({
+  store: MongoStore.create({ mongoUrl: 'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight' })
+  }));
+
+  app.use 
+    ( session ( { store : MongoStore.create ( { clientPromise , dbName : ' mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight' } ) } ) ) ;
+    //La sesion expira en 14 dias
+    app.use(session({
+    store: MongoStore.create({
+    mongoUrl: 'mongodb+srv://Emilio:Emic2001@pokemonfight.xxc5s22.mongodb.net/PokemonFight',
+    ttl: 14 * 24 * 60 * 60 // = 14 days. Default
+  })
+}));*/
+
+
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
@@ -188,29 +203,38 @@ app.post('/Registro', async function (request, response)  {
 //Inicio sesion POST
 app.post('/InicioSesion', async function (request, response){
     const { validarUsuario } = require('../services/ServicioUsuario')
-    const { correo, contrasena } = request.body; 
+    //express session 
+    const { correo, contrasena } = request.body;
+    const sessionID = request.sessionID
+    const {idInicioSesion} = require ('../services/ServicioUsuario')
+    const resultado = await idInicioSesion(correo, contrasena, sessionID);
     const redireccion = await validarUsuario(correo, contrasena);
     response.redirect(redireccion); 
 });
 
 
-
+//Guardar Batalla POST
 app.post('/guardarbatalla', async function (request, response) {
     const {terminarBatalla} = require('../services/servicioGuardarbatalla');
     const {idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor} = request.body;
     const resultado = await terminarBatalla(idBatalla,Usuario1,Equipo1,Usuario2,Equipo2,UsuarioVencedor);
+    console.log(idBatalla)
+    console.log(Usuario1)
+    console.log(Equipo1)
+    console.log(Usuario2)
+    console.log(Equipo2)
+    console.log(UsuarioVencedor)
     response.send(resultado);
 });
 
 
 //Cambiar contrasena POST
-
 app.post('/CambiarContrasena', async function (request, response){
-
+    const nombreUsuario = 'sunny76';
+    console.log(request.cookies);
     const {cambiarContrasena} = require ('../services/ServicioUsuario'); 
-    const { correo, contrasena } = request.body; 
-    const redireccion = await cambiarContrasena( resultado );
+    const { nuevaContrasena, confirmarContrasena } = request.body; 
+    const redireccion = await cambiarContrasena(nombreUsuario, nuevaContrasena, confirmarContrasena );
     response.redirect(redireccion); 
-
 }); 
 

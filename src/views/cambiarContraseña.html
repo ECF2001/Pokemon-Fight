@@ -27,12 +27,12 @@
     <div class="body"> <!--BODY-->
         <div class="formulario">
             <h1>CAMBIAR CONTRASEÑA</h1>
-            <form action="" id="formulario">
+            <form action="/CambiarContrasena" id="formulario" method="post">
                 <!-- Nueva contraseña -->
                 <div class="formulario__general" id="grupo__contrasena">
                     <label for="contrasena" class="contrasena">Ingrese la nueva contraseña</label>
                     <div class="formulario__input">
-                        <input type="password" class="input" id="contrasena">
+                        <input type="password" class="input" id="contrasena" name="nuevaContrasena">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">La contraseña debe tener mínimo 8 caracteres.</p>
@@ -43,7 +43,7 @@
                 <div class="formulario__general" id="grupo__contrasena2">
                     <label for="contrasena2" class="contrasena2">Ingrese la contraseña nuevamente</label>
                     <div class="formulario__input">
-                        <input type="password" class="input" id="contrasena2">
+                        <input type="password" class="input" id="contrasena2" name="confirmarContrasena">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">La contraseña debe tener mínimo 8 caracteres.</p>
