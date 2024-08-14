@@ -222,7 +222,7 @@ app.post('/guardarbatalla', async function (request, response) {
 
 //Cambiar contrasena POST
 app.post('/CambiarContrasena', async function (request, response){
-    const nombreUsuario = 'sunny76';
+    const nombreUsuario = 'ssolano15';
     console.log(request.cookies);
     const {cambiarContrasena} = require ('../services/ServicioUsuario'); 
     const { nuevaContrasena, confirmarContrasena } = request.body; 
