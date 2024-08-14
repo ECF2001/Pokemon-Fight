@@ -51,7 +51,13 @@ async function llenarTabla(equipos) {
         for (const pokemon of equipo.listaPokemon) {
             const pokemonCell = document.createElement('td');
             const imageUrl = await obtenerImagenPokemon(pokemon);
-            pokemonCell.innerHTML = `<img src="${imageUrl}" alt="${pokemon}">`;
+            pokemonCell.innerHTML = `
+                <img src="${imageUrl}" alt="${pokemon}">
+                <button class="btn-delete" data-equipo="${equipo.nombreEquipo}" data-index="${pokemon}">
+                    <i class='bx bx-trash'></i>
+                </button>
+            `;
+            // agregue boton borrar
             row.appendChild(pokemonCell);
         }
 
@@ -65,6 +71,41 @@ async function llenarTabla(equipos) {
     }
 
     fileSeleccionadaListener();
+    agregarListenersEliminar();
+}
+
+function agregarListenersEliminar() {
+    document.querySelectorAll('.btn-delete').forEach(button => {
+        button.addEventListener('click', async function () {
+            const nombreEquipo = this.dataset.equipo;
+            const pokemon = this.dataset.index;
+
+            try {
+                const response = await fetch('http://localhost:3000/modificarEquipo', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        equipo: nombreEquipo,
+                        usuario: 'nimo23',
+                        pokemon: pokemon
+                    })
+                });
+
+                if (response.ok) {
+                    //alert(`Equipo "${nombreEquipo}" modificado exitosamente`);
+                    location.reload();
+                } else {
+                    alert('Error modificando el equipo');
+                }
+            } catch (error) {
+                console.error('Error enviando solicitud:', error);
+                alert('Error enviando solicitud');
+            }
+
+        });
+    });
 }
 
 function fileSeleccionadaListener() {

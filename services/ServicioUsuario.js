@@ -44,8 +44,8 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
         // }
 
         const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
-        const resultado = await Usuario.findOneandUpdate(
-            { nombreUsuario: nombreUsuario },
+        const resultado = await Usuario.findOneAndUpdate(
+            { nombreUsuario: nombreUsuario }, 
             { $set: { contrasena: encriptarContrasena } }
         );
 
@@ -53,13 +53,34 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
             return '/';
         } else {
             return '/CambiarContrasena?error=Clave%20invalida';
-        }
+        } 
 
     } catch (error) {
         console.error('Error al cambiar la contrasena', error);
         return '/CambiarContrasena?error=' + error
     }
 }
+
+    //Express session 
+    const idInicioSesion = async ( correo, contrasena, sessionID)=>{
+        try{
+            const usuario = await Usuario.findOne({ correo, contrasena});
+
+            if(!usuario){
+                return console.log('Correo o contrasena incorrectos')
+            }
+            
+
+        usuario.sessionId = sessionID 
+        await usuario.save();
+
+        return { error: false, usuarioId: usuario._id };
+        } catch (err) {
+        console.error(err);
+        return { error: true, status: 500, mensaje: 'Error en el servidor' };
+    }
+
+    }
 
 const obtenerFotos = async (listaNombreUsuario) => {
     const usuarios = await Usuario.find({
@@ -77,6 +98,7 @@ module.exports = {
     agregarRegistro,
     obtenerFotos,
     validarUsuario,
-    cambiarContrasena
+    cambiarContrasena,
+    idInicioSesion
 }
 

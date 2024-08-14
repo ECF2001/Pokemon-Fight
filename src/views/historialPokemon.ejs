@@ -12,7 +12,8 @@
 
 <body>
     <div class="header"> <!--HEADER-->
-        <img class="fotoPerfil" id="foto_perfil">
+        <a href="/CambiarPerfil">
+            <img class="fotoPerfil" id="foto_perfil" src="<%= fotoPerfil %>">
         </a>
         <div class="menu">
             <a href="/">
@@ -29,7 +30,7 @@
     <div class="body"> <!--BODY-->
         <h3 class="titulo">Historial de tus Pokémon</h3>
         <p class="resumen">Historial de tus Pokémon más usados!</p>
-        <% if (!datos) { %>
+        <% if (!datos || datos.length === 0) { %>
             <div class="alert"> Juega una partida para desbloquear tus estadísticas</div>
             <% } else { %>
         <table class="tabla_body">
