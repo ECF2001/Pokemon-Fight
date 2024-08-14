@@ -239,8 +239,12 @@ let usuario1 = "usuario1";
 let usuario2 = "usuario2";
 let nombreEquipo1="1";
 let nombreEquipo2="1"
-  let nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2;
 
+if (equipo1){
+  nombreUsuarioVencedor=usuario1
+}else{
+  nombreEquipo2=usuario2
+}
 
 
   try {

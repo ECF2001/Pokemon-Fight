@@ -17,7 +17,7 @@ async function terminarBatalla(idBatalla, nombreUsuario1, nombreEquipo1, nombreU
             nombreEquipo1: nombreEquipo1,
             nombreUsuario2: nombreUsuario2,
             nombreEquipo2: nombreEquipo2,
-            nombreUsuarioVencedor: nombreUsuarioVencedor,
+            UsuarioVencedor: nombreUsuarioVencedor,
         });
 
         await nuevaBatalla.save();
