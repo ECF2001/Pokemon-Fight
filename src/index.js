@@ -128,6 +128,7 @@ app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
     const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
+    console.log(fotoPerfil);
     const datos = await obtenerTablaLiderazgo();
     response.render('TablaLiderazgo', { datos, fotoPerfil });
 });
@@ -211,11 +212,9 @@ app.post('/guardarbatalla', async function (request, response) {
 
 
 //Cambiar contrasena POST
-
 app.post('/CambiarContrasena', async function (request, response){
     const nombreUsuario = 'ssolano15';
 });
-
 app.post('/CambiarContrasena', async function (request, response) {
     const nombreUsuario = 'sunny76';
 
@@ -225,4 +224,3 @@ app.post('/CambiarContrasena', async function (request, response) {
     const redireccion = await cambiarContrasena(nombreUsuario, nuevaContrasena, confirmarContrasena);
     response.redirect(redireccion);
 });
-
