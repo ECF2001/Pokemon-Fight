@@ -71,7 +71,7 @@ app.get('/GenerarReportes', (req, res) => {
 
 app.get('/HistorialEquipos', authMiddleWare, async function (request, response) {
     const { obtenerHistorialEquipo } = require('../services/ServicioHistorialEquipos');
-    const nombreUsuario = request.session.nombreUsuario
+    const nombreUsuario = request.session.nombreUsuario;
     const datos = await obtenerHistorialEquipo(nombreUsuario);
     response.render("historial_Equipos", { datos });
 });
@@ -80,9 +80,10 @@ app.get('/HistorialPartidas', (req, res) => {
     res.render("Historial_partidas.html");
 });
 
-app.get('/HistorialPokemon/:nombreUsuario', async function (request, response) {
+app.get('/HistorialPokemon', authMiddleWare, async function (request, response) {
     const { obtenerHistorialPokemon } = require('../services/ServicioHistorialPokemon');
-    const datos = await obtenerHistorialPokemon(request.params.nombreUsuario);
+    const nombreUsuario = request.session.nombreUsuario;
+    const datos = await obtenerHistorialPokemon(nombreUsuario);
     response.render("historialPokemon", { datos });
 });
 
@@ -122,16 +123,17 @@ app.get('/InicioSesion', (req, res) => {
 
 
 //Tabla de liderazgo GET
-app.get("/TablaLiderazgo", async function (request, response) {
+app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
     const datos = await obtenerTablaLiderazgo();
     response.render('TablaLiderazgo', { datos });
 });
 
 //Victorias y Derrotas GET
-app.get('/VictoriasYDerrotas/:nombreUsuario', async function (request, response) {
+app.get('/VictoriasYDerrotas',  authMiddleWare, async function (request, response) {
     const { obtenerVictoriasYDerrotas } = require('../services/ServicioVictoriasYDerrotas');
-    const datos = await obtenerVictoriasYDerrotas(request.params.nombreUsuario);
+    const nombreUsuario = request.session.nombreUsuario;
+    const datos = await obtenerVictoriasYDerrotas(nombreUsuario);
     response.render('victorias_derrotas', { datos });
 });
 
