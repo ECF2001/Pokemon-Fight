@@ -135,13 +135,17 @@ const atacar = () => {
   if (ataqueEnCurso) return;
 
   ataqueEnCurso = true;
-  
+
   console.log(`Preparando ataques: Pokémon 1 con daño ${ataqueSeleccionado1} y Pokémon 2 con daño ${ataqueSeleccionado2}`);
-  
+
   setTimeout(() => {
-    if (pokemon2Vivo) aplicarDano(ataqueSeleccionado1, 'pokemon2');
+    if (pokemon1Vivo && pokemon2Vivo) {
+      aplicarDano(ataqueSeleccionado1, 'pokemon2');
+    }
     setTimeout(() => {
-      if (pokemon1Vivo) aplicarDano(ataqueSeleccionado2, 'pokemon1');
+      if (pokemon1Vivo && pokemon2Vivo) {
+        aplicarDano(ataqueSeleccionado2, 'pokemon1');
+      }
       setTimeout(() => {
         ataqueSeleccionado1 = null;
         ataqueSeleccionado2 = null;
@@ -240,11 +244,7 @@ let usuario2 = "usuario2";
 let nombreEquipo1="1";
 let nombreEquipo2="1"
 
-if (equipo1){
-  nombreUsuarioVencedor=usuario1
-}else{
-  nombreEquipo2=usuario2
-}
+nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2
 
 
   try {

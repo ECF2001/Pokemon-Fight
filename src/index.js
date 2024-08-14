@@ -206,12 +206,6 @@ app.post('/guardarbatalla', async function (request, response) {
     const { terminarBatalla } = require('../services/servicioGuardarbatalla');
     const { idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor } = request.body;
     const resultado = await terminarBatalla(idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor);
-    console.log(idBatalla)
-    console.log(Usuario1)
-    console.log(Equipo1)
-    console.log(Usuario2)
-    console.log(Equipo2)
-    console.log(UsuarioVencedor)
     response.send(resultado);
 });
 
