@@ -195,8 +195,8 @@ app.post('/guardarEquipo', authMiddleWare, async function (request, response) {
 
 app.get('/obtenerEquipos', authMiddleWare, async function (request, response) {
     const { obtenerEquipos } = require('../services/ServicioEquipo');
-    // Obtener nombre de usuario actual   
-    const resultado = await obtenerEquipos('nimo23');
+    const nombreUsuario = request.session.nombreUsuario;  
+    const resultado = await obtenerEquipos(nombreUsuario);
     response.send(resultado);
 });
 
