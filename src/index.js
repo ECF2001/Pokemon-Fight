@@ -266,7 +266,7 @@ app.post('/InicioSesion', async function (request, response) {
 app.post('/guardarbatalla', authMiddleWare ,async function (request, response) {
     const { terminarBatalla } = require('../services/servicioGuardarbatalla');
     const nombreUsuario1 = request.session.nombreUsuario;
-    const { idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor } = request.body;
+    const { idBatalla, Equipo1, Usuario2, Equipo2, UsuarioVencedor } = request.body;
     const resultado = await terminarBatalla(idBatalla, nombreUsuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor);
     response.send(resultado);
 });
@@ -288,6 +288,7 @@ app.get('/BajarBatalla', async function (request, response) {
 });
 
 
+
 //Recuperar contrasena POST
 app.post('/RecuperarContrasena', async function (request,response) {
     const { recuperarContrasena } = require('../services/ServicioUsuario');
@@ -299,3 +300,18 @@ app.post('/RecuperarContrasena', async function (request,response) {
         response.redirect('/RecuperarContrasena?error=%20no%20se%20pudo%20recuperar%20contraseña')
     }
 });
+
+app.get('/BajarUsuario', async function (request, response) {
+    const { buscarperfil } = require('../services/servicioBajarPerfil');
+    const nombreUsuario1 = request.session.nombreUsuario;
+    const resultado = await buscarperfil(nombreUsuario1);
+    response.send(resultado);
+});
+app.post('/ActualizarUsuario', authMiddleWare ,async function (request, response) {
+    const { actualizarUsuario } = require('../services/servicioActualizarUsuario');
+    const nombreUsuario = request.session.nombreUsuario;
+    const {correo, nombre, primerApellido, segundoApellido } = request.body;
+    const resultado = await actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido);
+    response.send(resultado);
+});
+

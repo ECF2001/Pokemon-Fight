@@ -1,6 +1,9 @@
-
 let equipo1 = ['bulbasaur'];
 let equipo2 = ['squirtle'];
+let usuario1 = "usuario1";
+let usuario2 = "usuario2";
+let nombreEquipo1="1";
+let nombreEquipo2="1"
 
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
@@ -239,10 +242,7 @@ async function cambiarPokemon(id) {
 
 async function terminarBatalla() {
 let idBatalla = 1
-let usuario1 = "usuario1";
-let usuario2 = "usuario2";
-let nombreEquipo1="1";
-let nombreEquipo2="1"
+
 
 nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2
 
@@ -255,16 +255,17 @@ nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2
       },
       body: JSON.stringify({
         idBatalla: 2, 
-        Usuario1: "usuario1",
-        Equipo1: "nombreEquipo1",
-        Usuario2: "usuario2",
-        Equipo2: "nombreEquipo2", 
+        Usuario1: usuario1,
+        Equipo1: nombreEquipo1,
+        Usuario2: usuario2,
+        Equipo2: nombreEquipo2, 
         UsuarioVencedor: nombreUsuarioVencedor,
       })
     });
 
     if (response.ok) {
       alert('Guardado exitosamente');
+      window.location.href = 'http://localhost:3000/';
     } else {
       const errorData = await response.json();
       console.error('Error en la respuesta:', errorData);

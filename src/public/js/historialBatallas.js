@@ -1,25 +1,3 @@
-async function consultarEquipos() {
-    try {
-        const response = await fetch('http://localhost:3000/BajarBatalla', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        if (response.ok) {
-            const batallas = await response.json();
-            return batallas;
-        } else {
-            alert('No se encontraron batallas');
-            return [];
-        }
-    } catch (error) {
-        console.error('No se encontraron batallas:', error);
-        alert('No se encontraron batallas');
-        return [];
-    }
-}
-
 document.addEventListener('DOMContentLoaded', async function() {
     async function consultarEquipos() {
         try {
@@ -31,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             });
 
             if (response.ok) {
-                return await response.json(); // Devuelve los datos de las batallas
+                return await response.json(); 
             } else {
                 alert('Error obteniendo equipos');
             }
