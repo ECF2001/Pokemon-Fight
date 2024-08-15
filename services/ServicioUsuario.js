@@ -32,6 +32,7 @@ const validarUsuario = async (correo, contrasena) => {
 };
 
 
+
 const bcrypt = require('bcrypt');
 const { MongoClient } = require('mongodb');
 
@@ -39,25 +40,28 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
 
     try {
 
-        // if (nuevaContrasena !== confirmarContrasena) {
-        //     enviar error
-        // }
+         if (nuevaContrasena !== confirmarContrasena) {
+              return '/CambiarContrasena';
+         }
 
         const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
         const resultado = await Usuario.findOneAndUpdate(
-            { nombreUsuario: nombreUsuario },
-            { $set: { contrasena: encriptarContrasena } }
+            { nombreUsuario: nombreUsuario }, 
+            { $set: { contrasena:nuevaContrasena } }
+
         );
 
         if (resultado) {
             return '/';
         } else {
-            return '/CambiarContrasena?error=Clave%20invalida';
-        }
+
+            return '/CambiarContrasena';
+        } 
+
 
     } catch (error) {
-        console.error('Error al cambiar la contrasena', error);
-        return '/CambiarContrasena?error=' + error
+         console.error('Error al cambiar la contraseña:', error.message, error.stack);
+        return '/CambiarContrasena?error=' + error.message;
     }
 }
 
@@ -113,4 +117,3 @@ module.exports = {
     obtenerFotoPerfil,
     idInicioSesion
 }
-
