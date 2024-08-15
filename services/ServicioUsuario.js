@@ -25,9 +25,9 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
 const validarUsuario = async (correo, contrasena) => {
     const usuario = await Usuario.findOne({ correo, contrasena });
     if (usuario) {
-        return '/'
+        return usuario;
     } else {
-        return '/inicioSesion?error=Clave%20invalida'
+        return null;
     }
 };
 
@@ -61,26 +61,6 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
     }
 }
 
-    //Express session 
-    const idInicioSesion = async ( correo, contrasena, sessionID)=>{
-        try{
-            const usuario = await Usuario.findOne({ correo, contrasena});
-
-            if(!usuario){
-                return console.log('Correo o contrasena incorrectos')
-            }
-            
-
-        usuario.sessionId = sessionID 
-        await usuario.save();
-
-        return { error: false, usuarioId: usuario._id };
-        } catch (err) {
-        console.error(err);
-        return { error: true, status: 500, mensaje: 'Error en el servidor' };
-    }
-
-    }
 
 const obtenerFotos = async (listaNombreUsuario) => {
     const usuarios = await Usuario.find({
@@ -99,6 +79,5 @@ module.exports = {
     obtenerFotos,
     validarUsuario,
     cambiarContrasena,
-    idInicioSesion
 }
 
