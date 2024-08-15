@@ -127,7 +127,8 @@ app.get('/ContrasenaTemporal', (request, response) => {
 });
 
 app.get('/RecuperarContrasena', (request,response) => {
-    response.render("recuperarContrasena.html");
+    const {error, correo} = request.query;
+    response.render("recuperarContrasena", {error, correo});
 });
 
 
@@ -293,11 +294,11 @@ app.get('/BajarBatalla', async function (request, response) {
 app.post('/RecuperarContrasena', async function (request,response) {
     const { recuperarContrasena } = require('../services/ServicioUsuario');
     const correo = request.body.correo;
-    const contrasenaRecuperada  = recuperarContrasena(correo);
+    const contrasenaRecuperada  = await recuperarContrasena(correo);
     if (contrasenaRecuperada) {
         response.redirect('/ContrasenaTemporal')
     } else {
-        response.redirect('/RecuperarContrasena?error=%20no%20se%20pudo%20recuperar%20contraseña')
+        response.redirect('/RecuperarContrasena?error=%20no%20se%20pudo%20recuperar%20contraseña&correo=' + correo)
     }
 });
 

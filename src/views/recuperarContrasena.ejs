@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/recuperarContrasena.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <script src="https://kit.fontawesome.com/73f851add2.js" crossorigin="anonymous"></script>
@@ -28,12 +29,15 @@
     <div class="body"> <!--BODY-->
         <div class="formulario">
             <h1 class="registro">RECUPERAR CONTRASEÑA</h1>
+            <% if (error) { %>
+                <div class="alert"><%= error %></div>
+                <% } %>
             <form action="/RecuperarContrasena" id="formulario" method="post">
                 <!-- CORREO -->
                 <div class="formulario__general" id="grupo__correo">
                     <label for="correo">Correo electrónico</label>
                     <div class="formulario__input">
-                        <input type="email" class="input" id="correo" name="correo">
+                        <input type="email" class="input" id="correo" name="correo" value="<%= correo %>">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
                     <p class="formulario__input-error">El correo debe tener mÍnimo 4 caracteres; se admiten
@@ -79,5 +83,6 @@
             </a>
         </div>
     </div>
+    <script src="/js/recuperarContrasena.js"></script>
 </body>
 </html>
