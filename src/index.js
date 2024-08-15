@@ -158,6 +158,26 @@ app.get('/CerrarSesion', (request, response)=> {
         response.clearCookie('connect.sid');
         response.redirect('/LandingPageProducto');
     });
+//Ver Amigos GET
+app.get('/verAmigos', async function (request, response) {
+    const { obtenerAmigos } = require('../services/servicioAmigos');
+    const { obtenerFotos } = require('../services/ServicioUsuario');
+    
+    try {
+        const resultado = await obtenerAmigos('nimo23'); //['sunny77', ...]
+        
+        const promesasFotos = resultado.map(async amigo => {
+            return await obtenerFotos(amigo);
+        });
+
+        const amigos = await Promise.all(promesasFotos); 
+
+        //console.log(amigos); //[ { sunny76: '/fotos_perfil/3_2.png' }, { home4: 'stick.jpg' } ]
+        response.send(amigos);
+    } catch (error) {
+        console.error('Error al obtener las fotos de los amigos:', error);
+        response.status(500).send('Error al obtener las fotos de los amigos');
+    }
 });
 
 // Nuevo Equipo POST
