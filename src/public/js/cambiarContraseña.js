@@ -2,22 +2,22 @@ const formulario = document.getElementById("formulario");
 const inputs = document.querySelectorAll("#formulario input");
 
 const expresiones = {
-     contrasena: /^[a-zA-Z0-9\_\-]{8,16}$/,
-     contrasena2: /^[a-zA-Z0-9\_\-]{8,16}$/
+    nuevaContrasena: /^[a-zA-Z0-9\_\-]{8,16}$/,
+     confirmarContrasena: /^[a-zA-Z0-9\_\-]{8,16}$/
 }
 
 const campos = {
-    contrasena: false, 
-    contrasena2: false
+    nuevaContrasena: false, 
+    confirmarContrasena: false
 }
 
 const validarFormulario = (e) => {
         switch (e.target.id){
-            case "contrasena":
-                validarCampo(expresiones.contrasena, e.target, "contrasena");
+            case "nuevaContrasena":
+                validarCampo(expresiones.nuevaContrasena, e.target, "nuevaContrasena");
                 break; 
-            case "contrasena2":
-                validarCampo(expresiones.contrasena2, e.target, "contrasena2");
+            case "confirmarContrasena":
+                validarCampo(expresiones.confirmarContrasena, e.target, "confirmarContrasena");
                 break; 
     }
 }
@@ -49,7 +49,8 @@ inputs.forEach((input) => {
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     
-    if (campos.contrasena && campos.contrasena2) {
+    if (campos.nuevaContrasena && campos.confirmarContrasena) {
+        console.log('enviado formulario')
 
         document.getElementById("formulario__mensaje-exito").classList.remove("formulario__mensaje-activo");
 
@@ -57,6 +58,7 @@ formulario.addEventListener("submit", (e) => {
 
          formulario.submit();
     } else {
+        console.log('no enviado')
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito");
     }
 });
