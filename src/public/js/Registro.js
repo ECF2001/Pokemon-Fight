@@ -8,7 +8,6 @@ const expresiones = {
     nombre_usuario: /^[a-zA-Z0-9\_\-]{4,16}$/,
     correo: /^[a-zA-Z0-9\_]+@[a-zA-Z]+\.[a-zA-Z]{2,}$/,
     identificacion: /^\d{7,14}$/,
-    contraseña: /^[a-zA-Z0-9\_\-]{4,16}$/
 }
 
 const campos = {
@@ -18,7 +17,6 @@ const campos = {
     nombre_usuario: false,
     correo: false,
     identificacion: false,
-    contraseña: false
 }
 
 const validarFomulario = (e) => {
@@ -41,10 +39,7 @@ const validarFomulario = (e) => {
             break;
         case "identificacion":
             validarCampo(expresiones.identificacion, e.target, "identificacion");
-            break;
-            case "contraseña":
-             validarCampo(expresiones.contraseña, e.target, "contraseña");
-            break;    
+            break; 
     }
 }
 
@@ -74,7 +69,7 @@ inputs.forEach((input) => {
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     
-    if (campos.nombre && campos.apellido && campos.segundoapellido && campos.nombre_usuario && campos.correo && campos.identificacion && campos.contraseña) {
+    if (campos.nombre && campos.apellido && campos.segundoapellido && campos.nombre_usuario && campos.correo && campos.identificacion) {
 
         document.getElementById("formulario__mensaje").classList.remove("formulario__mensaje-activo");
 
