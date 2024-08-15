@@ -25,11 +25,12 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
 const validarUsuario = async (correo, contrasena) => {
     const usuario = await Usuario.findOne({ correo, contrasena });
     if (usuario) {
-        return '/'
+        return usuario;
     } else {
-        return '/inicioSesion?error=Clave%20invalida'
+        return null;
     }
 };
+
 
 
 const bcrypt = require('bcrypt');
@@ -39,25 +40,28 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
 
     try {
 
-        // if (nuevaContrasena !== confirmarContrasena) {
-        //     enviar error
-        // }
+         if (nuevaContrasena !== confirmarContrasena) {
+              return '/CambiarContrasena';
+         }
 
         const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
         const resultado = await Usuario.findOneAndUpdate(
             { nombreUsuario: nombreUsuario }, 
-            { $set: { contrasena: encriptarContrasena } }
+            { $set: { contrasena:nuevaContrasena } }
+
         );
 
         if (resultado) {
             return '/';
         } else {
-            return '/CambiarContrasena?error=Clave%20invalida';
+
+            return '/CambiarContrasena';
         } 
 
+
     } catch (error) {
-        console.error('Error al cambiar la contrasena', error);
-        return '/CambiarContrasena?error=' + error
+         console.error('Error al cambiar la contraseña:', error.message, error.stack);
+        return '/CambiarContrasena?error=' + error.message;
     }
 }
 
@@ -93,12 +97,23 @@ const obtenerFotos = async (listaNombreUsuario) => {
     return fotos;
 };
 
+const obtenerFotoPerfil = async (nombreUsuario) => {
+    const usuario = await Usuario.findOne({
+        nombreUsuario: nombreUsuario
+    });
+    if (usuario) {
+        return usuario.fotoPerfil;
+    } else {
+        return '';
+    }
+
+};
 
 module.exports = {
     agregarRegistro,
     obtenerFotos,
     validarUsuario,
     cambiarContrasena,
+    obtenerFotoPerfil,
     idInicioSesion
 }
-

@@ -8,7 +8,7 @@ async function terminarBatalla(idBatalla, nombreUsuario1, nombreEquipo1, nombreU
     
           // Validar y convertir idBatalla si es válido
   const idBatallaObjectId = mongoose.Types.ObjectId.isValid(idBatalla)
-  ? new mongoose.Types.ObjectId(idBatalla)  // Asegúrate de usar 'new' si estás creando un nuevo ObjectId
+  ? new mongoose.Types.ObjectId(idBatalla) 
   : idBatalla;
 
         const nuevaBatalla = new Batalla({
