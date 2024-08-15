@@ -39,32 +39,32 @@ app.listen(3000, () => {
 });
 
 
-app.get('/', (req, res) => {
+app.get('/', authMiddleWare, (req, res) => {
     res.render("PaginaPrincipal.html");
 });
 
-app.get('/BatallaPokemon', (req, res) => {
+app.get('/BatallaPokemon', authMiddleWare, (req, res) => {
     res.render("batalla_pokemon.html");
 });
 
-app.get('/CambiarPerfil', (req, res) => {
+app.get('/CambiarPerfil', authMiddleWare, (req, res) => {
     res.render("Cambiar_perfil.html");
 });
 
-app.get('/CambiarContrasena', (req, res) => {
+app.get('/CambiarContrasena', authMiddleWare, (req, res) => {
     console.log('get');
     res.render("cambiarContraseña.html");
 });
 
-app.get('/ElegirEquipo', (req, res) => {
+app.get('/ElegirEquipo', authMiddleWare, (req, res) => {
     res.render("elegirEquipo.html");
 });
 
-app.get('/EquipoPokemon', (req, res) => {
+app.get('/EquipoPokemon', authMiddleWare, (req, res) => {
     res.render("EquipoPokemon.html");
 });
 
-app.get('/GenerarReportes', (req, res) => {
+app.get('/GenerarReportes', authMiddleWare, (req, res) => {
     res.render("GenerarReportes.html");
 });
 
@@ -78,7 +78,7 @@ app.get('/HistorialEquipos', authMiddleWare, async function (request, response) 
     response.render("historial_Equipos", { datos, fotoPerfil });
 });
 
-app.get('/HistorialPartidas', (req, res) => {
+app.get('/HistorialPartidas', authMiddleWare, (req, res) => {
     res.render("Historial_partidas.html");
 });
 
@@ -91,19 +91,23 @@ app.get('/HistorialPokemon', authMiddleWare, async function (request, response) 
     response.render("historialPokemon", { datos, fotoPerfil });
 });
 
-app.get('/InicioSesion', (req, res) => {
-    res.render("inicioSesion.html");
+app.get('/InicioSesion', (request, response) => {
+    if (request.session && request.session.nombreUsuario) {
+        response.redirect('/');
+    } else {
+        response.render("inicioSesion.html");
+    }
 });
 
-app.get('/JugarUnaPartida', (req, res) => {
+app.get('/JugarUnaPartida', authMiddleWare, (req, res) => {
     res.render("jugar_una_partida.html");
 });
 
-app.get('/ListaPokemon', (req, res) => {
+app.get('/ListaPokemon', authMiddleWare, (req, res) => {
     res.render("Lista_pokemon.html");
 });
 
-app.get('/NuevoEquipo', (req, res) => {
+app.get('/NuevoEquipo', authMiddleWare, (req, res) => {
     res.render("NuevoEquipo.html");
 });
 
@@ -119,11 +123,6 @@ app.get('/Registro', (req, res) => {
     res.render("Registro.html");
 });
 
-
-
-app.get('/InicioSesion', (req, res) => {
-    req.session.isAuth = true;
-})
 
 
 //Tabla de liderazgo GET
@@ -146,14 +145,23 @@ app.get('/VictoriasYDerrotas',  authMiddleWare, async function (request, respons
     response.render('victorias_derrotas', { datos, fotoPerfil });
 });
 
-app.get('/Batalla', (req, res) => {
+app.get('/Batalla', authMiddleWare, (req, res) => {
     res.render("batalla.html");
 });
 
-
+//Cerrar Sesion GET
+app.get('/CerrarSesion', (request, response)=> {
+    request.session.destroy((error)=> {
+        if (error) {
+            return response.status(500).send('No se pudo cerrar la sesión')
+        }
+        response.clearCookie('connect.sid');
+        response.redirect('/LandingPageProducto');
+    });
+});
 
 // Nuevo Equipo POST
-app.post('/guardarEquipo', async function (request, response) {
+app.post('/guardarEquipo', authMiddleWare, async function (request, response) {
     const { agregarEquipo } = require('../services/ServicioEquipo');
     const { nombreEquipo, listaPokemon, nombreUsuario } = request.body;
     const resultado = await agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario);
@@ -161,18 +169,34 @@ app.post('/guardarEquipo', async function (request, response) {
 });
 
 
-app.get('/obtenerEquipos', async function (request, response) {
+app.get('/obtenerEquipos', authMiddleWare, async function (request, response) {
     const { obtenerEquipos } = require('../services/ServicioEquipo');
-    // Obtener nombre de usuario actual
+    // Obtener nombre de usuario actual   
     const resultado = await obtenerEquipos('nimo23');
     response.send(resultado);
 });
 
-app.post('/modificarEquipo', async function (request, response) {
+app.post('/modificarEquipo', authMiddleWare, async function (request, response) {
     const { modificarEquipo } = require('../services/ServicioEquipo');
     // Obtener nombre de usuario actual
     const { equipo, usuario, pokemon } = request.body;
     const resultado = await modificarEquipo(equipo, usuario, pokemon);
+    response.send(resultado);
+});
+
+app.post('/agregarPokemonEquipo', authMiddleWare, async function (request, response) {
+    const { agregarPokemonEquipo } = require('../services/ServicioEquipo');
+    // Obtener nombre de usuario actual
+    const { equipo, usuario, pokemon } = request.body;
+    const resultado = await agregarPokemonEquipo(equipo, usuario, pokemon);
+    response.send(resultado);
+});
+
+app.delete('/borrarEquipo', authMiddleWare, async function (request, response) {
+    const { borrarEquipo } = require('../services/ServicioEquipo');
+    // Obtener nombre de usuario actual
+    const { equipo, usuario } = request.body;
+    const resultado = await borrarEquipo(equipo, usuario);
     response.send(resultado);
 });
 
@@ -202,7 +226,7 @@ app.post('/InicioSesion', async function (request, response) {
 
 
 //Guardar Batalla POST
-app.post('/guardarbatalla', async function (request, response) {
+app.post('/guardarbatalla', authMiddleWare, async function (request, response) {
     const { terminarBatalla } = require('../services/servicioGuardarbatalla');
     const { idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor } = request.body;
     const resultado = await terminarBatalla(idBatalla, Usuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor);
@@ -211,13 +235,8 @@ app.post('/guardarbatalla', async function (request, response) {
 
 
 //Cambiar contrasena POST
-app.post('/CambiarContrasena', async function (request, response){
-    const nombreUsuario = 'ssolano15';
-});
-app.post('/CambiarContrasena', async function (request, response) {
-    const nombreUsuario = 'sunny76';
-
-    console.log(request.cookies);
+app.post('/CambiarContrasena', authMiddleWare, async function (request, response) {
+    const nombreUsuario = request.session.nombreUsuario;
     const { cambiarContrasena } = require('../services/ServicioUsuario');
     const { nuevaContrasena, confirmarContrasena } = request.body;
     const redireccion = await cambiarContrasena(nombreUsuario, nuevaContrasena, confirmarContrasena);

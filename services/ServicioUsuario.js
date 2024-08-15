@@ -32,8 +32,9 @@ const validarUsuario = async (correo, contrasena) => {
         return '/'
     } else {
         return '/InicioSesion'
-    }
+    
 };
+}
 }
 
 
@@ -52,13 +53,16 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
         const resultado = await Usuario.findOneAndUpdate(
             { nombreUsuario: nombreUsuario }, 
             { $set: { contrasena:nuevaContrasena } }
+
         );
 
         if (resultado) {
             return '/';
         } else {
+
             return '/CambiarContrasena';
         } 
+
 
     } catch (error) {
          console.error('Error al cambiar la contraseña:', error.message, error.stack);
@@ -78,10 +82,22 @@ const obtenerFotos = async (listaNombreUsuario) => {
     return fotos;
 };
 
+const obtenerFotoPerfil = async (nombreUsuario) => {
+    const usuario = await Usuario.findOne({
+        nombreUsuario: nombreUsuario
+    });
+    if (usuario) {
+        return usuario.fotoPerfil;
+    } else {
+        return '';
+    }
+
+};
 
 module.exports = {
     agregarRegistro,
     obtenerFotos,
     validarUsuario,
     cambiarContrasena,
+    obtenerFotoPerfil,
 }
