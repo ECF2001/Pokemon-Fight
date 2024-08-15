@@ -158,6 +158,8 @@ app.get('/CerrarSesion', (request, response)=> {
         response.clearCookie('connect.sid');
         response.redirect('/LandingPageProducto');
     });
+});
+
 //Ver Amigos GET
 app.get('/verAmigos', async function (request, response) {
     const { obtenerAmigos } = require('../services/servicioAmigos');
