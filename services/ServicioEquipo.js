@@ -1,4 +1,3 @@
-
 const Equipo = require('../models/Equipo');
 
 async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
@@ -35,11 +34,46 @@ async function obtenerEquipos(usuario) { // variable
 async function modificarEquipo(nombreEquipo, usuario, pokemonName) {
     try {
         const equipo = await Equipo.find({nombreEquipo: nombreEquipo, nombreUsuario: usuario});
-        var listaP = equipo[0].listaPokemon.filter((pokemon) => pokemon != pokemonName);
 
         var equipoNuevo = await Equipo.updateOne(
             {nombreEquipo: nombreEquipo, nombreUsuario: usuario},
-            {$set: {listaPokemon:listaP}}
+            {$pull: {listaPokemon:pokemonName}}
+        );
+
+        if (equipoNuevo.nModified === 0) {
+            console.log('No se encontró el equipo o no hubo cambios en la lista de Pokémon.');
+        } else {
+            console.log('Lista de Pokémon actualizada exitosamente.');
+        }
+    } catch (error) {
+        console.error('Error al actualizar el equipo:', error);
+    }
+}
+
+async function borrarEquipo(nombreEquipo, usuario) {
+    try {
+        const resultado = await Equipo.deleteOne({
+            nombreEquipo: nombreEquipo,
+            nombreUsuario: usuario
+        });
+
+        if (resultado.deletedCount === 0) {
+            console.log('No se encontró el equipo o ya fue eliminado.');
+        } else {
+            console.log(`El equipo "${nombreEquipo}" del usuario "${usuario}" fue eliminado exitosamente.`);
+        }
+    } catch (error) {
+        console.error('Error al eliminar el equipo:', error);
+    }
+}
+
+async function agregarPokemonEquipo(nombreEquipo, usuario, pokemonName){
+    try {
+        const equipo = await Equipo.find({nombreEquipo: nombreEquipo, nombreUsuario: usuario});
+
+        var equipoNuevo = await Equipo.updateOne(
+            {nombreEquipo: nombreEquipo, nombreUsuario: usuario},
+            {$push: {listaPokemon: pokemonName}}
         );
 
         if (equipoNuevo.nModified === 0) {
@@ -56,5 +90,7 @@ async function modificarEquipo(nombreEquipo, usuario, pokemonName) {
 module.exports = {
     agregarEquipo,
     obtenerEquipos,
-    modificarEquipo
+    modificarEquipo,
+    borrarEquipo,
+    agregarPokemonEquipo
 }
