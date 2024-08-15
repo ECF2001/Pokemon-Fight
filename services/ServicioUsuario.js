@@ -45,7 +45,7 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
 
         const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
         const resultado = await Usuario.findOneAndUpdate(
-            { nombreUsuario: nombreUsuario }, 
+            { nombreUsuario: nombreUsuario },
             { $set: { contrasena: encriptarContrasena } }
         );
 
@@ -53,7 +53,7 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
             return '/';
         } else {
             return '/CambiarContrasena?error=Clave%20invalida';
-        } 
+        }
 
     } catch (error) {
         console.error('Error al cambiar la contrasena', error);
@@ -73,11 +73,23 @@ const obtenerFotos = async (listaNombreUsuario) => {
     return fotos;
 };
 
+const obtenerFotoPerfil = async (nombreUsuario) => {
+    const usuario = await Usuario.findOne({
+        nombreUsuario: nombreUsuario
+    });
+    if (usuario) {
+        return usuario.fotoPerfil;
+    } else {
+        return '';
+    }
+
+};
 
 module.exports = {
     agregarRegistro,
     obtenerFotos,
     validarUsuario,
     cambiarContrasena,
+    obtenerFotoPerfil,
 }
 
