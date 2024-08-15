@@ -10,12 +10,12 @@ async function consultarEquipos() {
             const batallas = await response.json();
             return batallas;
         } else {
-            alert('Error obteniendo equipos');
+            alert('No se encontraron batallas');
             return [];
         }
     } catch (error) {
-        console.error('Error enviando solicitud:', error);
-        alert('Error enviando solicitud');
+        console.error('No se encontraron batallas:', error);
+        alert('No se encontraron batallas');
         return [];
     }
 }
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function() {
             }
         } catch (error) {
             console.error('Error enviando solicitud:', error);
-            alert('Error enviando solicitud');
+            alert('No se encontraron batallas');
         }
     }
 
