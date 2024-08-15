@@ -267,8 +267,7 @@ app.post('/CambiarContrasena', authMiddleWare, async function (request, response
 });
 app.get('/BajarBatalla', async function (request, response) {
     const { bajarBatalla } = require('../services/servicioBajarBatalla');
-    // const nombreUsuario1 = request.session.nombreUsuario;
-    // const resultado = await bajarBatalla(nombreUsuario1);
-    const resultado = await bajarBatalla('nimo23');
+    const nombreUsuario1 = request.session.nombreUsuario;
+    const resultado = await bajarBatalla(nombreUsuario1);
     response.send(resultado);
 });
