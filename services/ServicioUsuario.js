@@ -25,9 +25,9 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
 const validarUsuario = async (correo, contrasena) => {
     const usuario = await Usuario.findOne({ correo, contrasena });
     if (usuario) {
-        return '/'
+        return usuario;
     } else {
-        return '/inicioSesion?error=Clave%20invalida'
+        return null;
     }
 };
 
@@ -79,6 +79,5 @@ module.exports = {
     obtenerFotos,
     validarUsuario,
     cambiarContrasena,
-    idInicioSesion
 }
 
