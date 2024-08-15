@@ -163,7 +163,7 @@ app.post('/guardarEquipo', async function (request, response) {
 
 app.get('/obtenerEquipos', async function (request, response) {
     const { obtenerEquipos } = require('../services/ServicioEquipo');
-    // Obtener nombre de usuario actual
+    // Obtener nombre de usuario actual   
     const resultado = await obtenerEquipos('nimo23');
     response.send(resultado);
 });
@@ -173,6 +173,22 @@ app.post('/modificarEquipo', async function (request, response) {
     // Obtener nombre de usuario actual
     const { equipo, usuario, pokemon } = request.body;
     const resultado = await modificarEquipo(equipo, usuario, pokemon);
+    response.send(resultado);
+});
+
+app.post('/agregarPokemonEquipo', async function (request, response) {
+    const { agregarPokemonEquipo } = require('../services/ServicioEquipo');
+    // Obtener nombre de usuario actual
+    const { equipo, usuario, pokemon } = request.body;
+    const resultado = await agregarPokemonEquipo(equipo, usuario, pokemon);
+    response.send(resultado);
+});
+
+app.delete('/borrarEquipo', async function (request, response) {
+    const { borrarEquipo } = require('../services/ServicioEquipo');
+    // Obtener nombre de usuario actual
+    const { equipo, usuario } = request.body;
+    const resultado = await borrarEquipo(equipo, usuario);
     response.send(resultado);
 });
 
