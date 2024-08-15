@@ -1,4 +1,5 @@
 const Usuario = require('../models/Usuario');
+const bcrypt = require('bcrypt');
 
 const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena) => {
     try {
@@ -33,18 +34,17 @@ const validarUsuario = async (correo, contrasena) => {
 
 
 
-const bcrypt = require('bcrypt');
-const { MongoClient } = require('mongodb');
+
 
 const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContrasena) => {
 
     try {
 
          if (nuevaContrasena !== confirmarContrasena) {
-              return '/CambiarContrasena';
+              return '/CambiarContrasena?error=Contraseña%20no%20coincide';
          }
 
-        const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
+        const encriptarContrasena = await bcrypt.hash(nuevaContrasena, 10);
         const resultado = await Usuario.findOneAndUpdate(
             { nombreUsuario: nombreUsuario }, 
             { $set: { contrasena:nuevaContrasena } }
@@ -52,15 +52,12 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
         );
 
         if (resultado) {
-            return '/';
+            return '/CambiarPerfil?msg=Contraseña%20actualizada';
         } else {
 
-            return '/CambiarContrasena';
+            return '/CambiarContrasena?error=Contraseña%20no%20pudo%20ser%20cambiada';
         } 
-
-
     } catch (error) {
-         console.error('Error al cambiar la contraseña:', error.message, error.stack);
         return '/CambiarContrasena?error=' + error.message;
     }
 }

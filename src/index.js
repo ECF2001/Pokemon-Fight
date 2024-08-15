@@ -52,7 +52,6 @@ app.get('/CambiarPerfil', authMiddleWare, (req, res) => {
 });
 
 app.get('/CambiarContrasena', authMiddleWare, (req, res) => {
-    console.log('get');
     res.render("cambiarContraseña.html");
 });
 
