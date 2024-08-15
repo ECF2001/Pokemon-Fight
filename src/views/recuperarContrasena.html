@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/73f851add2.js" crossorigin="anonymous"></script>
+    <title>Recuperar Contraseña</title>
+</head>
+<body>
+    <div class="header"> <!--HEADER-->
+        <img src="/img/logoPokemon.png" class="logoimagen">
+        <div class="menu">
+            <a href="/InicioSesion">
+                <h6 class="sobreNosotros">Iniciar Sesión</h6>
+            </a>
+            <a href="/LandingPageProducto">
+                <h6 class="paginaPrincipal">Sobre el Producto</h6>
+            </a>
+            <a href="/LandingPageEquipo">
+                <h6 class="sobreNosotros">Sobre Nosotros</h6>
+            </a>
+
+
+        </div>
+    </div>
+    <div class="body"> <!--BODY-->
+        <div class="formulario">
+            <h1 class="registro">RECUPERAR CONTRASEÑA</h1>
+            <form action="/RecuperarContrasena" id="formulario" method="post">
+                <!-- CORREO -->
+                <div class="formulario__general" id="grupo__correo">
+                    <label for="correo">Correo electrónico</label>
+                    <div class="formulario__input">
+                        <input type="email" class="input" id="correo" name="correo">
+                        <i class="formulario__validacion fa-solid fa-check"></i>
+                    </div>
+                    <p class="formulario__input-error">El correo debe tener mÍnimo 4 caracteres; se admiten
+                        números, letras y guión bajo.</p>
+                </div>
+                <!-- MENSAJE DE CAMPOS REQUERIDOS -->
+                <div class="formulario__mensaje" id="formulario__mensaje">
+                    <p><i class="fas fa-exclamation-circle">
+                            <h6>Error:</h6>
+                            <h6> Debe completar todos los campos
+                        </i></h6>
+                </div>
+                <!-- BOTON ENVIAR -->
+                <div class="formulario__grupo formulario__grupo-btn-enviar">
+                    <h6 class="formulario__mensaje-exito" id="formulario__mensaje-exito">El formulario se envió
+                        correctamente
+                    </h6>
+                    <br>
+                    <input class="formulario__btn" type="submit" value="Enviar" id="formulario__btn">
+                </div>
+            </form>
+
+        </div>
+    </div>
+    </div>
+    <div class="footer"> <!--FOOTER-->
+        <div class="pokemonFight">Pokémon Fight</div>
+        <div class="redesSociales">
+            <i class="bx bxl-facebook-circle"></i>
+            <i class="bx bxl-linkedin-square"></i>
+            <i class="bx bxl-youtube"></i>
+            <i class="bx bxl-instagram"></i>
+        </div>
+        <div class="menu_Footer">
+            <a href="/InicioSesion">
+                <h6 class="paginaPrincipal">Iniciar Sesión</h6>
+            </a>
+            <a href="/LandingPageProducto">
+                <h6 class="paginaPrincipal">Sobre el Producto</h6>
+            </a>
+            <a href="/LandingPageEquipo">
+                <h6 class="sobreNosotros">Sobre Nosotros</h6>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

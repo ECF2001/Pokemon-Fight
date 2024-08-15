@@ -126,6 +126,10 @@ app.get('/ContrasenaTemporal', (request, response) => {
     response.render("contrasenaTemporal.html");
 });
 
+app.get('/RecuperarContrasena', (request,response) => {
+    response.render("recuperarContrasena.html");
+});
+
 
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
@@ -227,7 +231,6 @@ app.delete('/borrarEquipo', authMiddleWare, async function (request, response) {
 
 //Registro POST 
 app.post('/Registro', async function (request, response) {
-    console.log('procesando registro');
     const { agregarRegistro } = require('../services/ServicioUsuario');
     const { enviarContrasenaTemporal } = require('../services/ServicioCorreo');
     const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion } = request.body;
@@ -282,4 +285,17 @@ app.get('/BajarBatalla', async function (request, response) {
     const nombreUsuario1 = request.session.nombreUsuario;
     const resultado = await bajarBatalla(nombreUsuario1);
     response.send(resultado);
+});
+
+
+//Recuperar contrasena POST
+app.post('/RecuperarContrasena', async function (request,response) {
+    const { recuperarContrasena } = require('../services/ServicioUsuario');
+    const correo = request.body.correo;
+    const contrasenaRecuperada  = recuperarContrasena(correo);
+    if (contrasenaRecuperada) {
+        response.redirect('/ContrasenaTemporal')
+    } else {
+        response.redirect('/RecuperarContrasena?error=%20no%20se%20pudo%20recuperar%20contraseña')
+    }
 });

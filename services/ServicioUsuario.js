@@ -1,5 +1,6 @@
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcrypt');
+const {enviarContrasenaTemporal} = require('../services/ServicioCorreo');
 
 const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena) => {
     try {
@@ -60,7 +61,7 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
     } catch (error) {
         return '/CambiarContrasena?error=' + error.message;
     }
-}
+};
 
 const generarContrasenaTemporal = () => {
     const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -69,7 +70,21 @@ const generarContrasenaTemporal = () => {
         contrasenaTemporal += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
     }
     return contrasenaTemporal;
-}
+};
+
+const recuperarContrasena = async (correo) => {
+    const contrasenaTemporal = generarContrasenaTemporal();
+    const usuario = await Usuario.findOneAndUpdate(
+        { correo: correo },
+        { contrasena: contrasenaTemporal },
+        { new: true }
+    );
+    if (usuario) {
+        enviarContrasenaTemporal(usuario.correo, usuario.nombre, contrasenaTemporal);
+        return true;
+    } else {
+        return false;
+    }};
 
 
 const obtenerFotos = async (listaNombreUsuario) => {
@@ -101,5 +116,6 @@ module.exports = {
     validarUsuario,
     cambiarContrasena,
     obtenerFotoPerfil,
-    generarContrasenaTemporal
+    generarContrasenaTemporal,
+    recuperarContrasena
 }
