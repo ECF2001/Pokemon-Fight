@@ -39,7 +39,7 @@ app.listen(3000, () => {
 });
 
 
-app.get('/', (req, res) => {
+app.get('/', authMiddleWare, (req, res) => {
     res.render("PaginaPrincipal.html");
 });
 
