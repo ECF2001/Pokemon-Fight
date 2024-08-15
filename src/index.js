@@ -91,8 +91,12 @@ app.get('/HistorialPokemon', authMiddleWare, async function (request, response) 
     response.render("historialPokemon", { datos, fotoPerfil });
 });
 
-app.get('/InicioSesion', (req, res) => {
-    res.render("inicioSesion.html");
+app.get('/InicioSesion', (request, response) => {
+    if (request.session && request.session.nombreUsuario) {
+        response.redirect('/');
+    } else {
+        response.render("inicioSesion.html");
+    }
 });
 
 app.get('/JugarUnaPartida', authMiddleWare, (req, res) => {
@@ -121,11 +125,6 @@ app.get('/Registro', (req, res) => {
 
 
 
-app.get('/InicioSesion', (req, res) => {
-    req.session.isAuth = true;
-})
-
-
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
@@ -150,7 +149,16 @@ app.get('/Batalla', authMiddleWare, (req, res) => {
     res.render("batalla.html");
 });
 
-
+//Cerrar Sesion GET
+app.get('/CerrarSesion', (request, response)=> {
+    request.session.destroy((error)=> {
+        if (error) {
+            return response.status(500).send('No se pudo cerrar la sesión')
+        }
+        response.clearCookie('connect.sid');
+        response.redirect('/LandingPageProducto');
+    });
+});
 
 // Nuevo Equipo POST
 app.post('/guardarEquipo', authMiddleWare, async function (request, response) {
