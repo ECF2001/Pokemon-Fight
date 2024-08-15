@@ -196,7 +196,7 @@ app.post('/InicioSesion', async function (request, response) {
         request.session.nombreUsuario = usuario.nombreUsuario;
         response.redirect('/');
     } else {
-        response.redirect('/inicioSesion?error=Clave%20invalida');
+        response.redirect('/InicioSesion');
     }
 });
 
