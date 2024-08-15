@@ -122,6 +122,9 @@ app.get('/Registro', (req, res) => {
     res.render("Registro.html");
 });
 
+app.get('/ContrasenaTemporal', (request, response) => {
+    response.render("contrasenaTemporal.html");
+});
 
 
 //Tabla de liderazgo GET
@@ -224,11 +227,21 @@ app.delete('/borrarEquipo', authMiddleWare, async function (request, response) {
 
 //Registro POST 
 app.post('/Registro', async function (request, response) {
+    console.log('procesando registro');
     const { agregarRegistro } = require('../services/ServicioUsuario');
-    const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena } = request.body;
-    const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena);
-    response.redirect('/');
-
+    const { enviarContrasenaTemporal } = require('../services/ServicioCorreo');
+    const { nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion } = request.body;
+    const { generarContrasenaTemporal } = require('../services/ServicioUsuario');
+    const contrasenaTemporal = generarContrasenaTemporal();
+    const resultado = await agregarRegistro(nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasenaTemporal);
+    console.log(resultado);
+    if (resultado) {
+        enviarContrasenaTemporal(correo, nombre, contrasenaTemporal);
+        response.redirect('/ContrasenaTemporal');
+    } else {
+        //TODO: notificar error
+        response.redirect('/Registro');
+    }
 });
 
 
