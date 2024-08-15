@@ -62,3 +62,15 @@ formulario.addEventListener("submit", (e) => {
         document.getElementById("formulario__mensaje-exito").classList.add("formulario__mensaje-exito");
     }
 });
+
+function cambiarVisibilidad() {
+    const nuevaContrasena = document.getElementById("nuevaContrasena");
+    const confirmarContrasena = document.getElementById("confirmarContrasena");
+    if (nuevaContrasena.type === "password") {
+        nuevaContrasena.type = "text";
+        confirmarContrasena.type = "text";
+    } else {
+        nuevaContrasena.type = "password";
+        confirmarContrasena.type = "password";
+    }
+};

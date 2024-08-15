@@ -24,6 +24,9 @@
     <div class="body"> <!--BODY-->
         <div class="formulario">
             <h1>CAMBIAR CONTRASEÑA</h1>
+            <% if (error) { %>
+                <div class="alert"><%= error %></div>
+            <% } %>
             <form action="/CambiarContrasena" id="formulario" method="post">
                 <!-- Nueva contraseña -->
                 <div class="formulario__general" id="grupo__nuevaContrasena">
@@ -45,6 +48,7 @@
                     </div>
                     <p class="formulario__input-error">La contraseña debe tener mínimo 8 caracteres.</p>
                 </div>
+                <input type="checkbox" onclick="cambiarVisibilidad()">Mostrar Contraseña
                 <!-- BOTON ENVIAR -->
                 <div class="formulario__grupo formulario__grupo-btn-enviar">
                     <h6 class="formulario__mensaje-exito" id="formulario__mensaje-exito">La contraseña se cambio de

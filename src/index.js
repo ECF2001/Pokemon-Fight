@@ -52,8 +52,9 @@ app.get('/CambiarPerfil', authMiddleWare, (request, response) => {
     response.render("Cambiar_perfil", {error});
 });
 
-app.get('/CambiarContrasena', authMiddleWare, (req, res) => {
-    res.render("cambiarContraseña.html");
+app.get('/CambiarContrasena', authMiddleWare, (request, response) => {
+    const {error} = request.query;
+    response.render("cambiarContraseña", {error});
 });
 
 app.get('/ElegirEquipo', authMiddleWare, (req, res) => {
