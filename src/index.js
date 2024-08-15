@@ -47,8 +47,9 @@ app.get('/BatallaPokemon', authMiddleWare, (req, res) => {
     res.render("batalla_pokemon.html");
 });
 
-app.get('/CambiarPerfil', authMiddleWare, (req, res) => {
-    res.render("Cambiar_perfil.html");
+app.get('/CambiarPerfil', authMiddleWare, (request, response) => {
+    const {error} = request.query;
+    response.render("Cambiar_perfil", {error});
 });
 
 app.get('/CambiarContrasena', authMiddleWare, (req, res) => {

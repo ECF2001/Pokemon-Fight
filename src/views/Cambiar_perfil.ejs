@@ -27,6 +27,9 @@
 
     <div id="caja">
         <div id="form">
+            <% if (error) { %>
+                <div class="alert"><%= error %></div>
+            <% } %>
             <div class="perfil">
                 <img src="/fotos_perfil/0_0.png" class="fotoPerfilGrande" id="foto_perfilGrande" alt="Foto de Perfil Grande">
                 <div class="profile-menu" id="profile-menu">
