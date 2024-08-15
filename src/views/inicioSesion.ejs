@@ -30,6 +30,9 @@
     <div class="body"> <!--BODY-->
         <div class="formulario">
             <h1>INICIO SESIÓN</h1>
+            <% if (error) { %>
+                <div class="alert"><%= error %></div>
+            <% } %>
             <form action="/inicioSesion" id="formulario" method="post">
                 <!-- Correo electronico  -->
                 <div class="formulario__general" id="grupo__correo">

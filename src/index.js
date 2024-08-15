@@ -96,7 +96,8 @@ app.get('/InicioSesion', (request, response) => {
     if (request.session && request.session.nombreUsuario) {
         response.redirect('/');
     } else {
-        response.render("inicioSesion.html");
+        const {error} = request.query;
+        response.render("inicioSesion", {error});
     }
 });
 
@@ -260,7 +261,7 @@ app.post('/InicioSesion', async function (request, response) {
         request.session.nombreUsuario = usuario.nombreUsuario;
         response.redirect('/');
     } else {
-        response.redirect('/InicioSesion');
+        response.redirect('/InicioSesion?error=Correo%20o%20contraseña%20inválida');
     }
 });
 
@@ -317,4 +318,5 @@ app.post('/ActualizarUsuario', authMiddleWare ,async function (request, response
     const resultado = await actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido);
     response.send(resultado);
 });
+
 

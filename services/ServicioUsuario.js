@@ -4,6 +4,7 @@ const {enviarContrasenaTemporal} = require('../services/ServicioCorreo');
 
 const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena) => {
     try {
+        const nuevaContrasenaEncriptada = await bcrypt.hash(contrasena, 10);
         const usuario = new Usuario({
             nombre: nombre,
             primerApellido: primerApellido,
@@ -11,7 +12,7 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
             nombreUsuario: nombreUsuario,
             correo: correo,
             identificacion: identificacion,
-            contrasena: contrasena
+            contrasena: nuevaContrasenaEncriptada
         });
 
         const resultado = await usuario.save()
@@ -25,12 +26,15 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
 
 
 const validarUsuario = async (correo, contrasena) => {
-    const usuario = await Usuario.findOne({ correo, contrasena });
-    if (usuario) {
-        return usuario;
-    } else {
+    const usuario = await Usuario.findOne({ correo });
+    if (!usuario) {
         return null;
     }
+    const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
+    if (!contrasenaValida) {
+        return null;
+    }
+    return usuario;
 };
 
 
@@ -45,10 +49,10 @@ const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContra
             return '/CambiarContrasena?error=Contraseña%20no%20coincide';
         }
 
-        const encriptarContrasena = await bcrypt.hash(nuevaContrasena, 10);
+        const nuevaContrasenaEncriptada = await bcrypt.hash(nuevaContrasena, 10);
         const resultado = await Usuario.findOneAndUpdate(
             { nombreUsuario: nombreUsuario },
-            { $set: { contrasena: nuevaContrasena } }
+            { $set: { contrasena: nuevaContrasenaEncriptada } }
 
         );
 
@@ -74,9 +78,10 @@ const generarContrasenaTemporal = () => {
 
 const recuperarContrasena = async (correo) => {
     const contrasenaTemporal = generarContrasenaTemporal();
+    const nuevaContrasenaEncriptada = await bcrypt.hash(contrasenaTemporal, 10);
     const usuario = await Usuario.findOneAndUpdate(
         { correo: correo },
-        { contrasena: contrasenaTemporal },
+        { contrasena: nuevaContrasenaEncriptada },
         { new: true }
     );
     if (usuario) {
