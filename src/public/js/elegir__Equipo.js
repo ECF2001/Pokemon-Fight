@@ -1,10 +1,8 @@
-let equipoSeleccionadoUsuario = null;
-let equipoSeleccionadoAmigo = null;
-let equipoActualUsuario = 0;
-let equipoActualAmigo = 0;
+let equipoSeleccionado = null;
+let equipoActual = 0;
 
-// Consultar equipos del usuario
-async function consultarEquiposUsuario() {
+// Consultar equipos
+async function consultarEquipos() {
     try {
         const response = await fetch('http://localhost:3000/obtenerEquipos', {
             method: 'GET',
@@ -14,11 +12,13 @@ async function consultarEquiposUsuario() {
         });
 
         if (response.ok) {
-            const equiposUsuario = await response.json();
-            generarCajasEquipos(equiposUsuario, 'contenedorEquiposUsuario', 'usuario');
-            carrousel('usuario');
+            const equipos = await response.json();
+            generarCajasEquipos(equipos);
+
+            // Iniciar carrusel
+            carrousel();
         } else {
-            alert('Error obteniendo equipos del usuario');
+            alert('Error obteniendo equipos');
         }
     } catch (error) {
         console.error('Error enviando solicitud:', error);
@@ -26,40 +26,35 @@ async function consultarEquiposUsuario() {
     }
 }
 
-// Consultar equipos de amigos
-async function consultarEquiposAmigos() {
+// Obtener imágenes
+async function obtenerImagenPokemon(pokemon) {
     try {
-        const response = await fetch('http://localhost:3000/obtenerEquipos', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
         if (response.ok) {
-            const equiposAmigos = await response.json();
-            generarCajasEquipos(equiposAmigos, 'contenedorEquiposAmigos', 'amigo');
-            carrousel('amigo');
+            const data = await response.json();
+            return data.sprites.front_default || '';
         } else {
-            alert('Error obteniendo equipos de amigos');
+            console.error(`Error fetching image for ${pokemon}`);
+            return '';
         }
     } catch (error) {
-        console.error('Error enviando solicitud:', error);
-        alert('Error enviando solicitud');
+        console.error(`Error fetching image for ${pokemon}:`, error);
+        return '';
     }
 }
 
 // Generar las cajas de equipos y configurar botones
-async function generarCajasEquipos(equipos, contenedorId, tipo) {
-    const contenedorEquipos = document.getElementById(contenedorId);
+async function generarCajasEquipos(equipos) {
+    const contenedorEquipos = document.getElementById('contenedorEquipos');
     contenedorEquipos.innerHTML = '';
 
     for (let i = 0; i < equipos.length; i++) {
         const equipo = equipos[i];
         const caja = document.createElement('div');
         caja.classList.add('caja');
-        caja.id = `equipo_${tipo}_${i + 1}`;
+        caja.id = `equipo_${i + 1}`;
 
+        // Ocultar otras cajas para desplegar una en carrusel
         caja.style.display = 'none';
 
         const titulo = document.createElement('h2');
@@ -92,8 +87,9 @@ async function generarCajasEquipos(equipos, contenedorId, tipo) {
         botonElegir.textContent = 'Elegir este equipo';
         caja.appendChild(botonElegir);
 
+        // Evento "Elegir este equipo"
         botonElegir.addEventListener('click', function () {
-            seleccionarEquipo(equipo, caja, tipo);
+            seleccionarEquipo(equipo, caja);
         });
 
         const botonBatalla = document.createElement('a');
@@ -109,12 +105,10 @@ async function generarCajasEquipos(equipos, contenedorId, tipo) {
 }
 
 // Carrusel para rotar entre equipos
-function carrousel(tipo) {
-    const contenedorId = tipo === 'usuario' ? 'contenedorEquiposUsuario' : 'contenedorEquiposAmigos';
-    const equipos = document.querySelectorAll(`#${contenedorId} .caja`);
-    if (equipos.length === 0) return;
+function carrousel() {
+    const equipos = document.querySelectorAll('.caja');
+    if (equipos.length === 0) return; //validación
 
-    let equipoActual = tipo === 'usuario' ? equipoActualUsuario : equipoActualAmigo;
    
     equipos.forEach((equipo) => {
         equipo.style.display = 'none';
@@ -122,34 +116,31 @@ function carrousel(tipo) {
 
     equipos[equipoActual].style.display = 'block';
 
-    equipoActual = (equipoActual + 1) % equipos.length;
+    
+    document.getElementById('contenedorEquipos').classList.remove('seleccionado');
 
-    if (tipo === 'usuario') {
-        equipoActualUsuario = equipoActual;
-    } else {
-        equipoActualAmigo = equipoActual;
-    }
+    
+    equipoActual = (equipoActual + 1) % equipos.length;
 }
 
 // Función para seleccionar equipo
-function seleccionarEquipo(equipo, contenedor, tipo) {
-    const contenedorId = tipo === 'usuario' ? 'contenedorEquiposUsuario' : 'contenedorEquiposAmigos';
-    document.querySelectorAll(`#${contenedorId} .caja`).forEach(caja => {
+function seleccionarEquipo(equipo, contenedor) {
+    document.querySelectorAll('.caja').forEach(caja => {
         caja.classList.remove('seleccionado');
     });
 
+   
     contenedor.classList.add('seleccionado');
 
-    if (tipo === 'usuario') {
-        equipoSeleccionadoUsuario = equipo;
-    } else {
-        equipoSeleccionadoAmigo = equipo;
-    }
+    // Añadir la clase "seleccionado" al contenedor general de equipos
+    document.getElementById('contenedorEquipos').classList.add('seleccionado');
+
+    // Guardar el equipo seleccionado
+    equipoSeleccionado = equipo;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    consultarEquiposUsuario();
-    consultarEquiposAmigos();
+    consultarEquipos();
 });
 
 
