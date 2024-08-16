@@ -149,13 +149,11 @@ function eliminarPokemonListener() {
                     },
                     body: JSON.stringify({
                         equipo: nombreEquipo,
-                        usuario: 'nimo2',
                         pokemon: pokemon
                     })
                 });
 
                 if (response.ok) {
-                    //alert(`Equipo "${nombreEquipo}" modificado exitosamente`);
                     location.reload();
                 } else {
                     alert('Error modificando el equipo');

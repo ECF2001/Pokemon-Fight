@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
             if (response.ok) {
                 const resultado = await response.json();
-                alert(resultado.message);
+                // alert(resultado.message);
+                location.reload();
             } else {
                 alert('Error al agregar amigo');
             }
