@@ -16,8 +16,10 @@ async function consultarUsuario() {
             document.getElementById('textbox3').value = data.primerApellido || '';
             document.getElementById('textbox4').value = data.segundoApellido || '';
             document.getElementById('usernameDisplay').textContent = data.nombreUsuario || '';
-            document.getElementById('foto_perfil').src = data.profileImage || '';
-            document.getElementById('foto_perfilGrande').src = data.profileImage || '';
+            if (data.fotoPerfil) {
+                document.getElementById('foto_perfil').src = data.fotoPerfil || '';
+                document.getElementById('foto_perfilGrande').src = data.fotoPerfil || '';
+            }
 
         } else {
             alert('Error obteniendo datos del usuario');
@@ -76,7 +78,7 @@ document.getElementById('saveButton').addEventListener('click', async function()
         nombre: nombre,
         primerApellido: primerApellido,
         segundoApellido: segundoApellido,
-        profileImage: profileImagePath
+        fotoPerfil: profileImagePath
     };
 
     try {

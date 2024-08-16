@@ -347,8 +347,8 @@ app.get('/BajarUsuario', async function (request, response) {
 app.post('/ActualizarUsuario', authMiddleWare, async function (request, response) {
     const { actualizarUsuario } = require('../services/servicioActualizarUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const { correo, nombre, primerApellido, segundoApellido } = request.body;
-    const resultado = await actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido);
+    const { correo, nombre, primerApellido, segundoApellido, fotoPerfil } = request.body;
+    const resultado = await actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido, fotoPerfil);
     response.send(resultado);
 });
 

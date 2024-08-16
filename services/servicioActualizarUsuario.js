@@ -1,6 +1,6 @@
 const Usuario = require('../models/Usuario'); // Asegúrate de que la ruta al modelo sea correcta
 
-async function actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido) {
+async function actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido, fotoPerfil) {
     try {
         // Busca al usuario por su nombre de usuario
         const usuario = await Usuario.findOne({ nombreUsuario: nombreUsuario });
@@ -14,8 +14,8 @@ async function actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, 
         usuario.nombre = nombre;
         usuario.primerApellido = primerApellido;
         usuario.segundoApellido = segundoApellido;
-        // usuario.profileImage = profileImage;
-
+        usuario.fotoPerfil = fotoPerfil;
+        
         // Guarda los cambios en la base de datos
         await usuario.save();
 
