@@ -4,7 +4,7 @@ let equipoActual = 0;
 // Consultar equipos
 async function consultarEquipos() {
     try {
-        const response = await fetch('http://localhost:3000/obtenerEquipos', {
+        const response = await fetch('http://localhost:3000/obtenerEquiposusuario', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,8 +15,7 @@ async function consultarEquipos() {
             const equipos = await response.json();
             generarCajasEquipos(equipos);
 
-            // Iniciar carrusel
-            carrousel();
+            
         } else {
             alert('Error obteniendo equipos');
         }
@@ -24,6 +23,9 @@ async function consultarEquipos() {
         alert('Error enviando solicitud');
     }
 }
+
+// Iniciar carrusel
+carrousel();
 
 // Obtener imagen del Pokémon
 async function obtenerImagenPokemon(pokemon) {

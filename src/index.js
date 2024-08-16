@@ -222,6 +222,14 @@ app.get('/obtenerEquipos', authMiddleWare, async function (request, response) {
     response.send(resultado);
 });
 
+
+app.get('/obtenerEquiposusuario', authMiddleWare, async function (request, response) {
+    const { obtenerEquiposusuario } = require('../services/ServicioEquipo');
+    const nombreUsuario = request.session.nombreUsuario;
+    const resultado = await obtenerEquiposusuario(nombreUsuario);
+    response.send(resultado);
+});
+
 app.post('/modificarEquipo', authMiddleWare, async function (request, response) {
     const { modificarEquipo } = require('../services/ServicioEquipo');
     const nombreUsuario = request.session.nombreUsuario;
