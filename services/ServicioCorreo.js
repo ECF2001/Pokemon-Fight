@@ -41,6 +41,17 @@ const enviarContrasenaTemporal = async (correoDestinatario, nombreDestinatario, 
     )
 };
 
+const enviarOTP = async (correoDestinatario, nombreDestinatario, otp) => {
+    enviarCorreo(
+        correoDestinatario,
+        nombreDestinatario, 
+        'Código de verificación para jugar en Pokémon Fight', 
+        'Su código de verificación es:' + otp
+    )
+};
+
+
 module.exports = {
-    enviarContrasenaTemporal
+    enviarContrasenaTemporal,
+    enviarOTP
 }

@@ -28,16 +28,30 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
 const validarUsuario = async (correo, contrasena) => {
     const usuario = await Usuario.findOne({ correo });
     if (!usuario) {
-        return null;
+        throw new Error("Correo o contraseña inválida");
     }
+
+    if (usuario.intentosLogin >= 3) {
+        throw new Error("Usuario bloqueado, debe recuperar contraseña");
+    }
+
     const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
     if (!contrasenaValida) {
-        return null;
+        if (!usuario.intentosLogin) {
+            usuario.intentosLogin = 0;
+        }
+        usuario.intentosLogin = usuario.intentosLogin + 1;
+        usuario.save();
+        throw new Error("Correo o contraseña inválida");
     }
+    usuario.intentosLogin = 0;
+    usuario.save();
     return usuario;
 };
 
-
+const buscarUsuario = async (correo) => {
+    return await Usuario.findOne({ correo });
+}
 
 
 
@@ -76,12 +90,17 @@ const generarContrasenaTemporal = () => {
     return contrasenaTemporal;
 };
 
+const generarOTP = () => {
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    return otp.toString();
+}
+
 const recuperarContrasena = async (correo) => {
     const contrasenaTemporal = generarContrasenaTemporal();
     const nuevaContrasenaEncriptada = await bcrypt.hash(contrasenaTemporal, 10);
     const usuario = await Usuario.findOneAndUpdate(
         { correo: correo },
-        { contrasena: nuevaContrasenaEncriptada },
+        { contrasena: nuevaContrasenaEncriptada, intentosLogin : 0 },
         { new: true }
     );
     if (usuario) {
@@ -122,5 +141,7 @@ module.exports = {
     cambiarContrasena,
     obtenerFotoPerfil,
     generarContrasenaTemporal,
-    recuperarContrasena
+    recuperarContrasena,
+    generarOTP,
+    buscarUsuario
 }

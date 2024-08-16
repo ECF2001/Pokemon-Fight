@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Archivos Static (CSS,IMG,JS)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Sesion
+//Session
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 app.use(session({
@@ -48,13 +48,13 @@ app.get('/BatallaPokemon', authMiddleWare, (req, res) => {
 });
 
 app.get('/CambiarPerfil', authMiddleWare, (request, response) => {
-    const {error} = request.query;
-    response.render("Cambiar_perfil", {error});
+    const { error } = request.query;
+    response.render("Cambiar_perfil", { error });
 });
 
 app.get('/CambiarContrasena', authMiddleWare, (request, response) => {
-    const {error} = request.query;
-    response.render("cambiarContraseña", {error});
+    const { error } = request.query;
+    response.render("cambiarContraseña", { error });
 });
 
 app.get('/ElegirEquipo', authMiddleWare, (req, res) => {
@@ -96,8 +96,8 @@ app.get('/InicioSesion', (request, response) => {
     if (request.session && request.session.nombreUsuario) {
         response.redirect('/');
     } else {
-        const {error} = request.query;
-        response.render("inicioSesion", {error});
+        const { error } = request.query;
+        response.render("inicioSesion", { error });
     }
 });
 
@@ -129,9 +129,14 @@ app.get('/ContrasenaTemporal', (request, response) => {
     response.render("contrasenaTemporal.html");
 });
 
-app.get('/RecuperarContrasena', (request,response) => {
-    const {error, correo} = request.query;
-    response.render("recuperarContrasena", {error, correo});
+app.get('/RecuperarContrasena', (request, response) => {
+    const { error, correo } = request.query;
+    response.render("recuperarContrasena", { error, correo });
+});
+
+app.get('/VerificacionDosPasos', (request, response) => {
+    const { error } = request.query;
+    response.render("verificacionDosPasos", { error });
 });
 
 
@@ -146,7 +151,7 @@ app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
 });
 
 //Victorias y Derrotas GET
-app.get('/VictoriasYDerrotas',  authMiddleWare, async function (request, response) {
+app.get('/VictoriasYDerrotas', authMiddleWare, async function (request, response) {
     const { obtenerVictoriasYDerrotas } = require('../services/ServicioVictoriasYDerrotas');
     const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
@@ -160,8 +165,8 @@ app.get('/Batalla', authMiddleWare, (req, res) => {
 });
 
 //Cerrar Sesion GET
-app.get('/CerrarSesion', (request, response)=> {
-    request.session.destroy((error)=> {
+app.get('/CerrarSesion', (request, response) => {
+    request.session.destroy((error) => {
         if (error) {
             return response.status(500).send('No se pudo cerrar la sesión')
         }
@@ -174,15 +179,15 @@ app.get('/CerrarSesion', (request, response)=> {
 app.get('/verAmigos', async function (request, response) {
     const { obtenerAmigos } = require('../services/servicioAmigos');
     const { obtenerFotos } = require('../services/ServicioUsuario');
-    
+
     try {
         const resultado = await obtenerAmigos('nimo23'); //['sunny77', ...]
-        
+
         const promesasFotos = resultado.map(async amigo => {
             return await obtenerFotos(amigo);
         });
 
-        const amigos = await Promise.all(promesasFotos); 
+        const amigos = await Promise.all(promesasFotos);
 
         //console.log(amigos); //[ { sunny76: '/fotos_perfil/3_2.png' }, { home4: 'stick.jpg' } ]
         response.send(amigos);
@@ -203,7 +208,7 @@ app.post('/guardarEquipo', authMiddleWare, async function (request, response) {
 
 app.get('/obtenerEquipos', authMiddleWare, async function (request, response) {
     const { obtenerEquipos } = require('../services/ServicioEquipo');
-    const nombreUsuario = request.session.nombreUsuario;  
+    const nombreUsuario = request.session.nombreUsuario;
     const resultado = await obtenerEquipos(nombreUsuario);
     response.send(resultado);
 });
@@ -254,20 +259,24 @@ app.post('/Registro', async function (request, response) {
 
 //Inicio sesion POST
 app.post('/InicioSesion', async function (request, response) {
-    const { validarUsuario } = require('../services/ServicioUsuario');
-    const { correo, contrasena } = request.body;
-    const usuario = await validarUsuario(correo, contrasena);
-    if (usuario) {
-        request.session.nombreUsuario = usuario.nombreUsuario;
-        response.redirect('/');
-    } else {
-        response.redirect('/InicioSesion?error=Correo%20o%20contraseña%20inválida');
+    const { validarUsuario, generarOTP } = require('../services/ServicioUsuario');
+    const { enviarOTP } = require('../services/ServicioCorreo');
+    try {       
+        const { correo, contrasena } = request.body;
+        const usuario = await validarUsuario(correo, contrasena);
+        const otp = generarOTP();
+        request.session.otp = otp;
+        request.session.correo = usuario.correo;
+        await enviarOTP(usuario.correo, usuario.nombre, otp);
+        response.redirect('/VerificacionDosPasos');
+    } catch (error) {
+        response.redirect('/InicioSesion?error=' + encodeURIComponent(error));    
     }
 });
 
 
 //Guardar Batalla POST
-app.post('/guardarbatalla', authMiddleWare ,async function (request, response) {
+app.post('/guardarbatalla', authMiddleWare, async function (request, response) {
     const { terminarBatalla } = require('../services/servicioGuardarbatalla');
     const nombreUsuario1 = request.session.nombreUsuario;
     const { idBatalla, Equipo1, Usuario2, Equipo2, UsuarioVencedor } = request.body;
@@ -294,10 +303,10 @@ app.get('/BajarBatalla', async function (request, response) {
 
 
 //Recuperar contrasena POST
-app.post('/RecuperarContrasena', async function (request,response) {
+app.post('/RecuperarContrasena', async function (request, response) {
     const { recuperarContrasena } = require('../services/ServicioUsuario');
     const correo = request.body.correo;
-    const contrasenaRecuperada  = await recuperarContrasena(correo);
+    const contrasenaRecuperada = await recuperarContrasena(correo);
     if (contrasenaRecuperada) {
         response.redirect('/ContrasenaTemporal')
     } else {
@@ -311,12 +320,30 @@ app.get('/BajarUsuario', async function (request, response) {
     const resultado = await buscarperfil(nombreUsuario1);
     response.send(resultado);
 });
-app.post('/ActualizarUsuario', authMiddleWare ,async function (request, response) {
+app.post('/ActualizarUsuario', authMiddleWare, async function (request, response) {
     const { actualizarUsuario } = require('../services/servicioActualizarUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const {correo, nombre, primerApellido, segundoApellido } = request.body;
+    const { correo, nombre, primerApellido, segundoApellido } = request.body;
     const resultado = await actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido);
     response.send(resultado);
 });
 
+//Verificacion dos pasos POST
+app.post('/VerificacionDosPasos', async function (request, response) {
+    const { buscarUsuario } = require('../services/ServicioUsuario');
+    const codigo = request.body.codigo;
+    if (codigo === request.session.otp) {
+        const usuario = await buscarUsuario(request.session.correo);
+        if (usuario) {
+            delete request.session.otp;
+            delete request.session.correo;
+            request.session.nombreUsuario = usuario.nombreUsuario;
+            response.redirect('/')
+        } else {
+            response.redirect('/VerificacionDosPasos?error=Correo%20incorrecto');
+        }
+    } else {
+        response.redirect('/VerificacionDosPasos?error=Código%20incorrecto');
+    }
+});
 
