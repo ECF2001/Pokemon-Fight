@@ -93,8 +93,14 @@ a:active {
     max-width: 600px; /* Opcional: limita el ancho máximo para cada carrusel */
 }
 
+<<<<<<< HEAD
 
 #contenedorEquipos {
+=======
+/* CONTENEDORES DE EQUIPOS */
+/* Contenedor de equipos del usuario */
+#contenedorEquiposUsuario {
+>>>>>>> parent of 3ec5d45 (Update elegir_Equipo.css)
     margin-top: 5%;
     margin-bottom: 10%;
     border: 1px solid #ddd;
@@ -106,11 +112,29 @@ a:active {
     transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
 }
 
+/* Contenedor de equipos de amigos */
+#contenedorEquiposAmigos {
+    margin-top: 5%;
+    margin-bottom: 10%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5 px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 70%; 
+    height: 450px;
+    transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+}
 
+<<<<<<< HEAD
 
 
 
 #contenedorEquipos.seleccionado {
+=======
+/* Efecto de selección */
+#contenedorEquiposUsuario.seleccionado,
+#contenedorEquiposAmigos.seleccionado {
+>>>>>>> parent of 3ec5d45 (Update elegir_Equipo.css)
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
 
