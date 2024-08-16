@@ -11,7 +11,7 @@ const mongoose = require('mongoose');
     correo:{type:String, required:true, unique:true},
     contrasena: {type:String, required:true},
     amigos:[{type:String}],
-    fotoPerfil:{type:String},
+    fotoPerfil:{type:String, default: '/fotos_perfil/0_0.png'},
     intentosLogin: {type:Number}
 
 },{versionKey:false});

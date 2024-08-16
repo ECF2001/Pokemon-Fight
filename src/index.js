@@ -43,8 +43,10 @@ app.get('/', authMiddleWare, (req, res) => {
     res.render("PaginaPrincipal.html");
 });
 
-app.get('/BatallaPokemon', authMiddleWare, (req, res) => {
-    res.render("batalla_pokemon.html");
+app.get('/BatallaPokemon', authMiddleWare, (request, response) => {
+    const nombreEquipo1 = request.session.nombreEquipo1;
+    const nombreEquipo2 = request.session.nombreEquipo2;
+    response.render("batalla_pokemon", {nombreEquipo1, nombreEquipo2});
 });
 
 app.get('/CambiarPerfil', authMiddleWare, async (request, response) => {
@@ -165,8 +167,13 @@ app.get('/VictoriasYDerrotas', authMiddleWare, async function (request, response
     response.render('victorias_derrotas', { datos });
 });
 
-app.get('/Batalla', authMiddleWare, (req, res) => {
-    res.render("batalla.html");
+app.get('/Batalla', authMiddleWare, async (request, response) => {
+    const { buscarEquipo } = require('../services/ServicioEquipo');
+    const equipo1 = await buscarEquipo(request.session.nombreUsuario, request.session.nombreEquipo1);
+    const equipo2 = await buscarEquipo(request.session.nombreUsuario2, request.session.nombreEquipo2);
+    console.log("equipo1", equipo1);
+    console.log("equipo2", equipo2);
+    response.render("batalla", { equipo1, equipo2 });
 });
 
 //Cerrar Sesion GET
@@ -392,3 +399,11 @@ app.get('/FotoPerfil', authMiddleWare, async (request, response) => {
         response.sendFile(imagen);
     }
 });
+
+
+app.get('/BatallaPrueba', authMiddleWare, async (request, response) => {
+    request.session.nombreEquipo1 = "angelicas";
+    request.session.nombreUsuario2 = "nimo23";
+    request.session.nombreEquipo2 = "teamG";
+    response.redirect('/BatallaPokemon');
+})

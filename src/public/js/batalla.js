@@ -1,5 +1,5 @@
-let equipo1 = ['bulbasaur'];
-let equipo2 = ['squirtle'];
+//let equipo1 = ['bulbasaur'];
+//let equipo2 = ['squirtle'];
 let usuario1 = "usuario1";
 let usuario2 = "usuario2";
 let nombreEquipo1="1";

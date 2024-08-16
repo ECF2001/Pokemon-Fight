@@ -36,7 +36,7 @@ function actualizarListaAmigos(amigos) {
         
         const fila = document.createElement('tr');
         fila.innerHTML = `
-            <td><img class="imagen_Personajes" src="${fotoPerfil}" alt="${nombreAmigo}"></td>
+            <td><img class="imagen_Personajes" src="${fotoPerfil || '/fotos_perfil/0_0.png'}" alt="${nombreAmigo}"></td>
             <td>${nombreAmigo}</td>
         `;
         

@@ -95,7 +95,9 @@ async function obtenerEquiposusuario(usuario) {
     }
 }
 
-
+const buscarEquipo = async (nombreUsuario, nombreEquipo) => {
+    return await Equipo.findOne({ nombreUsuario, nombreEquipo });
+}
 
 module.exports = {
     agregarEquipo,
@@ -103,5 +105,6 @@ module.exports = {
     modificarEquipo,
     borrarEquipo,
     agregarPokemonEquipo,
-    obtenerEquiposusuario
+    obtenerEquiposusuario,
+    buscarEquipo
 }
