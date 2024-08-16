@@ -30,7 +30,10 @@
         <div class="formulario">
             <h1 class="registro">VERFICACIÓN DE DOS PASOS</h1>
             <% if (error) { %>
-                <div class="alert"><%= error %></div>
+                <div class="alertError"><%= error %></div>
+            <% } %>
+            <% if (msg) { %>
+                <div class="alertMensaje"><%= msg %></div>
             <% } %>
             <form action="/VerificacionDosPasos" id="formulario" method="post">
                 <!-- CORREO -->
@@ -40,8 +43,9 @@
                         <input type="text" class="input" id="codigo" name="codigo">
                         <i class="formulario__validacion fa-solid fa-check"></i>
                     </div>
-                    <p class="formulario__input-error">El correo debe tener mÍnimo 6 caracteres.</p>
+                    <p class="formulario__input-error">El código debe tener mÍnimo 6 caracteres.</p>
                 </div>
+                <div><a href="/ReenviarCodigo"> Volver a enviar el código</a></div>
                 <!-- MENSAJE DE CAMPOS REQUERIDOS -->
                 <div class="formulario__mensaje" id="formulario__mensaje">
                     <p><i class="fas fa-exclamation-circle">

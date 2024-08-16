@@ -135,10 +135,22 @@ app.get('/RecuperarContrasena', (request, response) => {
 });
 
 app.get('/VerificacionDosPasos', (request, response) => {
-    const { error } = request.query;
-    response.render("verificacionDosPasos", { error });
+    const { error, msg } = request.query;
+    response.render("verificacionDosPasos", { error, msg });
 });
 
+app.get('/ReenviarCodigo', async (request,response) => {
+    const { enviarOTP } = require('../services/ServicioCorreo');
+    const { buscarUsuario } = require('../services/ServicioUsuario');
+    try {
+        const usuario = await buscarUsuario(request.session.correo);
+        await enviarOTP(usuario.correo, usuario.nombre, request.session.otp);
+        response.redirect('/VerificacionDosPasos?msg=' + encodeURIComponent("Código de verificación reenviado"))
+    } catch (error) {
+        response.redirect('/VerificacionDosPasos?error=' + encodeURIComponent(error));
+    }
+   
+})
 
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
