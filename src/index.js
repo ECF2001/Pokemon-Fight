@@ -230,6 +230,23 @@ app.post('/agregarAmigo', async (req, res) => {
     }
 });
 
+app.post('/borrarAmigo', async (req, res) => {
+    const Usuario = require('../models/Usuario')
+    const { nombreAmigo } = req.body;
+    const nombreUsuario = req.session.nombreUsuario;
+    try {
+        await Usuario.updateOne(
+            { nombreUsuario: nombreUsuario },
+            { $pull: { amigos: nombreAmigo } }
+        );
+
+        res.json({ success: true });
+    } catch (error) {
+        console.error('Error al borrar amigo:', error);
+        res.json({ success: false });
+    }
+});
+
 
 // Nuevo Equipo POST
 app.post('/guardarEquipo', authMiddleWare, async function (request, response) {
