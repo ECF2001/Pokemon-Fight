@@ -52,10 +52,19 @@
                     <h6 class="duelos">Duelos</h6>
                 </a>
             </div>
-            <div class="equipo">
-                <a href="/EquipoPokemon">
-                    <h6 class="equipos">Equipos</h6>
-                </a>
+            <div class="agregarAmigos">
+                <button id="abrirModal">Agregar amigos</button>
+                <!-- Ventana modal, por defecto no visiblel -->
+                <div id="ventanaModal" class="modal">
+                    <div class="modal-content">
+                        <span class="cerrar">&times;</span>
+                        <div class="formulario">
+                            <h2>Agregar amigos </h2>
+                            <label for="" class="formulario__label">Nombre de usuario:</label>
+                            <input type="text" class="nombre__usuario">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
