@@ -26,9 +26,9 @@ const obtenerHistorialPokemon = async (nombreUsuario) => {
         }
     });
     listaPokemonEquipo.forEach(pokemonPorEquipo => {
-        const victoriasYDerrotas = resultadosPorEquipo[pokemonPorEquipo.nombreEquipo];
-        pokemonPorEquipo.victorias = victoriasYDerrotas.victorias;
-        pokemonPorEquipo.derrotas = victoriasYDerrotas.derrotas;
+        const victoriasYDerrotas = resultadosPorEquipo[pokemonPorEquipo.nombreEquipo] || { victorias : 0, derrotas : 0};
+        pokemonPorEquipo.victorias = victoriasYDerrotas.victorias || 0;
+        pokemonPorEquipo.derrotas = victoriasYDerrotas.derrotas || 0;
     });
     const acumulado = {};
     listaPokemonEquipo.forEach(pokemonPorEquipo => {

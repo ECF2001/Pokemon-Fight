@@ -14,7 +14,6 @@ const obtenerHistorialEquipo = async (nombreUsuario) => {
     const victoriasPorEquipo = await obtenerVictoriasPorEquipo(nombreUsuario);
     const fotos = await obtenerFotos(Array.from(setPokemonCompleta));
     const resultado = [];
-    console.log(fotos)
     equipos.forEach(equipo => {
         const victoriasYDerrotas = victoriasPorEquipo.find(dato => dato.nombreEquipo === equipo.nombreEquipo) || { victorias: 0, derrotas: 0};
         const datosEquipo = {nombreEquipo: equipo.nombreEquipo, listaPokemon: [], victorias: victoriasYDerrotas.victorias, derrotas: victoriasYDerrotas.derrotas};

@@ -74,11 +74,9 @@ app.get('/GenerarReportes', authMiddleWare, (req, res) => {
 
 app.get('/HistorialEquipos', authMiddleWare, async function (request, response) {
     const { obtenerHistorialEquipo } = require('../services/ServicioHistorialEquipos');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerHistorialEquipo(nombreUsuario);
-    response.render("historial_Equipos", { datos, fotoPerfil });
+    response.render("historial_Equipos", { datos });
 });
 
 app.get('/HistorialPartidas', authMiddleWare, (req, res) => {
@@ -87,11 +85,9 @@ app.get('/HistorialPartidas', authMiddleWare, (req, res) => {
 
 app.get('/HistorialPokemon', authMiddleWare, async function (request, response) {
     const { obtenerHistorialPokemon } = require('../services/ServicioHistorialPokemon');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerHistorialPokemon(nombreUsuario);
-    response.render("historialPokemon", { datos, fotoPerfil });
+    response.render("historialPokemon", { datos });
 });
 
 app.get('/InicioSesion', (request, response) => {
@@ -157,21 +153,17 @@ app.get('/ReenviarCodigo', async (request,response) => {
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerTablaLiderazgo();
-    response.render('TablaLiderazgo', { datos, fotoPerfil });
+    response.render('TablaLiderazgo', { datos });
 });
 
 //Victorias y Derrotas GET
 app.get('/VictoriasYDerrotas', authMiddleWare, async function (request, response) {
     const { obtenerVictoriasYDerrotas } = require('../services/ServicioVictoriasYDerrotas');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerVictoriasYDerrotas(nombreUsuario);
-    response.render('victorias_derrotas', { datos, fotoPerfil });
+    response.render('victorias_derrotas', { datos });
 });
 
 app.get('/Batalla', authMiddleWare, (req, res) => {
@@ -368,3 +360,15 @@ app.post('/VerificacionDosPasos', async function (request, response) {
     }
 });
 
+app.get('/FotoPerfil', authMiddleWare, async (request, response) => {
+    try {
+        const { buscarUsuarioPorNombreUsuario } = require('../services/ServicioUsuario');
+        const usuario = await buscarUsuarioPorNombreUsuario(request.session.nombreUsuario);
+        const imagen = path.join(__dirname, 'public', usuario.fotoPerfil);
+        response.sendFile(imagen);
+    } catch (error) {
+        console.log(error);
+        const imagen = path.join(__dirname, 'public/fotos_perfil/0_0.png');
+        response.sendFile(imagen);
+    }
+});
