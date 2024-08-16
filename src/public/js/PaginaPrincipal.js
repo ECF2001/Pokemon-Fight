@@ -13,7 +13,7 @@ async function obtenerAmigos() {
             console.log(amigos)
             actualizarListaAmigos(amigos);
         } else {
-            alert('Error obteniendo equipos');
+            alert('Error obteniendo Amigos');
         }
     } catch (error) {
         console.error('Error enviando solicitud:', error);
@@ -45,28 +45,45 @@ function actualizarListaAmigos(amigos) {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    const agregarAmigoBtn = document.getElementById('agregarAmigo_BTN');
+
+    agregarAmigoBtn.addEventListener('click', async function () {
+        const nombreAmigo = document.getElementById('agregarAmigo').value;
+
+        if (nombreAmigo.trim() === '') {
+            alert('Por favor, ingresa un nombre de usuario válido.');
+            return;
+        }
+
+        try {
+            const response = await fetch('http://localhost:3000/agregarAmigo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ nombreAmigo })
+            });
+
+            if (response.ok) {
+                const resultado = await response.json();
+                alert(resultado.message);
+            } else {
+                alert('Error al agregar amigo');
+            }
+        } catch (error) {
+            console.error('Error enviando solicitud:', error);
+            alert('Error al enviar solicitud');
+        }
+    });
+});
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
     obtenerAmigos();
 });
 
 
 
-// Ventana modal
-const  modal = document.getElementById("ventanaModal");
-// Botón que abre el modal
-const boton = document.getElementById("abrirModal");
-// Hace referencia al elemento <span> que tiene la X que cierra la ventana
-var span = document.getElementsByClassName("cerrar")[0];
-// Cuando el usuario hace clic en el botón, se abre la ventana
-boton.addEventListener("click",function() {
-  modal.style.display = "block";
-});
-// Si el usuario hace clic en la x, la ventana se cierra
-span.addEventListener("click",function() {
-  modal.style.display = "none";
-});
-// Si el usuario hace clic fuera de la ventana, se cierra.
-window.addEventListener("click",function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-});
