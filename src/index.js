@@ -323,9 +323,11 @@ app.post('/GuardarBatalla', authMiddleWare, async function (request, response) {
     const { terminarBatalla } = require('../services/servicioGuardarbatalla');
     const nombreUsuario1 = request.session.nombreUsuario;
     const { nombreEquipo1, equipo1, nombreUsuario2, nombreEquipo2, equipo2, nombreUsuarioVencedor, historialDeMovimientos } = request.body;
-    const resultado = await terminarBatalla(nombreUsuario1, nombreEquipo1, equipo1, nombreUsuario2, nombreEquipo2, equipo2, nombreUsuarioVencedor, historialDeMovimientos);
-    console.log("resultado", resultado);
-    response.send(resultado);
+    const batalla = await terminarBatalla(nombreUsuario1, nombreEquipo1, equipo1, nombreUsuario2, nombreEquipo2, equipo2, nombreUsuarioVencedor, historialDeMovimientos);
+    delete request.session.nombreEquipo1;
+    delete request.session.nombreUsuario2;
+    delete request.session.nombreEquipo2;
+    response.send(batalla);
 });
 
 
