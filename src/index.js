@@ -46,7 +46,7 @@ app.get('/', authMiddleWare, (req, res) => {
 app.get('/BatallaPokemon', authMiddleWare, (request, response) => {
     const nombreEquipo1 = request.session.nombreEquipo1;
     const nombreEquipo2 = request.session.nombreEquipo2;
-    response.render("batalla_pokemon", {nombreEquipo1, nombreEquipo2});
+    response.render("batalla_pokemon", {nombreEquipo1, nombreEquipo2 });
 });
 
 app.get('/CambiarPerfil', authMiddleWare, async (request, response) => {
@@ -171,8 +171,6 @@ app.get('/Batalla', authMiddleWare, async (request, response) => {
     const { buscarEquipo } = require('../services/ServicioEquipo');
     const equipo1 = await buscarEquipo(request.session.nombreUsuario, request.session.nombreEquipo1);
     const equipo2 = await buscarEquipo(request.session.nombreUsuario2, request.session.nombreEquipo2);
-    console.log("equipo1", equipo1);
-    console.log("equipo2", equipo2);
     response.render("batalla", { equipo1, equipo2 });
 });
 
@@ -321,11 +319,12 @@ app.post('/InicioSesion', async function (request, response) {
 
 
 //Guardar Batalla POST
-app.post('/guardarbatalla', authMiddleWare, async function (request, response) {
+app.post('/GuardarBatalla', authMiddleWare, async function (request, response) {
     const { terminarBatalla } = require('../services/servicioGuardarbatalla');
     const nombreUsuario1 = request.session.nombreUsuario;
-    const { idBatalla, Equipo1, Usuario2, Equipo2, UsuarioVencedor } = request.body;
-    const resultado = await terminarBatalla(idBatalla, nombreUsuario1, Equipo1, Usuario2, Equipo2, UsuarioVencedor);
+    const { nombreEquipo1, equipo1, nombreUsuario2, nombreEquipo2, equipo2, nombreUsuarioVencedor, historialDeMovimientos } = request.body;
+    const resultado = await terminarBatalla(nombreUsuario1, nombreEquipo1, equipo1, nombreUsuario2, nombreEquipo2, equipo2, nombreUsuarioVencedor, historialDeMovimientos);
+    console.log("resultado", resultado);
     response.send(resultado);
 });
 

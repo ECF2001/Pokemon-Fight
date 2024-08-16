@@ -1,10 +1,3 @@
-//let equipo1 = ['bulbasaur'];
-//let equipo2 = ['squirtle'];
-let usuario1 = "usuario1";
-let usuario2 = "usuario2";
-let nombreEquipo1="1";
-let nombreEquipo2="1"
-
 let indexPokemon1 = 0;
 let indexPokemon2 = 0;
 let pokemon1Vivo = true;
@@ -14,10 +7,41 @@ let ataqueSeleccionado1 = null;
 let ataqueSeleccionado2 = null;
 let ataquesPokemon1 = [];
 let ataquesPokemon2 = [];
+let turno = usuario1;
+let historialDeMovimientos = [];
+
 
 // Definir los nombres de los Pokémon en cada equipo
-const nombresEquipo1 = equipo1;
-const nombresEquipo2 = equipo2;
+const nombresEquipo1 = equipo1.slice();
+const nombresEquipo2 = equipo2.slice();
+
+
+function log(msg) {
+  historialDeMovimientos.push(msg);
+  console.log(msg);
+  const logDiv = document.getElementById('log');
+  const nuevoTexto = document.createElement('div');
+  nuevoTexto.textContent = msg;
+  logDiv.prepend(nuevoTexto);
+}
+
+function cambiarTurno() {
+  const ataques1 = document.getElementById('ataques-1');
+  const ataques2 = document.getElementById('ataques-2');
+  if (turno === usuario1) {
+    turno = usuario2;
+    ataques1.classList.remove("activo");
+    ataques1.classList.add("inactivo");
+    ataques2.classList.remove("inactivo");
+    ataques2.classList.add("activo");
+  } else {
+    turno = usuario1;
+    ataques1.classList.remove("inactivo");
+    ataques1.classList.add("activo");
+    ataques2.classList.remove("activo");
+    ataques2.classList.add("inactivo");
+  }
+}
 
 // Función para capitalizar nombres
 function capitalizar(string) {
@@ -31,7 +55,7 @@ async function fetchPokemonPorNombre(nombre) {
     const datos = await respuesta.json();
     return datos;
   } catch (error) {
-    console.error(`Error al obtener datos de ${nombre}:`, error);
+    log(`Error al obtener datos de ${nombre}:` + error);
   }
 }
 
@@ -114,23 +138,22 @@ const seleccionarAtaque = (dano, receptor) => {
 
   if (receptor === 'pokemon2') {
     if (!pokemon1Vivo) {
-      console.log("Pokémon 1 está muerto y no puede atacar.");
+      log("Pokémon 1 está muerto y no puede atacar.");
       return;
     }
     ataqueSeleccionado1 = dano;
-    console.log(`Ataque seleccionado para Pokémon 1: ${dano}`);
+    log(`Ataque seleccionado para Pokémon 1: ${dano}`);
   } else {
     if (!pokemon2Vivo) {
-      console.log("Pokémon 2 está muerto y no puede atacar.");
+      log("Pokémon 2 está muerto y no puede atacar.");
       return;
     }
     ataqueSeleccionado2 = dano;
-    console.log(`Ataque seleccionado para Pokémon 2: ${dano}`);
+    log(`Ataque seleccionado para Pokémon 2: ${dano}`);
   }
 
-  if (ataqueSeleccionado1 !== null && ataqueSeleccionado2 !== null) {
-    atacar();
-  }
+  atacar();
+  cambiarTurno();
 };
 
 // Realizar ataques
@@ -139,24 +162,21 @@ const atacar = () => {
 
   ataqueEnCurso = true;
 
-  console.log(`Preparando ataques: Pokémon 1 con daño ${ataqueSeleccionado1} y Pokémon 2 con daño ${ataqueSeleccionado2}`);
-
-  setTimeout(() => {
+  if (turno === usuario1) {
     if (pokemon1Vivo && pokemon2Vivo) {
       aplicarDano(ataqueSeleccionado1, 'pokemon2');
     }
-    setTimeout(() => {
-      if (pokemon1Vivo && pokemon2Vivo) {
-        aplicarDano(ataqueSeleccionado2, 'pokemon1');
-      }
-      setTimeout(() => {
-        ataqueSeleccionado1 = null;
-        ataqueSeleccionado2 = null;
-        ataqueEnCurso = false;
-        actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
-        actualizarContenedoresAtaques(ataquesPokemon2, "ataques-2");
-      }, 500);
-    }, 500);
+  } else {
+    if (pokemon1Vivo && pokemon2Vivo) {
+      aplicarDano(ataqueSeleccionado2, 'pokemon1');
+    }
+  }
+  setTimeout(() => {
+    ataqueSeleccionado1 = null;
+    ataqueSeleccionado2 = null;
+    ataqueEnCurso = false;
+    actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
+    actualizarContenedoresAtaques(ataquesPokemon2, "ataques-2");
   }, 500);
 };
 
@@ -168,7 +188,7 @@ function aplicarDano(dano, receptor) {
   equipo[indexActual].hp -= dano;
   if (equipo[indexActual].hp < 0) equipo[indexActual].hp = 0;
 
-  console.log(`Aplicando daño ${dano} a ${equipo[indexActual].name}. HP restante: ${equipo[indexActual].hp}`);
+  log(`Aplicando daño ${dano} a ${equipo[indexActual].name}. HP restante: ${equipo[indexActual].hp}`);
   
   const imagenReceptor = document.getElementById(`imagen-${receptor}`);
   imagenReceptor.classList.add("dano");
@@ -178,11 +198,11 @@ function aplicarDano(dano, receptor) {
       imagenReceptor.classList.add("muerto");
       if (receptor === "pokemon1") {
         pokemon1Vivo = false;
-        console.log("Pokémon 1 está muerto.");
+        log("Pokémon 1 está muerto.");
         cambiarPokemon("pokemon1");
       } else {
         pokemon2Vivo = false;
-        console.log("Pokémon 2 está muerto.");
+        log("Pokémon 2 está muerto.");
         cambiarPokemon("pokemon2");
       }
       actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
@@ -228,10 +248,10 @@ async function cambiarPokemon(id) {
   } else {
     if (id === 'pokemon1') {
       pokemon1Vivo = false;
-      console.log("Equipo 1 ha perdido todos los Pokémon.");
+      log("Equipo 1 ha perdido todos los Pokémon.");
     } else {
       pokemon2Vivo = false;
-      console.log("Equipo 2 ha perdido todos los Pokémon.");
+      log("Equipo 2 ha perdido todos los Pokémon.");
     }
 
     terminarBatalla()
@@ -241,31 +261,31 @@ async function cambiarPokemon(id) {
 // Terminar la batalla y guardar los datos
 
 async function terminarBatalla() {
-let idBatalla = 1
-
 
 nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2
 
 
   try {
-    const response = await fetch('http://localhost:3000/guardarbatalla', {
+    const response = await fetch('http://localhost:3000/GuardarBatalla', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        idBatalla: 2, 
-        Usuario1: usuario1,
-        Equipo1: nombreEquipo1,
-        Usuario2: usuario2,
-        Equipo2: nombreEquipo2, 
-        UsuarioVencedor: nombreUsuarioVencedor,
+        nombreUsuario1: usuario1,
+        nombreEquipo1: nombreEquipo1,
+        equipo1: nombresEquipo1,
+        nombreUsuario2: usuario2,
+        nombreEquipo2: nombreEquipo2, 
+        equipo2: nombresEquipo2,
+        nombreUsuarioVencedor: nombreUsuarioVencedor,
+        historialDeMovimientos: historialDeMovimientos
       })
     });
 
     if (response.ok) {
       alert('Guardado exitosamente');
-      window.location.href = 'http://localhost:3000/';
+      //window.location.href = 'http://localhost:3000/';
     } else {
       const errorData = await response.json();
       console.error('Error en la respuesta:', errorData);
