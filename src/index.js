@@ -202,7 +202,28 @@ app.get('/verAmigos', async function (request, response) {
     }
 });
 
+app.post('/agregarAmigo', async (req, res) => {
+    const { agregarAmigo } = require('../services/servicioAmigos');
+    const { nombreAmigo } = req.body;
 
+    // Suponiendo que el nombre de usuario actual está en la sesión
+    const nombreUsuario = req.session.nombreUsuario;
+
+    if (!nombreUsuario) {
+        return res.status(400).json({ message: 'Usuario no autenticado.' });
+    }
+
+    try {
+        const success = await agregarAmigo(nombreUsuario, nombreAmigo);
+        if (success) {
+            res.json({ message: `Amigo ${nombreAmigo} agregado con éxito.` });
+        } else {
+            res.status(400).json({ message: 'No se pudo agregar al amigo.' });
+        }
+    } catch (error) {
+        res.status(500).json({ message: 'Error en el servidor.' });
+    }
+});
 
 
 // Nuevo Equipo POST
