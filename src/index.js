@@ -184,8 +184,11 @@ app.get('/verAmigos', async function (request, response) {
     try {
         const resultado = await obtenerAmigos('nimo23'); //['sunny77', ...]
 
+         } catch (error) {
+        console.error('Error:', error);
+         }
 
-    const nombreUsuario = request.session.nombreUsuario;
+        const nombreUsuario = request.session.nombreUsuario;
     try {
         const resultado = await obtenerAmigos(nombreUsuario);
         
@@ -201,6 +204,9 @@ app.get('/verAmigos', async function (request, response) {
         response.status(500).send('Error al obtener las fotos de los amigos');
     }
 });
+
+
+
 
 // Nuevo Equipo POST
 app.post('/guardarEquipo', authMiddleWare, async function (request, response) {
