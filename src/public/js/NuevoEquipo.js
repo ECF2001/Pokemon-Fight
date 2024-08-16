@@ -79,9 +79,10 @@ function updatepokemonsSelecionadosList() {
 
 async function saveTeam() {
   const nombreEquipo = document.getElementById('nombreEquipo').value.trim();
-  const nombreUsuario = document.getElementById('nombreUsuario').value.trim();
+
+
   
-  if (nombreEquipo === '' || nombreUsuario === '') {
+  if (nombreEquipo === '') {
     alert('Por favor, ingrese el nombre del equipo y del usuario');
     return;
   }
@@ -98,12 +99,12 @@ async function saveTeam() {
         body: JSON.stringify({
           nombreEquipo: nombreEquipo,
           listaPokemon: listaP,
-          nombreUsuario: nombreUsuario,
         })
       });
 
       if (response.ok) {
         alert(`Equipo "${nombreEquipo}" guardado exitosamente`);
+        window.location.href = '/EquipoPokemon'
       } else {
         alert('Error guardando el equipo');
       }

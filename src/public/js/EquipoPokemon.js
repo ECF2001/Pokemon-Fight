@@ -1,3 +1,4 @@
+
 async function consultarEquipos() {
     try {
         const response = await fetch('http://localhost:3000/obtenerEquipos', {
@@ -82,8 +83,6 @@ async function llenarTabla(equipos) {
 }
 
 async function seleccionarPokemon(i, nombreEquipo) {
-    console.log('Indice Pokemon Clickeado' + i);
-    console.log(nombreEquipo);
 
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`);
     const data = await response.json();
@@ -97,7 +96,6 @@ async function seleccionarPokemon(i, nombreEquipo) {
             },
             body: JSON.stringify({
                 equipo: nombreEquipo,
-                usuario: 'nimo23',
                 pokemon: pokemon
             })
         });
@@ -151,7 +149,7 @@ function eliminarPokemonListener() {
                     },
                     body: JSON.stringify({
                         equipo: nombreEquipo,
-                        usuario: 'nimo23',
+                        usuario: 'nimo2',
                         pokemon: pokemon
                     })
                 });
