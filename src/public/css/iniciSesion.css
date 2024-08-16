@@ -94,12 +94,28 @@ a:active {
     background-color: rgba(255, 255, 255, 0.452);
    border: solid ;
    border-radius: 50px;
-    width: 500px;
-    height: 500px;
+    width: 590px;
+    height: 599px;
     padding: 5%;
     font-weight: bold;  
     transition: all 1s;
     text-align: center;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding-left: 5px; 
+}
+
+.checkbox {
+    margin-right: 8px;
+    transform: scale(1.5); 
+}
+
+.checkbox-text {
+    font-size: 23px; 
 }
 
 .label{
