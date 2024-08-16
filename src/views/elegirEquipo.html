@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" href="css/elegir_Equipo.css">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+   
     <title>Jugar una partida</title>
 </head>
 <body>
@@ -25,31 +26,14 @@
 
     <div class="body"> 
         <h3 class="titulo">Selecciona tu equipo para la batalla</h3>
-    
-        <div class="carrusel-container">
-            <!-- Carrusel para los equipos del usuario -->
-            <div class="carrusel-item">
-                <h4>Mis Equipos</h4>
-                <button class="boton_carrousel_arriba" onclick="carrousel('carruselUsuario')"><i class='bx bxs-up-arrow'></i></button>
-                <div id="contenedorEquiposUsuario">
-                    <button class="boton_general">Elegir Equipo</button>
-
-                </div>
-                <button class="boton_carrousel_abajo" onclick="carrousel('carruselUsuario')"><i class='bx bxs-down-arrow'></i></button>
-            </div>
-    
-            <!-- Carrusel para los equipos de amigos -->
-            <div class="carrusel-item">
-                <h4>Equipos de Amigo</h4>
-                <button class="boton_carrousel_arriba" onclick="carrousel('carruselAmigos')"><i class='bx bxs-up-arrow'></i></button>
-                <div id="contenedorEquiposAmigos">
-                    <button class="boton_general">Elegir Equipo</button>
-                    <!-- Equipos de amigos se insertarán aquí -->
-                </div>
-                <button class="boton_carrousel_abajo" onclick="carrousel('carruselAmigos')"><i class='bx bxs-down-arrow'></i></button>
-            </div>
+        <button class="boton_carrousel_arriba" onclick="carrousel()"><i class='bx bxs-up-arrow'></i></button>
+        
+        <div id="contenedorEquipos">
+            <!-- Aquí se insertan  los equipos -->
         </div>
-    </div>
+
+        <button class="boton_carrousel_abajo" onclick="carrousel()"><i class='bx bxs-down-arrow'></i></button>     
+    </div>   
 
     <div class="footer"> 
         <div class="pokemonFight">Pokémon Fight</div>
@@ -72,6 +56,4 @@
     <script src="/js/elegir__Equipo.js"></script>
 </body>
 </html>
-
-
 
