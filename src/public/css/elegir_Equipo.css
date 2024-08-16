@@ -93,36 +93,24 @@ a:active {
     max-width: 600px; /* Opcional: limita el ancho máximo para cada carrusel */
 }
 
-/* CONTENEDORES DE EQUIPOS */
-/* Contenedor de equipos del usuario */
-#contenedorEquiposUsuario {
+
+#contenedorEquipos {
     margin-top: 5%;
     margin-bottom: 10%;
     border: 1px solid #ddd;
     border-radius: 10px;
     padding: 5 px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 70%; 
+    width: 20%; 
     height: 450px;
     transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
 }
 
-/* Contenedor de equipos de amigos */
-#contenedorEquiposAmigos {
-    margin-top: 5%;
-    margin-bottom: 10%;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 5 px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 70%; 
-    height: 450px;
-    transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
-}
 
-/* Efecto de selección */
-#contenedorEquiposUsuario.seleccionado,
-#contenedorEquiposAmigos.seleccionado {
+
+
+
+#contenedorEquipos.seleccionado {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
 
@@ -172,7 +160,7 @@ a:active {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 380px;
+    margin-top: 50px;
     width: 275px; 
     height: 50px;
     

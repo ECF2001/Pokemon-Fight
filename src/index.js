@@ -47,9 +47,11 @@ app.get('/BatallaPokemon', authMiddleWare, (req, res) => {
     res.render("batalla_pokemon.html");
 });
 
-app.get('/CambiarPerfil', authMiddleWare, (request, response) => {
+app.get('/CambiarPerfil', authMiddleWare, async (request, response) => {
+    const { buscarUsuarioPorNombreUsuario } = require('../services/ServicioUsuario');
+    const usuario = await buscarUsuarioPorNombreUsuario(request.session.nombreUsuario);
     const { error } = request.query;
-    response.render("Cambiar_perfil", { error });
+    response.render("Cambiar_perfil", { usuario, error });
 });
 
 app.get('/CambiarContrasena', authMiddleWare, (request, response) => {
@@ -72,11 +74,9 @@ app.get('/GenerarReportes', authMiddleWare, (req, res) => {
 
 app.get('/HistorialEquipos', authMiddleWare, async function (request, response) {
     const { obtenerHistorialEquipo } = require('../services/ServicioHistorialEquipos');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerHistorialEquipo(nombreUsuario);
-    response.render("historial_Equipos", { datos, fotoPerfil });
+    response.render("historial_Equipos", { datos });
 });
 
 app.get('/HistorialPartidas', authMiddleWare, (req, res) => {
@@ -85,11 +85,9 @@ app.get('/HistorialPartidas', authMiddleWare, (req, res) => {
 
 app.get('/HistorialPokemon', authMiddleWare, async function (request, response) {
     const { obtenerHistorialPokemon } = require('../services/ServicioHistorialPokemon');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerHistorialPokemon(nombreUsuario);
-    response.render("historialPokemon", { datos, fotoPerfil });
+    response.render("historialPokemon", { datos });
 });
 
 app.get('/InicioSesion', (request, response) => {
@@ -135,29 +133,36 @@ app.get('/RecuperarContrasena', (request, response) => {
 });
 
 app.get('/VerificacionDosPasos', (request, response) => {
-    const { error } = request.query;
-    response.render("verificacionDosPasos", { error });
+    const { error, msg } = request.query;
+    response.render("verificacionDosPasos", { error, msg });
 });
 
+app.get('/ReenviarCodigo', async (request,response) => {
+    const { enviarOTP } = require('../services/ServicioCorreo');
+    const { buscarUsuario } = require('../services/ServicioUsuario');
+    try {
+        const usuario = await buscarUsuario(request.session.correo);
+        await enviarOTP(usuario.correo, usuario.nombre, request.session.otp);
+        response.redirect('/VerificacionDosPasos?msg=' + encodeURIComponent("Código de verificación reenviado"))
+    } catch (error) {
+        response.redirect('/VerificacionDosPasos?error=' + encodeURIComponent(error));
+    }
+   
+})
 
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
-    const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerTablaLiderazgo();
-    response.render('TablaLiderazgo', { datos, fotoPerfil });
+    response.render('TablaLiderazgo', { datos });
 });
 
 //Victorias y Derrotas GET
 app.get('/VictoriasYDerrotas', authMiddleWare, async function (request, response) {
     const { obtenerVictoriasYDerrotas } = require('../services/ServicioVictoriasYDerrotas');
-    const { obtenerFotoPerfil } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const fotoPerfil = await obtenerFotoPerfil(nombreUsuario);
     const datos = await obtenerVictoriasYDerrotas(nombreUsuario);
-    response.render('victorias_derrotas', { datos, fotoPerfil });
+    response.render('victorias_derrotas', { datos });
 });
 
 app.get('/Batalla', authMiddleWare, (req, res) => {
@@ -179,16 +184,8 @@ app.get('/CerrarSesion', (request, response) => {
 app.get('/verAmigos', async function (request, response) {
     const { obtenerAmigos } = require('../services/servicioAmigos');
     const { obtenerFotos } = require('../services/ServicioUsuario');
+    const nombreUsuario = request.session.nombreUsuario;
 
-
-    try {
-        const resultado = await obtenerAmigos('nimo23'); //['sunny77', ...]
-
-         } catch (error) {
-        console.error('Error:', error);
-         }
-
-        const nombreUsuario = request.session.nombreUsuario;
     try {
         const resultado = await obtenerAmigos(nombreUsuario);
         
@@ -326,17 +323,12 @@ app.post('/RecuperarContrasena', async function (request, response) {
     }
 });
 
-app.get('/BajarUsuario', async function (request, response) {
-    const { buscarperfil } = require('../services/servicioBajarPerfil');
-    const nombreUsuario1 = request.session.nombreUsuario;
-    const resultado = await buscarperfil(nombreUsuario1);
-    response.send(resultado);
-});
+
 app.post('/ActualizarUsuario', authMiddleWare, async function (request, response) {
     const { actualizarUsuario } = require('../services/servicioActualizarUsuario');
     const nombreUsuario = request.session.nombreUsuario;
-    const { correo, nombre, primerApellido, segundoApellido } = request.body;
-    const resultado = await actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido);
+    const { correo, nombre, primerApellido, segundoApellido, fotoPerfil } = request.body;
+    const resultado = await actualizarUsuario(nombreUsuario, correo, nombre, primerApellido, segundoApellido, fotoPerfil);
     response.send(resultado);
 });
 
@@ -359,3 +351,15 @@ app.post('/VerificacionDosPasos', async function (request, response) {
     }
 });
 
+app.get('/FotoPerfil', authMiddleWare, async (request, response) => {
+    try {
+        const { buscarUsuarioPorNombreUsuario } = require('../services/ServicioUsuario');
+        const usuario = await buscarUsuarioPorNombreUsuario(request.session.nombreUsuario);
+        const imagen = path.join(__dirname, 'public', usuario.fotoPerfil);
+        response.sendFile(imagen);
+    } catch (error) {
+        console.log(error);
+        const imagen = path.join(__dirname, 'public/fotos_perfil/0_0.png');
+        response.sendFile(imagen);
+    }
+});

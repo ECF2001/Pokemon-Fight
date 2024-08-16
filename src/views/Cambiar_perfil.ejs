@@ -13,7 +13,7 @@
 <body>
     <div class="header"> <!--HEADER-->
         <a href="/CambiarPerfil">
-            <img class="fotoPerfil" id="foto_perfil" src="/fotos_perfil/0_0.png" alt="Foto de Perfil">
+            <img class="fotoPerfil" id="foto_perfil" src="<%= usuario.fotoPerfil || '/fotos_perfil/0_0.png' %>" alt="Foto de Perfil">
         </a>
         <div class="menu">
             <a href="/">
@@ -31,7 +31,7 @@
                 <div class="alert"><%= error %></div>
             <% } %>
             <div class="perfil">
-                <img src="/fotos_perfil/0_0.png" class="fotoPerfilGrande" id="foto_perfilGrande" alt="Foto de Perfil Grande">
+                <img src="<%= usuario.fotoPerfil || '/fotos_perfil/0_0.png' %>" class="fotoPerfilGrande" id="foto_perfilGrande" alt="Foto de Perfil Grande">
                 <div class="profile-menu" id="profile-menu">
                     <img src="/fotos_perfil/0_0.png" class="menu-image" onclick="changeProfileImage('/fotos_perfil/0_0.png')" alt="Imagen del Menú">
                     <img src="/fotos_perfil/2_0.png" class="menu-image"
@@ -550,22 +550,22 @@
             <div class="form-group">
                 <label for="textbox1">Correo Electrónico</label>
                 <br>
-                <input type="text" id="textbox1">
+                <input type="text" id="textbox1" value="<%= usuario.correo %>">
             </div>
             <div class="form-group">
                 <label for="textbox2">Nombre</label>
                 <br>
-                <input type="text" id="textbox2">
+                <input type="text" id="textbox2" value="<%= usuario.nombre %>">
             </div>
             <div class="form-group">
                 <label for="textbox3">Primer Apellido</label>
                 <br>
-                <input type="text" id="textbox3">
+                <input type="text" id="textbox3"  value="<%= usuario.primerApellido %>">
             </div>
             <div class="form-group">
                 <label for="textbox4">Segundo Apellido</label>
                 <br>
-                <input type="text" id="textbox4">
+                <input type="text" id="textbox4"  value="<%= usuario.segundoApellido %>">
             </div>
             <button id="saveButton">Guardar Cambios</button>
         </div>
