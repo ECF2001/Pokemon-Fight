@@ -32,11 +32,12 @@
                 <Table>
 
                 </Table>
-                <button id="abrirModal" class="botonAgregar">Agregar amigos</button>
-                <a onclick="ventanaModal()">
-                    <h6 class="botonAmigos">Agregar Amigos</h6>
 
-                </a>
+
+                <input type="text" name="agregarAmigo" id="agregarAmigo">
+                <br>
+                <button class="agregarAmigo_BTN" id="agregarAmigo_BTN">Agregar Amigo</button>
+
             </div>
             <div class="duelo">
                 <a href="/JugarUnaPartida">
@@ -47,39 +48,27 @@
                 <a href="/EquipoPokemon">
                     <h6 class="equipos">Equipos</h6>
                 </a>
-                <div class="Amigos">
-                    <!-- Ventana modal, por defecto no visiblel -->
-                    <div id="ventanaModal" class="modal">
-                        <div class="modal-content">
-                            <span class="cerrar">&times;</span>
-                            <div class="formulario">
-                                <h2>Agregar amigos </h2>
-                                <label for="" class="formulario__label">Nombre de usuario:</label>
-                                <input type="text" class="nombre__usuario">
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-        <div class="footer"> <!--FOOTER-->
-            <div class="pokemonFight">Pokémon Fight</div>
-            <div class="redesSociales">
-                <i class="bx bxl-facebook-circle"></i>
-                <i class="bx bxl-linkedin-square"></i>
-                <i class="bx bxl-youtube"></i>
-                <i class="bx bxl-instagram"></i>
-            </div>
-            <div class="menu_Footer">
-                <a href="/GenerarReportes">
-                    <h6 class="sobreReportes_footer"></h6>Estadísticas</h6>
-                </a>
-                <a href="/CerrarSesion">
-                    <h6 class="registro"></h6>Cerrar Sesión</h6>
-                </a>
-            </div>
+    </div>
+    </div>
+    <div class="footer"> <!--FOOTER-->
+        <div class="pokemonFight">Pokémon Fight</div>
+        <div class="redesSociales">
+            <i class="bx bxl-facebook-circle"></i>
+            <i class="bx bxl-linkedin-square"></i>
+            <i class="bx bxl-youtube"></i>
+            <i class="bx bxl-instagram"></i>
         </div>
-        <script src="/js/PaginaPrincipal.js"></script>
+        <div class="menu_Footer">
+            <a href="/GenerarReportes">
+                <h6 class="sobreReportes_footer"></h6>Estadísticas</h6>
+            </a>
+            <a href="/CerrarSesion">
+                <h6 class="registro"></h6>Cerrar Sesión</h6>
+            </a>
+            <script src="/js/PaginaPrincipal.js"></script>
+        </div>
 </body>
 
 </html>
