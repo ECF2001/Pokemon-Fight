@@ -223,15 +223,21 @@ a:active {
     color: rgb(255, 255, 255);
 }
 
-.tableAmigos{
 
-
-}
-
-.tableAmigos td{
+.tablaAgregar{  
     font-size:20px;
     color: white;
-    height: auto;
-    width: auto;
-    overflow-y: auto; 
+    height: 300px;
+    max-height: 500px; /* Ajusta esta altura según lo que necesites */
+    overflow-y: auto;  /* Permite el scroll vertical */
+    overflow-x: hidden; /* Esconde el scroll horizontal si existe */
+}
+
+.nombreUsuario{
+    font-size: 20px;
+}
+
+.listaAmigos{
+    height: 550px;
+     
 }
