@@ -86,10 +86,22 @@ async function agregarPokemonEquipo(nombreEquipo, usuario, pokemonName){
 }
 
 
+async function obtenerEquiposusuario(usuario) {
+    try {
+        const consulta = { nombreUsuario: usuario };
+        return await Equipo.find(consulta);
+    } catch (error) {
+        console.error('Error obtener equipos:', error);
+    }
+}
+
+
+
 module.exports = {
     agregarEquipo,
     obtenerEquipos,
     modificarEquipo,
     borrarEquipo,
-    agregarPokemonEquipo
+    agregarPokemonEquipo,
+    obtenerEquiposusuario
 }
