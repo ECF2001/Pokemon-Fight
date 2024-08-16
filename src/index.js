@@ -153,7 +153,6 @@ app.get('/ReenviarCodigo', async (request,response) => {
 //Tabla de liderazgo GET
 app.get("/TablaLiderazgo", authMiddleWare, async function (request, response) {
     const { obtenerTablaLiderazgo } = require('../services/ServicioBatalla');
-    const nombreUsuario = request.session.nombreUsuario;
     const datos = await obtenerTablaLiderazgo();
     response.render('TablaLiderazgo', { datos });
 });
@@ -185,16 +184,8 @@ app.get('/CerrarSesion', (request, response) => {
 app.get('/verAmigos', async function (request, response) {
     const { obtenerAmigos } = require('../services/servicioAmigos');
     const { obtenerFotos } = require('../services/ServicioUsuario');
+    const nombreUsuario = request.session.nombreUsuario;
 
-
-    try {
-        const resultado = await obtenerAmigos('nimo23'); //['sunny77', ...]
-
-         } catch (error) {
-        console.error('Error:', error);
-         }
-
-        const nombreUsuario = request.session.nombreUsuario;
     try {
         const resultado = await obtenerAmigos(nombreUsuario);
         
