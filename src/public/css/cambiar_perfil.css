@@ -13,6 +13,7 @@ body {
     justify-content: space-between;
     min-height: 100vh;
     background-image: url(/img/fondo.jpg); 
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
@@ -197,7 +198,7 @@ div#caja {
 .profile-menu {
     display: none;
     position: absolute;
-    top: 120px; /* Ajusta esta posición según necesites */
+    top: 120px; 
     left: 50%;
     transform: translateX(-50%);
     background-color: white;
@@ -205,8 +206,8 @@ div#caja {
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    max-height: 600px; /* Ajusta esta altura según necesites */
-    overflow-y: auto; /* Añade la barra de desplazamiento vertical */
+    max-height: 600px; 
+    overflow-y: auto; 
     
 }
 

@@ -13,8 +13,9 @@
 
 <body>
     <div class="header"> <!--HEADER-->
-        <img src="/img/logoPokemon.png" class="logoimagen">
-
+        <a href="/CambiarPerfil">
+            <img class="fotoPerfil" id="foto_perfil" src="/FotoPerfil">
+        </a>
         <div class="menu">
             <a href="/CambiarPerfil">
                 <h6 class="paginaPrincipal">Cambiar Perfil</h6>
@@ -48,7 +49,7 @@
                     </div>
                     <p class="formulario__input-error">La contraseña debe tener mínimo 8 caracteres.</p>
                 </div>
-                <input type="checkbox" onclick="cambiarVisibilidad()">Mostrar Contraseña
+                <input type="checkbox" onclick="cambiarVisibilidad()" class="checkbox">Mostrar Contraseña
                 <!-- BOTON ENVIAR -->
                 <div class="formulario__grupo formulario__grupo-btn-enviar">
                     <h6 class="formulario__mensaje-exito" id="formulario__mensaje-exito">La contraseña se cambio de
@@ -57,10 +58,8 @@
                     <br>
                     <input class="formulario__btn" type="submit" value="Enviar" id="formulario__btn">
                 </div>
-                <a href=#>
             </form>
         </div>
-
     </div>
     <div class="footer"> <!--FOOTER-->
         <div class="pokemonFight">Pokémon Fight</div>
@@ -72,11 +71,10 @@
         </div>
         <div class="menu_Footer">
             <a href="/CambiarPerfil">
-                <h6 class="paginaPrincipal">Cambiar Perfil</h6>
+                <h6 class="paginaPrincipal_footer">Cambiar Perfil</h6>
             </a>
         </div>
     </div>
-
 </body>
 <script src="/js/cambiarContraseña.js"></script>
 
