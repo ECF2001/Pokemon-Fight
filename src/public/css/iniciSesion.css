@@ -81,7 +81,10 @@ a:active {
     opacity: 100%;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 200px;
 }
 
 .logoimagen{
@@ -95,7 +98,7 @@ a:active {
    border: solid ;
    border-radius: 50px;
     width: 590px;
-    height: 599px;
+    height: auto;
     padding: 5%;
     font-weight: bold;  
     transition: all 1s;
