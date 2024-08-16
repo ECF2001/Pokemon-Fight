@@ -1,0 +1,291 @@
+*{
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #3B4CCA;
+    
+}
+
+.logoimagen{
+    width: 190px;
+    height: 70px;
+    margin-left: 40px;
+}
+
+.menu{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+}
+
+.paginaPrincipal,
+.sobreNosotros{
+    margin: 20px;
+    font-size: 16px;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: white;
+}
+
+a:active{
+    color: black;
+}
+
+
+.body{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    min-height: 100vh;
+    padding-top: 100px;
+    padding-bottom: 200px;
+    
+   
+    
+}
+
+.informacion{
+    text-align: center;
+    margin-left: 180px;
+    margin-right: 180px;
+}
+
+.imagenPersonaje{
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;                
+    justify-content: space-evenly;
+    background-color: black;
+    color: white;
+    font-size: 16px;
+   height: 200px;
+}
+
+.pokemonFight{
+    
+    align-content: center;
+
+    
+}
+
+.redesSociales{
+    align-content: center;
+}
+
+.bxl-facebook-circle,
+.bxl-linkedin-square,
+.bxl-youtube,
+.bxl-instagram{
+    margin: 5px;
+}
+
+.menu_Footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.paginaPrincipal_footer,
+.sobreNosotros_footer,
+.estadisticas_footer{
+    margin: 15px;
+}
+/*---------------FORMULARIO------------------*/
+.formulario{
+   background-color: rgba(255, 255, 255, 0.452);
+   border: solid ;
+   border-radius: 50px;
+    width: 600px;
+    height: auto;
+    padding: 8% ;
+    font-weight: bold;
+    font-size: 25px;  
+    transition: all 1s; 
+    margin: 100px 0; 
+    
+   
+} 
+
+.label{
+    display: flex;
+    margin-left: 30%
+}
+
+
+.formulario h1{
+    text-align: center;
+    margin-top: 10px;
+    
+   
+  
+} 
+
+.input{
+    display: flex;
+    padding-left: 10px;
+    padding-right: 100;
+    width: 150%;
+    height: 70%;
+    background: transparent;
+    border-bottom: 2px solid rgb(0, 0, 0); 
+    color: rgb(0, 0, 0);
+    outline: none;
+    transition: all 1s;
+    border-color: #303333;
+}
+
+.formulario__validacion{
+    position: absolute;
+     padding-left:300px;
+    padding-top: 30px;
+    opacity: 0;
+    font-size: 30px;
+}
+
+.input:focus{
+    box-shadow: 0 0 20px  #3B4CCA ;
+    
+}
+
+.formulario__input-error{
+  
+    font-size: 15px;
+    margin-bottom: 0;
+    display: none;
+}
+
+/*CS LLAMADO POR EL JS*/
+.formulario__input-error-activo{
+    display: block;
+}
+
+.formulario__mensaje,
+.formulario__grupo-btn-enviar{
+    grid-column: span 2;
+}
+
+.formulario__mensaje{
+    padding: 15px;
+    background-color: red;
+    border-radius: 5px;
+    text-align: center;
+    display: none;
+}
+/*CS LLAMADO POR EL JS*/
+
+.formulario__mensaje-exito-activo{
+    display: block;
+}
+
+.formulario__grupo-btn-enviar{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.formulario__btn{
+    padding: 10px 40px;
+    background-color: #3B4CCA;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    height: 50px;
+    font-size: 18px;
+}
+
+.formulario__mensaje-exito{
+    font-size: 2em;
+    padding: 10px;
+    color: green;
+    text-align: center;
+    display: none;
+}
+
+.formulario__mensaje-exito-activo{
+    display: block;
+}
+
+/*-------------VALIDACIONES----------------*/
+
+.formulario__general-correcto .formulario__validacion{
+    color: #29ee0f;
+    opacity: 1;
+}
+
+.formulario__general-incorrecto .label{
+    color: red;
+}
+
+.formulario__general-incorrecto .formulario__validacion{
+    color: red;
+    opacity: 1;
+}
+
+.formulario__general-incorrecto .input{
+    border: 1px solid red;
+}
+
+
+
+
+.box{
+    width: 40%;
+    border-style: none;
+}
+
+.formulario__mensaje-exito{
+    font-size: 20px;
+}
+
+.formulario__general{
+    flex-direction: column;
+     flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    display: flex;
+    text-align: center;
+    width: 110%;
+    margin: 25px;
+    padding-left: 10%;
+    
+}
+
+.input{
+    display: flex;
+    margin-right: 100hv;
+    width: 250%;
+    height: 30px;
+    
+}
+
+label{
+    
+    padding-left: 20%;
+
+   
+   
+    
+}
