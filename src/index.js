@@ -174,9 +174,9 @@ app.get('/CerrarSesion', (request, response)=> {
 app.get('/verAmigos', async function (request, response) {
     const { obtenerAmigos } = require('../services/servicioAmigos');
     const { obtenerFotos } = require('../services/ServicioUsuario');
-    
+    const nombreUsuario = request.session.nombreUsuario;
     try {
-        const resultado = await obtenerAmigos('nimo23'); //['sunny77', ...]
+        const resultado = await obtenerAmigos(nombreUsuario);
         
         const promesasFotos = resultado.map(async amigo => {
             return await obtenerFotos(amigo);
@@ -184,7 +184,6 @@ app.get('/verAmigos', async function (request, response) {
 
         const amigos = await Promise.all(promesasFotos); 
 
-        //console.log(amigos); //[ { sunny76: '/fotos_perfil/3_2.png' }, { home4: 'stick.jpg' } ]
         response.send(amigos);
     } catch (error) {
         console.error('Error al obtener las fotos de los amigos:', error);
@@ -195,7 +194,8 @@ app.get('/verAmigos', async function (request, response) {
 // Nuevo Equipo POST
 app.post('/guardarEquipo', authMiddleWare, async function (request, response) {
     const { agregarEquipo } = require('../services/ServicioEquipo');
-    const { nombreEquipo, listaPokemon, nombreUsuario } = request.body;
+    const { nombreEquipo, listaPokemon } = request.body;
+    const nombreUsuario = request.session.nombreUsuario;
     const resultado = await agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario);
     response.send(resultado);
 });
@@ -210,25 +210,25 @@ app.get('/obtenerEquipos', authMiddleWare, async function (request, response) {
 
 app.post('/modificarEquipo', authMiddleWare, async function (request, response) {
     const { modificarEquipo } = require('../services/ServicioEquipo');
-    // Obtener nombre de usuario actual
-    const { equipo, usuario, pokemon } = request.body;
-    const resultado = await modificarEquipo(equipo, usuario, pokemon);
+    const nombreUsuario = request.session.nombreUsuario;
+    const { equipo, pokemon } = request.body;
+    const resultado = await modificarEquipo(equipo, nombreUsuario, pokemon);
     response.send(resultado);
 });
 
 app.post('/agregarPokemonEquipo', authMiddleWare, async function (request, response) {
     const { agregarPokemonEquipo } = require('../services/ServicioEquipo');
-    // Obtener nombre de usuario actual
-    const { equipo, usuario, pokemon } = request.body;
-    const resultado = await agregarPokemonEquipo(equipo, usuario, pokemon);
+    const nombreUsuario = request.session.nombreUsuario;
+    const { equipo, pokemon } = request.body;
+    const resultado = await agregarPokemonEquipo(equipo, nombreUsuario, pokemon);
     response.send(resultado);
 });
 
 app.delete('/borrarEquipo', authMiddleWare, async function (request, response) {
     const { borrarEquipo } = require('../services/ServicioEquipo');
-    // Obtener nombre de usuario actual
-    const { equipo, usuario } = request.body;
-    const resultado = await borrarEquipo(equipo, usuario);
+    const nombreUsuario = request.session.nombreUsuario;
+    const { equipo} = request.body;
+    const resultado = await borrarEquipo(equipo, nombreUsuario);
     response.send(resultado);
 });
 
