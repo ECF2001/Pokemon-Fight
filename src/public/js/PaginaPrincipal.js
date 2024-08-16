@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', function () {
     obtenerAmigos();
 });
 
+
+
 // Ventana modal
 const  modal = document.getElementById("ventanaModal");
 // Botón que abre el modal

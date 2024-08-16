@@ -193,7 +193,7 @@ a:active {
     font-size: 16px;
 }
 
-modal {
+.modal {
   display: none; /* Por defecto, estará oculto */
   position: fixed; /* Posición fija */
   z-index: 1; /* Se situará por encima de otros elementos de la página*/
@@ -240,3 +240,4 @@ modal {
   text-decoration: none;
   cursor: pointer;
 }
+

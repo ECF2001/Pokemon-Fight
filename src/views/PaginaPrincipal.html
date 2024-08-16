@@ -32,8 +32,10 @@
                 <Table>
 
                 </Table>
-                <a href="agregarAmigos">
+                <button id="abrirModal" class="botonAgregar">Agregar amigos</button>
+                <a onclick="ventanaModal()">
                     <h6 class="botonAmigos">Agregar Amigos</h6>
+
                 </a>
             </div>
             <div class="duelo">
@@ -41,40 +43,43 @@
                     <h6 class="duelos">Duelos</h6>
                 </a>
             </div>
-            <div class="agregarAmigos">
-                <button id="abrirModal">Agregar amigos</button>
-                <!-- Ventana modal, por defecto no visiblel -->
-                <div id="ventanaModal" class="modal">
-                    <div class="modal-content">
-                        <span class="cerrar">&times;</span>
-                        <div class="formulario">
-                            <h2>Agregar amigos </h2>
-                            <label for="" class="formulario__label">Nombre de usuario:</label>
-                            <input type="text" class="nombre__usuario">
+            <div class="equipo">
+                <a href="/EquipoPokemon">
+                    <h6 class="equipos">Equipos</h6>
+                </a>
+                <div class="Amigos">
+                    <!-- Ventana modal, por defecto no visiblel -->
+                    <div id="ventanaModal" class="modal">
+                        <div class="modal-content">
+                            <span class="cerrar">&times;</span>
+                            <div class="formulario">
+                                <h2>Agregar amigos </h2>
+                                <label for="" class="formulario__label">Nombre de usuario:</label>
+                                <input type="text" class="nombre__usuario">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="footer"> <!--FOOTER-->
-        <div class="pokemonFight">Pokémon Fight</div>
-        <div class="redesSociales">
-            <i class="bx bxl-facebook-circle"></i>
-            <i class="bx bxl-linkedin-square"></i>
-            <i class="bx bxl-youtube"></i>
-            <i class="bx bxl-instagram"></i>
+        <div class="footer"> <!--FOOTER-->
+            <div class="pokemonFight">Pokémon Fight</div>
+            <div class="redesSociales">
+                <i class="bx bxl-facebook-circle"></i>
+                <i class="bx bxl-linkedin-square"></i>
+                <i class="bx bxl-youtube"></i>
+                <i class="bx bxl-instagram"></i>
+            </div>
+            <div class="menu_Footer">
+                <a href="/GenerarReportes">
+                    <h6 class="sobreReportes_footer"></h6>Estadísticas</h6>
+                </a>
+                <a href="/CerrarSesion">
+                    <h6 class="registro"></h6>Cerrar Sesión</h6>
+                </a>
+            </div>
         </div>
-        <div class="menu_Footer">
-            <a href="/GenerarReportes">
-                <h6 class="sobreReportes_footer"></h6>Estadísticas</h6>
-            </a>
-            <a href="/CerrarSesion">
-                <h6 class="registro"></h6>Cerrar Sesión</h6>
-            </a>
-        </div>
-    </div>
-    <script src="/js/PaginaPrincipal.js"></script>
+        <script src="/js/PaginaPrincipal.js"></script>
 </body>
 
 </html>
