@@ -2,7 +2,7 @@ let equipoSeleccionado = null;
 let equipoActual = 0;
 
 // Consultar equipos
-async function consultarEquipos() {
+async function consultarEquiposusuario() {
     try {
         const response = await fetch('http://localhost:3000/obtenerEquiposusuario', {
             method: 'GET',
@@ -14,8 +14,7 @@ async function consultarEquipos() {
         if (response.ok) {
             const equipos = await response.json();
             generarCajasEquipos(equipos);
-
-            
+            carrousel(); // Iniciar el carrusel 
         } else {
             alert('Error obteniendo equipos');
         }
@@ -23,9 +22,6 @@ async function consultarEquipos() {
         alert('Error enviando solicitud');
     }
 }
-
-// Iniciar carrusel
-carrousel();
 
 // Obtener imagen del Pokémon
 async function obtenerImagenPokemon(pokemon) {
@@ -82,25 +78,26 @@ async function generarCajasEquipos(equipos) {
 
         const botonElegir = document.createElement('button');
         botonElegir.textContent = 'Elegir este equipo';
+        botonElegir.classList.add('boton_general');  // Add the class
         caja.appendChild(botonElegir);
-
-        // Evento "Elegir este equipo"
+        
         botonElegir.addEventListener('click', function () {
             seleccionarEquipo(equipo, caja);
         });
-
+        
         const botonBatalla = document.createElement('a');
         botonBatalla.href = "/BatallaPokemon";
         const botonIniciarBatalla = document.createElement('button');
         botonIniciarBatalla.textContent = 'Iniciar Batalla';
+        botonIniciarBatalla.classList.add('boton_general');  // Add the class
         botonBatalla.appendChild(botonIniciarBatalla);
         caja.appendChild(botonBatalla);
-
+        
         contenedorEquipos.appendChild(caja);
+        
     });
 }
 
-// Carrusel para rotar entre equipos
 function carrousel() {
     const equipos = document.querySelectorAll('.caja');
     if (equipos.length === 0) return;
@@ -110,33 +107,53 @@ function carrousel() {
         equipo.style.display = 'none';
     });
 
+    // Eliminar la clase "seleccionado" de cualquier equipo previamente seleccionado
+    const seleccionado = document.querySelector('.caja.seleccionado');
+    if (seleccionado) {
+        seleccionado.classList.remove('seleccionado');
+    }
+
+    // Eliminar la clase "seleccionado" del contenedor general
+    const contenedorEquipos = document.getElementById('contenedorEquipos');
+    contenedorEquipos.classList.remove('seleccionado');
+
     // Mostrar el equipo actual
     equipos[equipoActual].style.display = 'block';
 
     // Actualizar el índice para el siguiente equipo
     equipoActual = (equipoActual + 1) % equipos.length;
-
-    
 }
+
+// Event listener para detectar el clic en los botones del carrusel
+document.querySelectorAll('.carrusel-boton').forEach(boton => {
+    boton.addEventListener('click', () => {
+        carrousel();
+    });
+});
+
+
+
 
 // Función para seleccionar equipo
 function seleccionarEquipo(equipo, contenedor) {
-    document.querySelectorAll('.caja').forEach(caja => {
-        caja.classList.remove('seleccionado');
-    });
+    // Deseleccionar el equipo previamente seleccionado
+    if (equipoSeleccionado) {
+        equipoSeleccionado.classList.remove('seleccionado');
+    }
 
+    // Seleccionar el nuevo equipo
     contenedor.classList.add('seleccionado');
+    equipoSeleccionado = contenedor; 
 
     // Añadir la clase "seleccionado" al contenedor general de equipos
     document.getElementById('contenedorEquipos').classList.add('seleccionado');
-
-    // Guardar el equipo seleccionado
-    equipoSeleccionado = equipo;
 }
 
 document.addEventListener('DOMContentLoaded', function () {
-    consultarEquipos();
+    consultarEquiposusuario();
 });
+
+
 
 
 
