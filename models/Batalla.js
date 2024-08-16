@@ -8,6 +8,7 @@ let BatallaSchema = new mongoose.Schema ({
     nombreUsuario2:{type:String, ref:'Usuario', required:true},
     nombreEquipo2:{type:String, ref:'Equipo', required:true},
     nombreUsuarioVencedor:{type:String},
+    historialDeMovimientos: { type: [String], default: [] },
 
 },{versionKey:false})
 

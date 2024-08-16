@@ -9,27 +9,34 @@
     <script>
       let equipo1 = <%- JSON.stringify(equipo1.listaPokemon) %>;
       let equipo2 = <%- JSON.stringify(equipo2.listaPokemon) %>;
+      let usuario1 = "<%= equipo1.nombreUsuario %>";
+      let usuario2 = "<%= equipo2.nombreUsuario %>";
+      let nombreEquipo1 = "<%= equipo1.nombreEquipo %>";
+      let nombreEquipo2 = "<%= equipo2.nombreEquipo %>";
     </script>
 </head>
 <body>
   <main>
     <div class="contenedor-batalla">
       <div>
+        <%= equipo1.nombreEquipo %>
         <img class="imagen-pokemon" id="imagen-pokemon1" />
         <p id="nombre-pokemon1"></p>
         <progress id="vida-pokemon1"></progress>
         <label for="vida-pokemon1" id="label-hp1"></label>
       </div>
-      <div id="ataques-1"></div>
-
+      <div id="ataques-1" class="botones-conjunto activo"></div>
+      <div id="ataques-2" class="botones-conjunto inactivo"></div>
       <div>
+        <%= equipo2.nombreEquipo %>
         <img class="imagen-pokemon" id="imagen-pokemon2" />
         <p id="nombre-pokemon2"></p>
         <progress id="vida-pokemon2"></progress>
         <label for="vida-pokemon2" id="label-hp2"></label>
       </div>
-      <div id="ataques-2"></div>
+      
     </div>
+    <div id="log"></div>
   </main>
 </body>
 <script src="/js/batalla.js"></script>

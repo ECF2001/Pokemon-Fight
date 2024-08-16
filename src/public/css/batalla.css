@@ -41,6 +41,16 @@ form {
   padding: 1rem 2rem;
   border-radius: 32px;
   font-size: 16px;
+  cursor: pointer;
+}
+
+.boton-ataque:hover {
+  background-color: #45a049;
+}
+
+.boton-ataque:active {
+  background-color: #3e8e41;
+  transform: scale(0.98);
 }
 
 .dano {
@@ -107,4 +117,12 @@ form {
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
   }
+}
+
+.botones-conjunto.activo {
+  visibility: visible;
+}
+
+.botones-conjunto.inactivo {
+  visibility: hidden;
 }
