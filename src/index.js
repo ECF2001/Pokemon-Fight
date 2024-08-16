@@ -47,9 +47,11 @@ app.get('/BatallaPokemon', authMiddleWare, (req, res) => {
     res.render("batalla_pokemon.html");
 });
 
-app.get('/CambiarPerfil', authMiddleWare, (request, response) => {
+app.get('/CambiarPerfil', authMiddleWare, async (request, response) => {
+    const { buscarUsuarioPorNombreUsuario } = require('../services/ServicioUsuario');
+    const usuario = await buscarUsuarioPorNombreUsuario(request.session.nombreUsuario);
     const { error } = request.query;
-    response.render("Cambiar_perfil", { error });
+    response.render("Cambiar_perfil", { usuario, error });
 });
 
 app.get('/CambiarContrasena', authMiddleWare, (request, response) => {
@@ -338,12 +340,7 @@ app.post('/RecuperarContrasena', async function (request, response) {
     }
 });
 
-app.get('/BajarUsuario', async function (request, response) {
-    const { buscarperfil } = require('../services/servicioBajarPerfil');
-    const nombreUsuario1 = request.session.nombreUsuario;
-    const resultado = await buscarperfil(nombreUsuario1);
-    response.send(resultado);
-});
+
 app.post('/ActualizarUsuario', authMiddleWare, async function (request, response) {
     const { actualizarUsuario } = require('../services/servicioActualizarUsuario');
     const nombreUsuario = request.session.nombreUsuario;

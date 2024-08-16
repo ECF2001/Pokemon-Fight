@@ -35,7 +35,7 @@ const validarUsuario = async (correo, contrasena) => {
         throw new Error("Usuario bloqueado, debe recuperar contraseña");
     }
 
-    const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
+const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
     if (!contrasenaValida) {
         if (!usuario.intentosLogin) {
             usuario.intentosLogin = 0;
@@ -53,6 +53,9 @@ const buscarUsuario = async (correo) => {
     return await Usuario.findOne({ correo });
 }
 
+const buscarUsuarioPorNombreUsuario = async (nombreUsuario) => {
+    return await Usuario.findOne({ nombreUsuario });
+}
 
 
 const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContrasena) => {
@@ -143,5 +146,6 @@ module.exports = {
     generarContrasenaTemporal,
     recuperarContrasena,
     generarOTP,
-    buscarUsuario
+    buscarUsuario,
+    buscarUsuarioPorNombreUsuario
 }
