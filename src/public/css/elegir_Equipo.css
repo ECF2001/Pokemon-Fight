@@ -2,6 +2,7 @@
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+/* HEADER */
 .header {
     display: flex;
     flex-direction: row;
@@ -28,7 +29,6 @@
     cursor: pointer;
 }
 
-
 .paginaPrincipal,
 .estadisticas,
 .sobreNosotros {
@@ -49,26 +49,11 @@ a:active {
     color: black;
 }
 
-.footer a{
-    color: white;
-}
-
-.footer a:hover {
-    color: blue;
-}
-
-.footer a:active {
-    color: white;
-}
-
+/* TITULO */
 .titulo {
     font-size: xxx-large;
     margin-top: 90px;
     margin-bottom: 10px;
-}
-
-
-.titulo {
     text-align: center;
     opacity: 0;
     animation: fadeIn 1s ease-in forwards;
@@ -78,12 +63,12 @@ a:active {
     from {
         opacity: 0;
     }
-
     to {
         opacity: 1;
     }
 }
 
+/* BODY */
 .body {
     display: flex;
     flex-direction: column;
@@ -91,36 +76,66 @@ a:active {
     text-align: center;
 }
 
+.carrusel-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px; /* Ajusta el espacio entre los carruseles */
+    width: 70%; /* Asegura que el contenedor ocupe el ancho completo */
+    padding: 0 20px; /* Opcional: margen interno para el contenedor */
+}
 
-#contenedorEquipos {
+/* Elementos individuales del carrusel */
+.carrusel-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%; /* Ajusta el ancho para que dos carruseles estén uno al lado del otro */
+    max-width: 600px; /* Opcional: limita el ancho máximo para cada carrusel */
+}
+
+/* CONTENEDORES DE EQUIPOS */
+/* Contenedor de equipos del usuario */
+#contenedorEquiposUsuario {
     margin-top: 5%;
-    margin-bottom: 5%;
+    margin-bottom: 10%;
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 20px;
+    padding: 5 px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
-    height: 550px;
+    width: 70%; 
+    height: 450px;
     transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
 }
 
+/* Contenedor de equipos de amigos */
+#contenedorEquiposAmigos {
+    margin-top: 5%;
+    margin-bottom: 10%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 5 px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 70%; 
+    height: 450px;
+    transition: opacity 0.5s ease-in-out, transform 1s ease-in-out;
+}
 
-#contenedorEquipos.seleccionado {
+/* Efecto de selección */
+#contenedorEquiposUsuario.seleccionado,
+#contenedorEquiposAmigos.seleccionado {
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
 }
 
-
-
-
-
-
-h2 {
+/* General de las cajas y el contenido */
+.caja h2 {
     margin-bottom: 60px;
     font-size: 30px;
     text-align: center;
 }
 
-.boton_carrousel_arriba{
+/* Botones de carrusel */
+.boton_carrousel_arriba,
+.boton_carrousel_abajo {
     align-items: center;
     border: none;
     color: black;
@@ -132,33 +147,23 @@ h2 {
     transition-duration: 0.4s;
     cursor: pointer;
     background-color: white;
+}
+
+.boton_carrousel_arriba {
     margin-top: 1%;
 }
 
-.boton_carrousel_abajo{
-    align-items: center;
-    border: none;
-    color: black;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: flex;
-    font-size: 32px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    background-color: white;
+.boton_carrousel_abajo {
     margin-bottom: 1%;
 }
 
-.boton_carrousel_arriba:hover {
-    color:gray;
+.boton_carrousel_arriba:hover,
+.boton_carrousel_abajo:hover {
+    color: gray;
     animation: fadeIn 0.5s infinite;
 }
 
-.boton_carrousel_abajo:hover {
-    color:gray;
-    animation: fadeIn 0.5s infinite;
-}
+
 
 .boton_general {
     background-color: black;
@@ -167,7 +172,7 @@ h2 {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 380px;
     width: 275px; 
     height: 50px;
     
@@ -180,7 +185,7 @@ h2 {
 }
 
 
-.imagen_Personajes{
+.imagen_Personajes {
     width: 55px;
     height: 55px;
     border-radius: 50%;
@@ -200,6 +205,18 @@ h2 {
     color: white;
     font-size: 16px;
     margin-top: 5%;
+}
+
+.footer a {
+    color: white;
+}
+
+.footer a:hover {
+    color: blue;
+}
+
+.footer a:active {
+    color: white;
 }
 
 .pokemonFight {
@@ -232,3 +249,4 @@ h2 {
     margin: 15px;
     font-size: 16px;
 }
+
