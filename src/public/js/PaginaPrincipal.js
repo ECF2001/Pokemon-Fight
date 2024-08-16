@@ -25,12 +25,9 @@ async function obtenerAmigos() {
 function actualizarListaAmigos(amigos) {
     const tabla = document.querySelector('.listaAmigos table');
     
-    tabla.innerHTML = `
-       
-    `;
+    tabla.innerHTML = '';
     
     amigos.forEach(amigo => {
-        // `Object.keys(amigo)[0]` obtiene la clave del objeto, que es el nombre del amigo
         const nombreAmigo = Object.keys(amigo)[0];
         const fotoPerfil = amigo[nombreAmigo];
         
@@ -38,11 +35,52 @@ function actualizarListaAmigos(amigos) {
         fila.innerHTML = `
             <td><img class="imagen_Personajes" src="${fotoPerfil || '/fotos_perfil/0_0.png'}" alt="${nombreAmigo}"></td>
             <td>${nombreAmigo}</td>
+            <td><button class="btn-borrar" data-nombre="${nombreAmigo}">
+                <i class='bx bx-trash'></i>
+            </button></td>
         `;
         
         tabla.appendChild(fila);
     });
+
+    const botonesBorrar = tabla.querySelectorAll('.btn-borrar');
+    botonesBorrar.forEach(boton => {
+        boton.addEventListener('click', function() {
+            const nombreAmigo = this.dataset.nombre;
+            borrarAmigo(nombreAmigo);
+            location.reload();
+        });
+    });
 }
+
+async function borrarAmigo(nombreAmigo) {
+    try {
+        const nombreUsuario = 'nombreUsuarioEjemplo'; 
+
+        const response = await fetch(`/borrarAmigo`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombreAmigo, nombreUsuario })
+        });
+
+        if (response.ok) {
+            const resultado = await response.json();
+            if (resultado.success) {
+                console.log(`Amigo "${nombreAmigo}" eliminado exitosamente.`);
+                consultarAmigos();
+            } else {
+                alert('No se pudo eliminar al amigo.');
+            }
+        } else {
+            console.error('Error en la solicitud de eliminación de amigo.');
+        }
+    } catch (error) {
+        console.error('Error en la solicitud de eliminación de amigo:', error);
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
     const agregarAmigoBtn = document.getElementById('agregarAmigo_BTN');

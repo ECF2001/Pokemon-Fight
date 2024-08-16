@@ -180,7 +180,6 @@ function borrarEquipoListener() {
                     },
                     body: JSON.stringify({
                         equipo: nombreEquipo,
-                        usuario: 'nimo23'
                     })
                 });
 
