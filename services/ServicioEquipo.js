@@ -12,9 +12,9 @@ async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
         const nuevoEquipo = new Equipo({
             nombreEquipo: nombreEquipo,
             listaPokemon: listaPokemon,
-            nombreUsuario: nombreUsuario,
+            nombreUsuario: nombreUsuario
         });
-
+        console.log(nombreUsuario);
         await nuevoEquipo.save();
         console.log('Equipo guardado correctamente.');
     } catch (error) {
@@ -54,13 +54,12 @@ async function borrarEquipo(nombreEquipo, usuario) {
     try {
         const resultado = await Equipo.deleteOne({
             nombreEquipo: nombreEquipo,
-            nombreUsuario: usuario
         });
 
         if (resultado.deletedCount === 0) {
             console.log('No se encontró el equipo o ya fue eliminado.');
         } else {
-            console.log(`El equipo "${nombreEquipo}" del usuario "${usuario}" fue eliminado exitosamente.`);
+            console.log(`El equipo "${nombreEquipo}" del usuario fue eliminado exitosamente.`);
         }
     } catch (error) {
         console.error('Error al eliminar el equipo:', error);

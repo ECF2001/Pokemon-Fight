@@ -1,7 +1,10 @@
 const Usuario = require('../models/Usuario');
+const bcrypt = require('bcrypt');
+const {enviarContrasenaTemporal} = require('../services/ServicioCorreo');
 
 const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApellido, correo, identificacion, contrasena) => {
     try {
+        const nuevaContrasenaEncriptada = await bcrypt.hash(contrasena, 10);
         const usuario = new Usuario({
             nombre: nombre,
             primerApellido: primerApellido,
@@ -9,7 +12,7 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
             nombreUsuario: nombreUsuario,
             correo: correo,
             identificacion: identificacion,
-            contrasena: contrasena
+            contrasena: nuevaContrasenaEncriptada
         });
 
         const resultado = await usuario.save()
@@ -23,52 +26,89 @@ const agregarRegistro = async (nombre, nombreUsuario, primerApellido, segundoApe
 
 
 const validarUsuario = async (correo, contrasena) => {
-    const usuario = await Usuario.findOne({ correo, contrasena });
-    if (usuario) {
+    const usuario = await Usuario.findOne({ correo });
+    if (!usuario) {
+        throw new Error("Correo o contraseña inválida");
+    }
 
-        const esValida = await (contrasena, usuario.contrasena)
+    if (usuario.intentosLogin >= 3) {
+        throw new Error("Usuario bloqueado, debe recuperar contraseña");
+    }
 
-        if(esValida){
-        return '/'
-    } else {
-        return '/InicioSesion'
-    
+    const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
+    if (!contrasenaValida) {
+        if (!usuario.intentosLogin) {
+            usuario.intentosLogin = 0;
+        }
+        usuario.intentosLogin = usuario.intentosLogin + 1;
+        usuario.save();
+        throw new Error("Correo o contraseña inválida");
+    }
+    usuario.intentosLogin = 0;
+    usuario.save();
+    return usuario;
 };
-}
+
+const buscarUsuario = async (correo) => {
+    return await Usuario.findOne({ correo });
 }
 
 
-const bcrypt = require('bcrypt');
-const { MongoClient } = require('mongodb');
 
 const cambiarContrasena = async (nombreUsuario, nuevaContrasena, confirmarContrasena) => {
 
     try {
 
-         if (nuevaContrasena !== confirmarContrasena) {
-              return '/CambiarContrasena';
-         }
+        if (nuevaContrasena !== confirmarContrasena) {
+            return '/CambiarContrasena?error=Contraseña%20no%20coincide';
+        }
 
-        const encriptarContrasena = await bcrypt.hash(confirmarContrasena, 10);
+        const nuevaContrasenaEncriptada = await bcrypt.hash(nuevaContrasena, 10);
         const resultado = await Usuario.findOneAndUpdate(
-            { nombreUsuario: nombreUsuario }, 
-            { $set: { contrasena:nuevaContrasena } }
+            { nombreUsuario: nombreUsuario },
+            { $set: { contrasena: nuevaContrasenaEncriptada } }
 
         );
 
         if (resultado) {
-            return '/';
+            return '/CambiarPerfil?msg=Contraseña%20actualizada';
         } else {
 
-            return '/CambiarContrasena';
-        } 
-
-
+            return '/CambiarContrasena?error=Contraseña%20no%20pudo%20ser%20cambiada';
+        }
     } catch (error) {
-         console.error('Error al cambiar la contraseña:', error.message, error.stack);
         return '/CambiarContrasena?error=' + error.message;
     }
+};
+
+const generarContrasenaTemporal = () => {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let contrasenaTemporal = '';
+    for (let i = 0; i < 8; i++) {
+        contrasenaTemporal += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+    }
+    return contrasenaTemporal;
+};
+
+const generarOTP = () => {
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    return otp.toString();
 }
+
+const recuperarContrasena = async (correo) => {
+    const contrasenaTemporal = generarContrasenaTemporal();
+    const nuevaContrasenaEncriptada = await bcrypt.hash(contrasenaTemporal, 10);
+    const usuario = await Usuario.findOneAndUpdate(
+        { correo: correo },
+        { contrasena: nuevaContrasenaEncriptada, intentosLogin : 0 },
+        { new: true }
+    );
+    if (usuario) {
+        enviarContrasenaTemporal(usuario.correo, usuario.nombre, contrasenaTemporal);
+        return true;
+    } else {
+        return false;
+    }};
 
 
 const obtenerFotos = async (listaNombreUsuario) => {
@@ -100,4 +140,8 @@ module.exports = {
     validarUsuario,
     cambiarContrasena,
     obtenerFotoPerfil,
+    generarContrasenaTemporal,
+    recuperarContrasena,
+    generarOTP,
+    buscarUsuario
 }
