@@ -19,10 +19,8 @@ const nombresEquipo2 = equipo2.slice();
 function log(msg) {
   historialDeMovimientos.push(msg);
   console.log(msg);
-  const logDiv = document.getElementById('log');
   const nuevoTexto = document.createElement('div');
   nuevoTexto.textContent = msg;
-  logDiv.prepend(nuevoTexto);
 }
 
 function cambiarTurno() {
@@ -133,7 +131,7 @@ const generarAtaques = async (pokemon) => {
 const actualizarContenedoresAtaques = (ataques, contenedorId) => {
   const contenedor = document.getElementById(contenedorId);
   contenedor.innerHTML = ataques.map(ataque =>
-    `<button class="boton-ataque" ${!pokemon1Vivo && contenedorId === "ataques-1" ? 'disabled' : ''} ${!pokemon2Vivo && contenedorId === "ataques-2" ? 'disabled' : ''} onclick="seleccionarAtaque(${ataque.power}, '${contenedorId === 'ataques-1' ? 'pokemon2' : 'pokemon1'}', '${ataque.name}')">${capitalizar(ataque.name)}</button>`
+    `<button class="boton-ataque" ${!pokemon1Vivo && contenedorId === "ataques-1" ? 'disabled' : ''} ${!pokemon2Vivo && contenedorId === "ataques-2" ? 'disabled' : ''} onclick="seleccionarAtaque(${ataque.power}, '${contenedorId === 'ataques-1' ? 'pokemon2' : 'pokemon1'}', '${ataque.name}')">${capitalizar(ataque.name)} (${ataque.power})</button>`
   ).join('');
 };
 
@@ -237,6 +235,9 @@ function actualizarHP(pokemon) {
 async function cambiarPokemon(id) {
   const equipo = id === 'pokemon1' ? equipo1 : equipo2;
   const indexActual = id === 'pokemon1' ? indexPokemon1 : indexPokemon2;
+  const contenedorId = id === 'pokemon1' ? 'ataques-1' : 'ataques-2';
+  const contenedor = document.getElementById(contenedorId);
+  contenedor.innerHTML = "";
 
   if (indexActual + 1 < equipo.length) {
     if (id === 'pokemon1') {
