@@ -294,8 +294,8 @@ nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2
     });
 
     if (response.ok) {
-      alert('Guardado exitosamente');
-      //window.location.href = 'http://localhost:3000/';
+      confirm('El usuario vencedor es: ' + nombreUsuarioVencedor);
+      window.location.href = '/';
     } else {
       const errorData = await response.json();
       console.error('Error en la respuesta:', errorData);

@@ -201,7 +201,7 @@ app.get('/CerrarSesion', (request, response) => {
 
 //Ver Amigos GET
 app.get('/verAmigos', async function (request, response) {
-    const { obtenerAmigos } = require('../services/servicioAmigos');
+    const { obtenerAmigos } = require('../services/ServicioAmigos');
     const { obtenerFotos } = require('../services/ServicioUsuario');
     const nombreUsuario = request.session.nombreUsuario;
 
@@ -222,7 +222,7 @@ app.get('/verAmigos', async function (request, response) {
 });
 
 app.post('/agregarAmigo', async (req, res) => {
-    const { agregarAmigo } = require('../services/servicioAmigos');
+    const { agregarAmigo } = require('../services/ServicioAmigos');
     const { nombreAmigo } = req.body;
 
     // Suponiendo que el nombre de usuario actual está en la sesión
