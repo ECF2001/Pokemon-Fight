@@ -22,13 +22,17 @@ async function agregarEquipo(nombreEquipo, listaPokemon, nombreUsuario) {
     }
 }
 
-async function obtenerEquipos(usuario) { // variable
+async function obtenerEquipos(usuario) {
     try {
       const consulta = { nombreUsuario: usuario };
       return await Equipo.find(consulta);
     } catch (error) {
       console.error('Error retrieving documents:', error);
     }
+}
+
+async function obtenerEquiposDeAmigos(listaAmigos) {
+    return await Equipo.find({nombreUsuario: {$in : listaAmigos}})
 }
 
 async function modificarEquipo(nombreEquipo, usuario, pokemonName) {
@@ -106,5 +110,6 @@ module.exports = {
     borrarEquipo,
     agregarPokemonEquipo,
     obtenerEquiposusuario,
-    buscarEquipo
+    buscarEquipo,
+    obtenerEquiposDeAmigos
 }

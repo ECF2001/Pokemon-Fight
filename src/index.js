@@ -43,10 +43,16 @@ app.get('/', authMiddleWare, (req, res) => {
     res.render("PaginaPrincipal.html");
 });
 
-app.get('/BatallaPokemon', authMiddleWare, (request, response) => {
-    const nombreEquipo1 = request.session.nombreEquipo1;
-    const nombreEquipo2 = request.session.nombreEquipo2;
-    response.render("batalla_pokemon", {nombreEquipo1, nombreEquipo2 });
+app.post('/BatallaPokemon', authMiddleWare, (request, response) => {
+    const nombreEquipo1 = request.body.nombreEquipo1;
+    const nombreUsuario2 = request.body.nombreUsuario2;
+    const nombreEquipo2 = request.body.nombreEquipo2;
+
+    request.session.nombreEquipo1 = nombreEquipo1;
+    request.session.nombreEquipo2 = nombreEquipo2;
+    request.session.nombreUsuario2 = nombreUsuario2;
+
+    response.render("batalla_pokemon", {nombreEquipo1, nombreEquipo2, nombreUsuario2 });
 });
 
 app.get('/CambiarPerfil', authMiddleWare, async (request, response) => {
@@ -61,8 +67,16 @@ app.get('/CambiarContrasena', authMiddleWare, (request, response) => {
     response.render("cambiarContraseña", { error });
 });
 
-app.get('/ElegirEquipo', authMiddleWare, (req, res) => {
-    res.render("elegirEquipo.html");
+app.get('/ElegirEquipo', authMiddleWare, async (request, response) => {
+    const { obtenerEquipos, obtenerEquiposDeAmigos } = require('../services/ServicioEquipo');
+    const { obtenerAmigos } = require('../services/ServicioAmigos');
+    const nombreUsuario = request.session.nombreUsuario;
+    const equiposUsuario = await obtenerEquipos(nombreUsuario);
+    const listaAmigos = await obtenerAmigos(nombreUsuario);
+    const equiposDeAmigos = await obtenerEquiposDeAmigos(listaAmigos);
+    console.log("equiposUsuario", equiposUsuario);
+    console.log("equiposDeAmigos", equiposDeAmigos);
+    response.render('elegirEquipo', { equiposUsuario, listaAmigos, equiposDeAmigos });
 });
 
 app.get('/EquipoPokemon', authMiddleWare, (req, res) => {
@@ -419,12 +433,6 @@ app.get('/FotoPerfil', authMiddleWare, async (request, response) => {
 });
 
 
-app.get('/BatallaPrueba', authMiddleWare, async (request, response) => {
-    request.session.nombreEquipo1 = "angelicas";
-    request.session.nombreUsuario2 = "nimo23";
-    request.session.nombreEquipo2 = "equipo1";
-    response.redirect('/BatallaPokemon');
-})
 app.get('/obtenerEquiposAmigo', authMiddleWare, async function (request, response) {
     const { obtenerEquipos } = require('../services/ServicioEquipo');
     const amigo = request.query.amigo;

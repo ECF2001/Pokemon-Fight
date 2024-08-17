@@ -8,6 +8,9 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
    
     <title>Jugar una partida</title>
+    <script>
+        
+    </script>
 </head>
 <body>
     <div class="header"> <!--HEADER-->
@@ -25,29 +28,38 @@
     </div>
 
 	<h1>Selección de Información</h1>
-	<form>
-		<label for="lista1">Lista 1:</label>
-		<select id="lista1" name="lista1">
-			<option value="">Seleccione una opción</option>
+	<form id="formulario" method="post" action="/BatallaPokemon">
+		<label for="nombreEquipo1">Seleccione su equipo:</label>
+		<select id="nombreEquipo1" name="nombreEquipo1">
+            <option value="" selected>Seleccione una opción</option>
+            <% equiposUsuario.forEach(equipo => { %>
+                <option value="<%= equipo.nombreEquipo %>"><%= equipo.nombreEquipo %></option>
+            <% }) %>
 		</select>
 
 		<br><br>
 
-		<label for="lista2">Lista 2:</label>
-		<select id="lista2" name="lista2">
-			<option value="">Seleccione una opción</option>
+		<label for="nombreUsuario2">Seleccione su contrincante:</label>
+		<select id="nombreUsuario2" name="nombreUsuario2" onchange="filtrarEquipo2()">
+            <option value="" selected>Seleccione una opción</option>
+            <% listaAmigos.forEach(nombreUsuario => { %>
+                <option value="<%= nombreUsuario %>"><%= nombreUsuario %></option>
+            <% }) %>
 		</select>
 
 		<br><br>
 
-		<label for="lista3">Lista 3:</label>
-		<select id="lista3" name="lista3">
-			<option value="">Seleccione una opción</option>
+		<label for="nombreEquipo2">Seleccione el equipo de su contrincante:</label>
+		<select id="nombreEquipo2" name="nombreEquipo2">
+            <option value="" selected>Seleccione una opción</option>
+            <% equiposDeAmigos.forEach(equipo => { %>
+                <option data-amigo="<%= equipo.nombreUsuario %>" value="<%= equipo.nombreEquipo %>" style="display: none;"><%= equipo.nombreEquipo %></option>
+            <% }) %>
 		</select>
+        <br><br>
+        <div id="mensaje" style="display: none;">Seleccione todos los campos</div>
 
-		<br><br>
-
-		<input type="submit" value="Enviar" onclick="">
+		<input type="submit" value="Iniciar Batalla" onclick="verificarDatos()">
 	</form>
     <div class="footer"> 
         <div class="pokemonFight">Pokémon Fight</div>
