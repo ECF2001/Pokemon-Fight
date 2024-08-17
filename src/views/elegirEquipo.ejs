@@ -7,7 +7,7 @@
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
    
-    <title>Jugar una partida</title>
+    <title>Selección de Información</title>
     <script>
         
     </script>
@@ -28,9 +28,9 @@
     </div>
 
 	<h1>Selección de Información</h1>
-	<form id="formulario" method="post" action="/BatallaPokemon">
-		<label for="nombreEquipo1">Seleccione su equipo:</label>
-		<select id="nombreEquipo1" name="nombreEquipo1">
+	<form id="formulario" method="post" action="/BatallaPokemon" class="formulario">
+		<label for="nombreEquipo1" class="label">Seleccione su equipo:</label>
+		<select id="nombreEquipo1" name="nombreEquipo1" class="botones">
             <option value="" selected>Seleccione una opción</option>
             <% equiposUsuario.forEach(equipo => { %>
                 <option value="<%= equipo.nombreEquipo %>"><%= equipo.nombreEquipo %></option>
@@ -39,8 +39,8 @@
 
 		<br><br>
 
-		<label for="nombreUsuario2">Seleccione su contrincante:</label>
-		<select id="nombreUsuario2" name="nombreUsuario2" onchange="filtrarEquipo2()">
+		<label for="nombreUsuario2" class="label">Seleccione su contrincante:</label>
+		<select id="nombreUsuario2" name="nombreUsuario2" onchange="filtrarEquipo2()" class="botones">
             <option value="" selected>Seleccione una opción</option>
             <% listaAmigos.forEach(nombreUsuario => { %>
                 <option value="<%= nombreUsuario %>"><%= nombreUsuario %></option>
@@ -49,8 +49,8 @@
 
 		<br><br>
 
-		<label for="nombreEquipo2">Seleccione el equipo de su contrincante:</label>
-		<select id="nombreEquipo2" name="nombreEquipo2">
+		<label for="nombreEquipo2" class="label">Seleccione el equipo de su contrincante:</label>
+		<select id="nombreEquipo2" name="nombreEquipo2" class="botones">
             <option value="" selected>Seleccione una opción</option>
             <% equiposDeAmigos.forEach(equipo => { %>
                 <option data-amigo="<%= equipo.nombreUsuario %>" value="<%= equipo.nombreEquipo %>" style="display: none;"><%= equipo.nombreEquipo %></option>
@@ -59,7 +59,7 @@
         <br><br>
         <div id="mensaje" style="display: none;">Seleccione todos los campos</div>
 
-		<input type="submit" value="Iniciar Batalla" onclick="verificarDatos()">
+		<input type="submit" value="Iniciar Batalla" onclick="verificarDatos()" class="botones">
 	</form>
     <div class="footer"> 
         <div class="pokemonFight">Pokémon Fight</div>

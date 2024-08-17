@@ -19,13 +19,13 @@
 
 <body> <img id="imagenFondo" src="/img/fondoBatalla1.jpg" class="backgroundImage">
   <main>
-    Escenario:
-    <select id="seleccionFondo" onchange="cambiarFondo()">
+    <label class="escenario">Escenario:</label>
+    <select id="seleccionFondo" onchange="cambiarFondo()" class="botones">
         <option value="/img/fondoBatalla1.jpg">Dojo</option>
         <option value="/img/fondoBatalla2.jpg">Parque</option>
         <option value="/img/fondoBatalla3.jpg">Ciudad</option>
     </select>
-    <input type=""button" value="Volver a página principal" onclick="salir()"></input>
+    <input type="button" value="Volver a página principal" onclick="salir()" class="botones"></input>
     <div class="contenedor-batalla">
       <div class="pokemonBatalla">
         <div class="nombreEquipo">
