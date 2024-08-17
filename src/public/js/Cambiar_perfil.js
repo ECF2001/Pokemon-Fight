@@ -1,5 +1,4 @@
 
-// Tu código existente para manejar la visibilidad del menú y guardar los datos del perfil
 document.getElementById('foto_perfilGrande').addEventListener('click', function(event) {
     event.preventDefault();
     var menu = document.getElementById('profile-menu');

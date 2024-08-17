@@ -425,3 +425,10 @@ app.get('/BatallaPrueba', authMiddleWare, async (request, response) => {
     request.session.nombreEquipo2 = "teamG";
     response.redirect('/BatallaPokemon');
 })
+app.get('/obtenerEquiposAmigo', authMiddleWare, async function (request, response) {
+    const { obtenerEquipos } = require('../services/ServicioEquipo');
+    const amigo = request.query.amigo;
+    const resultado = await obtenerEquipos(amigo);
+    response.send(resultado);
+  });
+  

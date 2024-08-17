@@ -1,161 +1,127 @@
-let equipoSeleccionado = null;
-let equipoActual = 0;
-
-// Consultar equipos
 async function consultarEquiposusuario() {
     try {
-        const response = await fetch('http://localhost:3000/obtenerEquiposusuario', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (response.ok) {
-            const equipos = await response.json();
-            generarCajasEquipos(equipos);
-            carrousel(); // Iniciar el carrusel 
-        } else {
-            alert('Error obteniendo equipos');
+      const response = await fetch('http://localhost:3000/obtenerEquiposusuario', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
         }
+      });
+  
+      if (response.ok) {
+        const equipos = await response.json();
+        agregarEquiposALista(equipos);
+      } else {
+        alert('Error obteniendo equipos');
+      }
     } catch (error) {
-        alert('Error enviando solicitud');
+      alert('Error enviando solicitud');
     }
-}
-
-// Obtener imagen del Pokémon
-async function obtenerImagenPokemon(pokemon) {
-    try {
-        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
-        if (response.ok) {
-            const data = await response.json();
-            return data.sprites.front_default;
-        } else {
-            return '';
-        }
-    } catch (error) {
-        return '';
-    }
-}
-
-// Generar las cajas de equipos y configurar botones
-async function generarCajasEquipos(equipos) {
-    const contenedorEquipos = document.getElementById('contenedorEquipos');
-    contenedorEquipos.innerHTML = '';
-
-    equipos.forEach(async (equipo, i) => {
-        const caja = document.createElement('div');
-        caja.classList.add('caja');
-        caja.id = `equipo_${i + 1}`;
-        
-        // Ocultar todas las cajas excepto la primera (para el carrusel)
-        caja.style.display = 'none';
-
-        const titulo = document.createElement('h2');
-        titulo.textContent = equipo.nombreEquipo;
-        caja.appendChild(titulo);
-
-        const tabla = document.createElement('table');
-        for (let j = 0; j < 3; j++) {
-            const fila = document.createElement('tr');
-            for (let k = 0; k < 2; k++) {
-                const celda = document.createElement('td');
-                const imagenPokemon = document.createElement('img');
-                imagenPokemon.classList.add('imagen_Personajes');
-                const pokemonIndex = j * 2 + k;
-                if (pokemonIndex < equipo.listaPokemon.length) {
-                    const pokemon = equipo.listaPokemon[pokemonIndex];
-                    const imageUrl = await obtenerImagenPokemon(pokemon);
-                    imagenPokemon.src = imageUrl;
-                    imagenPokemon.alt = pokemon;
-                }
-                celda.appendChild(imagenPokemon);
-                fila.appendChild(celda);
-            }
-            tabla.appendChild(fila);
-        }
-        caja.appendChild(tabla);
-
-        const botonElegir = document.createElement('button');
-        botonElegir.textContent = 'Elegir este equipo';
-        botonElegir.classList.add('boton_general');  // Add the class
-        caja.appendChild(botonElegir);
-        
-        botonElegir.addEventListener('click', function () {
-            seleccionarEquipo(equipo, caja);
-        });
-        
-        const botonBatalla = document.createElement('a');
-        botonBatalla.href = "/BatallaPokemon";
-        const botonIniciarBatalla = document.createElement('button');
-        botonIniciarBatalla.textContent = 'Iniciar Batalla';
-        botonIniciarBatalla.classList.add('boton_general');  // Add the class
-        botonBatalla.appendChild(botonIniciarBatalla);
-        caja.appendChild(botonBatalla);
-        
-        contenedorEquipos.appendChild(caja);
-        
-    });
-}
-
-function carrousel() {
-    const equipos = document.querySelectorAll('.caja');
-    if (equipos.length === 0) return;
-
-    // Ocultar todos los equipos
+  }
+  
+  function agregarEquiposALista(equipos) {
+    const lista1 = document.getElementById('lista1');
     equipos.forEach((equipo) => {
-        equipo.style.display = 'none';
+      const option = document.createElement('option');
+      option.value = equipo.nombreEquipo;
+      option.text = equipo.nombreEquipo;
+      lista1.appendChild(option);
     });
-
-    // Eliminar la clase "seleccionado" de cualquier equipo previamente seleccionado
-    const seleccionado = document.querySelector('.caja.seleccionado');
-    if (seleccionado) {
-        seleccionado.classList.remove('seleccionado');
+  }
+  
+  async function consultarAmigos() {
+    try {
+      const response = await fetch('http://localhost:3000/verAmigos', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (response.ok) {
+        const amigos = await response.json();
+        agregarAmigosALista(amigos);
+      } else {
+        alert('Error obteniendo amigos');
+      }
+    } catch (error) {
+      alert('Error enviando solicitud');
     }
-
-    // Eliminar la clase "seleccionado" del contenedor general
-    const contenedorEquipos = document.getElementById('contenedorEquipos');
-    contenedorEquipos.classList.remove('seleccionado');
-
-    // Mostrar el equipo actual
-    equipos[equipoActual].style.display = 'block';
-
-    // Actualizar el índice para el siguiente equipo
-    equipoActual = (equipoActual + 1) % equipos.length;
-}
-
-// Event listener para detectar el clic en los botones del carrusel
-document.querySelectorAll('.carrusel-boton').forEach(boton => {
-    boton.addEventListener('click', () => {
-        carrousel();
+  }
+  
+  function agregarAmigosALista(amigos) {
+    const lista1 = document.getElementById('lista2');
+    amigos.forEach((amigo) => {
+      for (const propiedad in amigo) {
+        const option = document.createElement('option');
+        option.value = propiedad;
+        option.text = propiedad;
+        lista1.appendChild(option);
+      }
     });
-});
+  }
+document.getElementById('lista2').addEventListener('change', buscarEquiposAmigo);
 
-
-
-
-// Función para seleccionar equipo
-function seleccionarEquipo(equipo, contenedor) {
-    // Deseleccionar el equipo previamente seleccionado
-    if (equipoSeleccionado) {
-        equipoSeleccionado.classList.remove('seleccionado');
+async function buscarEquiposAmigo() {
+    const lista2 = document.getElementById('lista2');
+    const amigoSeleccionado = lista2.options[lista2.selectedIndex].value;
+  
+    try {
+      const response = await fetch(`http://localhost:3000/obtenerEquiposAmigo?amigo=${amigoSeleccionado}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      if (response.ok) {
+        const equipos = await response.json();
+        agregarEquiposALista3(equipos);
+      } else {
+        alert('Error obteniendo equipos');
+      }
+    } catch (error) {
+      alert('Error enviando solicitud');
     }
+  }
+  
 
-    // Seleccionar el nuevo equipo
-    contenedor.classList.add('seleccionado');
-    equipoSeleccionado = contenedor; 
+  function agregarEquiposALista3(equipos) {
+    const lista3 = document.getElementById('lista3');
+    equipos.forEach((equipo) => {
+      const option = document.createElement('option');
+      option.value = equipo.nombreEquipo;
+      option.text = equipo.nombreEquipo;
+      lista3.appendChild(option);
+    });
+  }
 
-    // Añadir la clase "seleccionado" al contenedor general de equipos
-    document.getElementById('contenedorEquipos').classList.add('seleccionado');
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    consultarEquiposusuario();
-});
-
-
-
-
+  
+  consultarAmigos();
+  consultarEquiposusuario();
 
 
 
+
+document.addEventListener('DOMContentLoaded', function() {
+    const enviarButton = document.querySelector('input[type="submit"]');
+    enviarButton.addEventListener('click', guardarValores);
+  
+    function guardarValores(event) {
+      event.preventDefault(); 
+  
+      const lista1 = document.getElementById('lista1');
+      const lista2 = document.getElementById('lista2');
+      const lista3 = document.getElementById('lista3');
+  
+      const valorLista1 = lista1.options[lista1.selectedIndex].value;
+      const valorLista2 = lista2.options[lista2.selectedIndex].value;
+      const valorLista3 = lista3.options[lista3.selectedIndex].value;
+  
+
+      let amigoSeleccionado = valorLista2;
+      let equipoUsuarioSeleccionado = valorLista1;
+      let equipoAmigoSeleccionado = valorLista3;
+
+      console.log(amigoSeleccionado, equipoUsuarioSeleccionado, equipoAmigoSeleccionado);
+    }
+  });
