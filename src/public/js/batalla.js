@@ -331,3 +331,9 @@ function cambiarFondo() {
   const nuevoSrc = document.getElementById('seleccionFondo').value;
   imagen.src = nuevoSrc;
 }
+
+function salir() {
+  if (confirm("Realmente desea salir del duelo?")) {
+    location.href = '/';
+  }
+}
