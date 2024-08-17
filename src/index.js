@@ -422,7 +422,7 @@ app.get('/FotoPerfil', authMiddleWare, async (request, response) => {
 app.get('/BatallaPrueba', authMiddleWare, async (request, response) => {
     request.session.nombreEquipo1 = "angelicas";
     request.session.nombreUsuario2 = "nimo23";
-    request.session.nombreEquipo2 = "teamG";
+    request.session.nombreEquipo2 = "equipo1";
     response.redirect('/BatallaPokemon');
 })
 app.get('/obtenerEquiposAmigo', authMiddleWare, async function (request, response) {
