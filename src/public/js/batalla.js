@@ -325,3 +325,9 @@ function actualizarInterfazPokemon(pokemon, contenedor) {
 if (typeof window !== 'undefined') {
   window.onload = cargarPokemones;
 }
+
+function cambiarFondo() {
+  const imagen = document.getElementById('imagenFondo');
+  const nuevoSrc = document.getElementById('seleccionFondo').value;
+  imagen.src = nuevoSrc;
+}

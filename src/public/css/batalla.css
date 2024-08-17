@@ -39,7 +39,7 @@ form {
   width: 100vw;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 1rem 2rem;
 }
 
@@ -57,8 +57,9 @@ form {
 
 .nombreEquipo{
   font-size: xxx-large;
+  font-weight: bolder;
   text-align: center;
-  color: white;
+  color: #033d80;
 }
 
 .nombrePokemon,
@@ -66,7 +67,8 @@ form {
 {
   font-size: xx-large;
   text-align: center;
-  color: white;
+  font-weight: bold;
+  color: #033d80;
   margin: 20px;
 }
 

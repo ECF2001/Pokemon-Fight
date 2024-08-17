@@ -17,8 +17,14 @@
   </script>
 </head>
 
-<body> <img src="/img/fondoBatalla1.jpg" class="backgroundImage">
+<body> <img id="imagenFondo" src="/img/fondoBatalla1.jpg" class="backgroundImage">
   <main>
+    Escenario:
+    <select id="seleccionFondo" onchange="cambiarFondo()">
+        <option value="/img/fondoBatalla1.jpg">Dojo</option>
+        <option value="/img/fondoBatalla2.jpg">Parque</option>
+        <option value="/img/fondoBatalla3.jpg">Ciudad</option>
+    </select>
     <div class="contenedor-batalla">
       <div class="pokemonBatalla">
         <div class="nombreEquipo">
