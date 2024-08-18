@@ -219,6 +219,7 @@ h1{
 }
 .centrarNombre{
     margin: 30px;
+    width: fit-content;
     font-size: x-large;
     padding: 10px;
     background-color: #3B4CCA;
