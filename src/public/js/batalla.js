@@ -19,10 +19,8 @@ const nombresEquipo2 = equipo2.slice();
 function log(msg) {
   historialDeMovimientos.push(msg);
   console.log(msg);
-  const logDiv = document.getElementById('log');
   const nuevoTexto = document.createElement('div');
   nuevoTexto.textContent = msg;
-  logDiv.prepend(nuevoTexto);
 }
 
 function cambiarTurno() {
@@ -71,6 +69,9 @@ async function cargarPokemones() {
   equipo1.forEach(pokemon => pokemon.hp = pokemon.stats[0].base_stat);
   equipo2.forEach(pokemon => pokemon.hp = pokemon.stats[0].base_stat);
 
+  equipo1.forEach(pokemon => pokemon.nombreCompleto = nombreEquipo1 + " - " + pokemon.name);
+  equipo2.forEach(pokemon => pokemon.nombreCompleto = nombreEquipo2 + " - " + pokemon.name);
+
   // Inicializar los Pokémon y ataques
   actualizarInterfazPokemon(equipo1[indexPokemon1], 'pokemon1');
   actualizarInterfazPokemon(equipo2[indexPokemon2], 'pokemon2');
@@ -87,6 +88,8 @@ async function cargarPokemones() {
   pokemon1Vivo = true;
   pokemon2Vivo = true;
   ataqueEnCurso = false;
+  log(equipo1[indexPokemon1].nombreCompleto + ` entra a la batalla. HP restante: ${equipo1[indexPokemon1].hp}`);
+  log(equipo2[indexPokemon2].nombreCompleto + ` entra a la batalla. HP restante: ${equipo2[indexPokemon2].hp}`);
 }
 
 // Obtener y filtrar ataques
@@ -128,28 +131,28 @@ const generarAtaques = async (pokemon) => {
 const actualizarContenedoresAtaques = (ataques, contenedorId) => {
   const contenedor = document.getElementById(contenedorId);
   contenedor.innerHTML = ataques.map(ataque =>
-    `<button class="boton-ataque" ${!pokemon1Vivo && contenedorId === "ataques-1" ? 'disabled' : ''} ${!pokemon2Vivo && contenedorId === "ataques-2" ? 'disabled' : ''} onclick="seleccionarAtaque(${ataque.power}, '${contenedorId === 'ataques-1' ? 'pokemon2' : 'pokemon1'}')">${capitalizar(ataque.name)}</button>`
+    `<button class="boton-ataque" ${!pokemon1Vivo && contenedorId === "ataques-1" ? 'disabled' : ''} ${!pokemon2Vivo && contenedorId === "ataques-2" ? 'disabled' : ''} onclick="seleccionarAtaque(${ataque.power}, '${contenedorId === 'ataques-1' ? 'pokemon2' : 'pokemon1'}', '${ataque.name}')">${capitalizar(ataque.name)} (${ataque.power})</button>`
   ).join('');
 };
 
 // Selección de ataque
-const seleccionarAtaque = (dano, receptor) => {
+const seleccionarAtaque = (dano, receptor, nombreAtaque) => {
   if (ataqueEnCurso) return;
-
+  const nombrePokemonEmisor = receptor === 'pokemon1' ? equipo2[indexPokemon2].nombreCompleto : equipo1[indexPokemon1].nombreCompleto;
   if (receptor === 'pokemon2') {
     if (!pokemon1Vivo) {
-      log("Pokémon 1 está muerto y no puede atacar.");
+      log(`${nombrePokemonEmisor} está muerto y no puede atacar.`);
       return;
     }
     ataqueSeleccionado1 = dano;
-    log(`Ataque seleccionado para Pokémon 1: ${dano}`);
+    log(`${nombrePokemonEmisor} ataca por ${dano} con ${nombreAtaque}`);
   } else {
     if (!pokemon2Vivo) {
-      log("Pokémon 2 está muerto y no puede atacar.");
+      log(`${nombrePokemonEmisor} está muerto y no puede atacar.`);
       return;
     }
     ataqueSeleccionado2 = dano;
-    log(`Ataque seleccionado para Pokémon 2: ${dano}`);
+    log(`${nombrePokemonEmisor} ataca por ${dano} con ${nombreAtaque}`);
   }
 
   atacar();
@@ -188,7 +191,10 @@ function aplicarDano(dano, receptor) {
   equipo[indexActual].hp -= dano;
   if (equipo[indexActual].hp < 0) equipo[indexActual].hp = 0;
 
-  log(`Aplicando daño ${dano} a ${equipo[indexActual].name}. HP restante: ${equipo[indexActual].hp}`);
+  log(`${equipo[indexActual].nombreCompleto} recibe ${dano} daño. HP restante: ${equipo[indexActual].hp}`);
+
+  const nombrePokemon1 = equipo1[indexPokemon1].nombreCompleto;
+  const nombrePokemon2 = equipo2[indexPokemon2].nombreCompleto;
   
   const imagenReceptor = document.getElementById(`imagen-${receptor}`);
   imagenReceptor.classList.add("dano");
@@ -198,11 +204,11 @@ function aplicarDano(dano, receptor) {
       imagenReceptor.classList.add("muerto");
       if (receptor === "pokemon1") {
         pokemon1Vivo = false;
-        log("Pokémon 1 está muerto.");
+        log(nombrePokemon1 + " está muerto.");
         cambiarPokemon("pokemon1");
       } else {
         pokemon2Vivo = false;
-        log("Pokémon 2 está muerto.");
+        log(nombrePokemon2 + " está muerto.");
         cambiarPokemon("pokemon2");
       }
       actualizarContenedoresAtaques(ataquesPokemon1, "ataques-1");
@@ -229,6 +235,9 @@ function actualizarHP(pokemon) {
 async function cambiarPokemon(id) {
   const equipo = id === 'pokemon1' ? equipo1 : equipo2;
   const indexActual = id === 'pokemon1' ? indexPokemon1 : indexPokemon2;
+  const contenedorId = id === 'pokemon1' ? 'ataques-1' : 'ataques-2';
+  const contenedor = document.getElementById(contenedorId);
+  contenedor.innerHTML = "";
 
   if (indexActual + 1 < equipo.length) {
     if (id === 'pokemon1') {
@@ -239,6 +248,7 @@ async function cambiarPokemon(id) {
       pokemon2Vivo = true;
     }
     actualizarInterfazPokemon(equipo[indexActual + 1], id);
+    log(equipo[indexActual + 1].nombreCompleto + " entra a la batalla." + `HP restante: ${equipo[indexActual + 1].hp}`);
 
     const nuevosAtaques = id === 'pokemon1'
       ? await generarAtaques(equipo[indexPokemon1])
@@ -248,10 +258,10 @@ async function cambiarPokemon(id) {
   } else {
     if (id === 'pokemon1') {
       pokemon1Vivo = false;
-      log("Equipo 1 ha perdido todos los Pokémon.");
+      log( nombreEquipo1 + " ha perdido todos los Pokémon.");
     } else {
       pokemon2Vivo = false;
-      log("Equipo 2 ha perdido todos los Pokémon.");
+      log(nombreEquipo2 + " ha perdido todos los Pokémon.");
     }
 
     terminarBatalla()
@@ -284,8 +294,8 @@ nombreUsuarioVencedor = pokemon1Vivo ? usuario1 : usuario2
     });
 
     if (response.ok) {
-      alert('Guardado exitosamente');
-      //window.location.href = 'http://localhost:3000/';
+      confirm('El usuario vencedor es: ' + nombreUsuarioVencedor);
+      window.location.href = '/';
     } else {
       const errorData = await response.json();
       console.error('Error en la respuesta:', errorData);
@@ -314,4 +324,16 @@ function actualizarInterfazPokemon(pokemon, contenedor) {
 // Cargar los equipos Pokémon al iniciar
 if (typeof window !== 'undefined') {
   window.onload = cargarPokemones;
+}
+
+function cambiarFondo() {
+  const imagen = document.getElementById('imagenFondo');
+  const nuevoSrc = document.getElementById('seleccionFondo').value;
+  imagen.src = nuevoSrc;
+}
+
+function salir() {
+  if (confirm("Realmente desea salir del duelo?")) {
+    location.href = '/';
+  }
 }

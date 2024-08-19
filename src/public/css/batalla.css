@@ -24,12 +24,61 @@ form {
   font-size: 24px;
 }
 
+.backgroundImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+  z-index: -1;
+}
+
 .contenedor-batalla {
   width: 100vw;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   padding: 1rem 2rem;
+}
+
+.puntosVida{
+  transform: scale(3); 
+}
+
+.pokemonBatalla{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.nombreEquipo{
+  font-size: xxx-large;
+  font-weight: bolder;
+  text-align: center;
+  color: #033d80;
+}
+
+.escenario {
+  font-size: x-large;
+  color: black;
+}
+
+.botones {
+    transform: scale(1);
+}
+
+.nombrePokemon,
+.vidaPokemon 
+{
+  font-size: xx-large;
+  text-align: center;
+  font-weight: bold;
+  color: #033d80;
+  margin: 20px;
 }
 
 .imagen-pokemon {
@@ -87,33 +136,43 @@ form {
   0% {
     transform: translate(1px, 1px) rotate(0deg);
   }
+
   10% {
     transform: translate(-1px, -2px) rotate(-1deg);
   }
+
   20% {
     transform: translate(-3px, 0px) rotate(1deg);
   }
+
   30% {
     transform: translate(3px, 2px) rotate(0deg);
   }
+
   40% {
     transform: translate(1px, -1px) rotate(1deg);
   }
+
   50% {
     transform: translate(-1px, 2px) rotate(-1deg);
   }
+
   60% {
     transform: translate(-3px, 1px) rotate(0deg);
   }
+
   70% {
     transform: translate(3px, 1px) rotate(-1deg);
   }
+
   80% {
     transform: translate(-1px, -1px) rotate(1deg);
   }
+
   90% {
     transform: translate(1px, 2px) rotate(0deg);
   }
+
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
   }

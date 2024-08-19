@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/elegir_Equipo.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+   
+    <title>Selección de Información</title>
+    <script>
+        
+    </script>
+</head>
+<body>
+    <div class="header"> <!--HEADER-->
+        <a href="/CambiarPerfil">
+            <img class="fotoPerfil" id="foto_perfil" src="/FotoPerfil">
+        </a>
+        <div class="menu">
+            <a href="/">
+                <h6 class="paginaPrincipal">Página Principal</h6>
+            </a>
+            <a href="/GenerarReportes">
+                <h6 class="estadisticas">Estadísticas</h6>
+            </a>
+        </div>
+    </div>
+
+	<h1>Selección de Información</h1>
+	<form id="formulario" method="post" action="/BatallaPokemon" class="formulario">
+		<label for="nombreEquipo1" class="label">Seleccione su equipo:</label>
+		<select id="nombreEquipo1" name="nombreEquipo1" class="botones">
+            <option value="" selected>Seleccione una opción</option>
+            <% equiposUsuario.forEach(equipo => { %>
+                <option value="<%= equipo.nombreEquipo %>"><%= equipo.nombreEquipo %></option>
+            <% }) %>
+		</select>
+
+		<br><br>
+
+		<label for="nombreUsuario2" class="label">Seleccione su contrincante:</label>
+		<select id="nombreUsuario2" name="nombreUsuario2" onchange="filtrarEquipo2()" class="botones">
+            <option value="" selected>Seleccione una opción</option>
+            <% listaAmigos.forEach(nombreUsuario => { %>
+                <option value="<%= nombreUsuario %>"><%= nombreUsuario %></option>
+            <% }) %>
+		</select>
+
+		<br><br>
+
+		<label for="nombreEquipo2" class="label">Seleccione el equipo de su contrincante:</label>
+		<select id="nombreEquipo2" name="nombreEquipo2" class="botones">
+            <option value="" selected>Seleccione una opción</option>
+            <% equiposDeAmigos.forEach(equipo => { %>
+                <option data-amigo="<%= equipo.nombreUsuario %>" value="<%= equipo.nombreEquipo %>" style="display: none;"><%= equipo.nombreEquipo %></option>
+            <% }) %>
+		</select>
+        <br><br>
+        <div id="mensaje" style="display: none;">Seleccione todos los campos</div>
+
+		<input type="submit" value="Iniciar Batalla" onclick="verificarDatos()" class="botones">
+	</form>
+    <div class="footer"> 
+        <div class="pokemonFight">Pokémon Fight</div>
+        <div class="redesSociales">
+            <i class="bx bxl-facebook-circle"></i>
+            <i class="bx bxl-linkedin-square"></i>
+            <i class="bx bxl-youtube"></i>
+            <i class="bx bxl-instagram"></i>
+        </div>
+        <div class="menu_Footer">
+            <a href="/">
+                <h6 class="paginaPrincipal_footer">Página Principal</h6>
+            </a>
+            <a href="/GenerarReportes">
+                <h6 class="estadisticas_footer">Estadísticas</h6>
+            </a>
+        </div>
+    </div>
+
+    <script src="/js/elegir__Equipo.js"></script>
+</body>
+</html>
+
