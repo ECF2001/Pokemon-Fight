@@ -58,6 +58,7 @@ a:active{
     background-image: url('/img/fotoVerificacionDosPasos.jpg');
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
     
 }
 
@@ -119,7 +120,7 @@ a:active{
    border: solid ;
    border-radius: 50px;
     width: 500px;
-    height: 320px;
+    height: auto;
     padding: 6% ;
     font-weight: bold;
     font-size: 25px;  
